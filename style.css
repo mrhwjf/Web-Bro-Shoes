@@ -43,7 +43,7 @@ body {
     top: 0;
     width: 100%;
     height: 3em;
-    border-bottom: 5px solid black;
+    border-bottom: 1px solid black;
 }
 
 #header-logo-div {
@@ -229,6 +229,7 @@ body {
         display: none;
         background-color: var(--tetriary-color);
         flex-direction: column;
+        row-gap: 1rem;
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
@@ -237,14 +238,17 @@ body {
         height: 100vh;
     }
     #header-nav div {
-        font-size: 2rem;
+        font-size: 1.75rem;
         margin-left: 2rem;
     }
     #header-account {
-        flex: 1.5;
+        flex: 1;
+    }
+    #header-account i:nth-child(2), i:nth-child(3) {
+        display: none;
     }
     #header-menu-responsive {
-        flex: 0.5;
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
