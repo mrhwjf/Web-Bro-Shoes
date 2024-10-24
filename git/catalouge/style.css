@@ -142,6 +142,22 @@ body {
 
 /* CONTENT */
 
+/* BODY - PREFOOTER */
+
+#body-prefooter {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    justify-content: space-evenly;
+    background-color: goldenrod;
+    color: var(--tertiary-color);
+}
+
+#body-prefooter > div {
+    padding: 0.25rem;
+    text-align: center;
+}
+
+
 /* BODY - FOOTER */
 #body-footer {
     width: 100%;
