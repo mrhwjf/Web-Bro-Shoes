@@ -67,7 +67,8 @@
             <input type="text" placeholder="Search products">
         </div>
         <div class="catalogue-info">
-            <ul class="products-amount">products</ul>
+            <ul class="products-amount">
+                <p>products</p></ul>
             <ul class="filter">
                 <label for="dropdown-toggle">Date, new to old
                     <span class="dropdown-arrow">&#9662;</span>
@@ -92,25 +93,51 @@
             <div class="details-search">
                 <div class="dropdown">
                     <ul class="dropdown-header">
-                        <li>BRAND</li>
-                        <li><span class="detail-search-dropdown-arrow">&#9662;</span></li>
+                        <li onclick="toggleDropdown('brand-menu')">BRAND</li>
                     </ul>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" id="brand-menu">
                         <li>ADIDAS</li>
                         <li>CONVERSE</li>
                         <li>NIKE</li>
                     </ul>
                 </div>
-                <ul>SIZE</ul>
-                <ul>GENDER</ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                <ul>PRICE</ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+        
+                <!-- SIZE Dropdown -->
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="size-menu">
+                        <li>Small</li>
+                        <li>Medium</li>
+                        <li>Large</li>
+                    </ul>
+                </div>
+        
+                <!-- GENDER Dropdown -->
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="gender-menu">
+                        <li>Men</li>
+                        <li>Women</li>
+                        <li>Unisex</li>
+                    </ul>
+                </div>
+        
+                <!-- PRICE Dropdown -->
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="price-menu">
+                        <li>Under $50</li>
+                        <li>$50 - $100</li>
+                        <li>$100 - $150</li>
+                        <li>Above $150</li>
+                    </ul>
+                </div>        
             </div>
             <div class="shoes-box">
                 <div>

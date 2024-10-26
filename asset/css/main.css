@@ -41,7 +41,7 @@ ul, li {
 
 /* HEADER */
 header .container {
-    z-index: 10;
+    z-index: 1000;
     position: sticky;
     left: 0;
     top: 0;
@@ -202,6 +202,10 @@ ul.products-amount {
     font-size: smaller;
 }
 
+ul.products-amount p {
+    margin-left: 45px;
+}
+
 ul.filter {
     font-size: smaller;
     font-weight: lighter;
@@ -223,7 +227,7 @@ ul.dropdown {
     padding: 0;
     margin: 0;
     list-style: none;
-    z-index: 1000; /* Ensure dropdown appears above other elements */
+    /* z-index: 1000; */
     width: 200px;
 }
 
@@ -254,6 +258,9 @@ ul.dropdown li:hover {
 
 .details-search {
     flex: 0 0 30%; /* Set width for the search filter */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .details-search ul {
@@ -266,7 +273,36 @@ ul.dropdown li:hover {
 
 }
 
+.dropdown {
+    margin-bottom: 10px;
+}
+.dropdown-header li {
+    font-weight: bold;
+    cursor: pointer;
+    list-style-type: none;
+    padding: 8px;
+    width: 100%;
+}
 
+/* Hide dropdown-menu by default */
+.dropdown-menu {
+    display: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0 0;
+    background-color: #fdfbf5;
+}
+
+.dropdown-menu li {
+    padding: 8px;
+    cursor: pointer;
+    font-size: medium;
+    font-weight: lighter;
+}
+
+.dropdown-menu li:hover {
+    background-color: #ddd;
+}
 
 
 /* PRODUCTS BOX */
