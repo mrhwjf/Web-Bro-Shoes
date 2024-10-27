@@ -40,14 +40,18 @@ ul, li {
 }
 
 /* HEADER */
-header .container {
-    z-index: 1000;
+header{
+    z-index: 100;
     position: sticky;
-    left: 0;
     top: 0;
+    left: 0;
+}
+header .container {
+    position: sticky;
     height: 3rem;
     display: flex;
     border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-main-color);
 }
 
 header .menu-list {
@@ -135,9 +139,10 @@ header .container.sidebar .menu-list{
 /* CATALOGUE */
 .catalogue-container {
     display: flex;
+    width: 100%;
     flex-direction: column;
-    overflow-x: auto;
-    column-gap: 1rem;
+    /* overflow-x: auto; */
+    /* column-gap: 1rem; */
     justify-content: center;
     align-items: center;
     outline: 1px solid black;
@@ -255,11 +260,14 @@ ul.dropdown li:hover {
     width: 100%;
 }
 
+
 .details-search {
     flex: 0 0 30%;
+    z-index: 100;
     position: sticky;
-    top: 0;
-    z-index: 999;
+    top: 3rem;
+    height: 0rem;
+    left: 0;
 }
 
 .details-search ul {
@@ -307,6 +315,7 @@ ul.dropdown li:hover {
 /* PRODUCTS BOX */
 .shoes-box {
     flex: 0 0 70%;
+    float: left;
     border: 1px solid black;
     border-top: none;
     border-right: none;
@@ -347,6 +356,7 @@ ul.dropdown li:hover {
 
 /* PRE-FOOTER */
 .prefooter.container {
+    z-index: 101;
     display: flex;
     overflow-x: auto;
     column-gap: 1rem;
@@ -375,6 +385,7 @@ ul.dropdown li:hover {
 /* FOOTER */
 footer .container {
     position: relative;
+    z-index: 101;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -452,3 +463,6 @@ footer .container {
     border-radius: 50%;
 }
 
+.hide-on-pc {
+    display: none;
+}

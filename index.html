@@ -66,6 +66,10 @@
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search products">
         </div>
+        <div class="details-search-bar hide-on-pc show-on-mobile">
+            <i class="fa-solid fa-bars"></i>
+            <p>Filter by</p>
+        </div>
         <div class="catalogue-info">
             <ul class="products-amount">
                 <p>products</p></ul>
@@ -90,55 +94,55 @@
             </ul>
         </div>
         <div class="main-container">
-            <div class="details-search hide-on-mobile">
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('brand-menu')">BRAND</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="brand-menu">
-                        <li>ADIDAS</li>
-                        <li>CONVERSE</li>
-                        <li>NIKE</li>
-                    </ul>
+                <div class="details-search hide-on-mobile">
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('brand-menu')">BRAND</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="brand-menu">
+                            <li>ADIDAS</li>
+                            <li>CONVERSE</li>
+                            <li>NIKE</li>
+                        </ul>
+                    </div>
+            
+                    <!-- SIZE Dropdown -->
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="size-menu">
+                            <li>Small</li>
+                            <li>Medium</li>
+                            <li>Large</li>
+                        </ul>
+                    </div>
+            
+                    <!-- GENDER Dropdown -->
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="gender-menu">
+                            <li>Men</li>
+                            <li>Women</li>
+                            <li>Unisex</li>
+                        </ul>
+                    </div>
+            
+                    <!-- PRICE Dropdown -->
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="price-menu">
+                            <li>Under $50</li>
+                            <li>$50 - $100</li>
+                            <li>$100 - $150</li>
+                            <li>Above $150</li>
+                        </ul>
+                    </div>        
                 </div>
-        
-                <!-- SIZE Dropdown -->
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('size-menu')">SIZE</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="size-menu">
-                        <li>Small</li>
-                        <li>Medium</li>
-                        <li>Large</li>
-                    </ul>
-                </div>
-        
-                <!-- GENDER Dropdown -->
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('gender-menu')">GENDER</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="gender-menu">
-                        <li>Men</li>
-                        <li>Women</li>
-                        <li>Unisex</li>
-                    </ul>
-                </div>
-        
-                <!-- PRICE Dropdown -->
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('price-menu')">PRICE</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="price-menu">
-                        <li>Under $50</li>
-                        <li>$50 - $100</li>
-                        <li>$100 - $150</li>
-                        <li>Above $150</li>
-                    </ul>
-                </div>        
-            </div>
             <div class="shoes-box show-on-mobile">
                 <div>
                     <img src="asset/img/catalogue/GAZELLE-INDOOR-(W).jpg" alt="Shoe Image">
