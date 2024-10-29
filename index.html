@@ -11,6 +11,7 @@
     </style>
     <link rel="stylesheet" href="asset\css\main.css">
     <link rel="stylesheet" href="asset\css\main-responsive.css">
+    <script src="https://kit.fontawesome.com/e8d4a112b7.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- BODY - HEADER -->
@@ -23,7 +24,7 @@
                 <ul class="menu-list">
                     <li><a href="index.html" class="body-header-link">HOME</a></li>
                     <li><a href="">SPORTS</a></li>
-                    <li><a href="">FORMAL</a></li>
+                    <li><a href="">SANDALS</a></li>
                     <li><a href="">KIDS</a></li>
                     <li><a href="">BRANDS</a></li>
                 </ul>      
@@ -198,6 +199,152 @@
                 </div>
             </div>
         </div>
+        <!-- MAIN - CATALOUGE -->
+        <!-- SNEAKER -->
+        <div class="catalogue-container always-active-page">
+            <div class="catalogue-name">[template]</div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search products">
+            </div>
+            <div class="details-search-bar hide-on-pc show-on-mobile">
+                <i class="fa-solid fa-bars"></i>
+                <p>Filter by</p>
+            </div>
+            <div class="catalogue-info">
+                <ul class="products-amount">
+                    <p>products</p></ul>
+                <ul class="filter">
+                    <label for="dropdown-toggle">Date, new to old
+                        <span class="dropdown-arrow">&#9662;</span>
+                    </label>
+                    <!-- Hidden checkbox to control the dropdown -->
+                    <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
+                    <ul class="dropdown">
+                        <li>Alphabetically, A-Z</li>
+                        <li>Alphabetically, Z-A</li>
+                        <li>Price, low to high</li>
+                        <li>Price, high to low</li>
+                    </ul>
+                </ul>
+                </ul>
+            </div>
+            <div class="main-container">
+                    <div class="details-search hide-on-mobile">
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('brand-menu')">BRAND</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="brand-menu">
+                                <li>ADIDAS</li>
+                                <li>CONVERSE</li>
+                                <li>NIKE</li>
+                                <li>BITI'S</li>
+                            </ul>
+                        </div>
+                        <!-- SIZE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="size-menu">
+                                <li>Small</li>
+                                <li>Medium</li>
+                                <li>Large</li>
+                            </ul>
+                        </div>
+                
+                        <!-- GENDER Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="gender-menu">
+                                <li>Men</li>
+                                <li>Women</li>
+                                <li>Unisex</li>
+                            </ul>
+                        </div>
+                
+                        <!-- PRICE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="price-menu">
+                                <li>Under $50</li>
+                                <li>$50 - $100</li>
+                                <li>$100 - $150</li>
+                                <li>Above $150</li>
+                            </ul>
+                        </div>        
+                    </div>
+                <div class="shoes-box show-on-mobile">
+                    <div>
+                        <img src="asset/img/catalogue/GAZELLE-INDOOR-(W).jpg" alt="Shoe Image">
+                        <div class="shoes-name">GAZELLE INDOOR (W)</div>
+                        <div class="shoes-price">2.900.000 ₫</div>
+                    </div>
+                    <div>
+                        <img src="asset/img/catalogue/SAMBA-XLG.jpg" alt="Shoe Image">
+                        <div class="shoes-name">SAMBA XLG</div>
+                        <div class="shoes-price">3.000.000 ₫</div>
+                    </div>
+                    <div>
+                        <img src="asset/img/catalogue/SL72-RS.jpg" alt="Shoe Image">
+                        <div class="shoes-name">SL72 RS</div>
+                        <div class="shoes-price">2.400.000 ₫</div>
+                    </div>
+                    <div>
+                        <img src="asset/img/catalogue/HANDBALL-SPEZIAL-(W).jpg" alt="Shoe Image">
+                        <div class="shoes-name">HANDBALL SPEZIAL (W)</div>
+                        <div class="shoes-price">2.900.000 ₫</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        <!-- FORMAL -->
+        <!-- KIDS -->
         <!-- PREFOOTER -->
         <div class="container" id="prefooter">
             <div class="prefooter-div">
@@ -275,6 +422,5 @@
         </div>
     </footer>
     <script src="js\main.js"></script>
-    <script src="https://kit.fontawesome.com/e8d4a112b7.js" crossorigin="anonymous"></script>
 </body>
 </html>

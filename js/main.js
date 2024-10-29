@@ -49,3 +49,38 @@ function toggleSignup() {
 function toggleLogin() {
     toggleVisibility("login-user");
 }
+
+// /////////////////////////////////////////////////////
+// CONTENT
+// Function to toggle visibility of the dropdown menu
+function toggleDropdown(menuId) {
+    const menu = document.getElementById(menuId);
+
+    // Close other dropdowns
+    document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+        if (dropdown.id !== menuId) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    // Toggle the clicked dropdown
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+// Event listener to close dropdowns when clicking outside
+document.addEventListener('click', function(event) {
+    const isClickInside = event.target.closest('.dropdown');
+
+    if (!isClickInside) {
+        document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+            dropdown.style.display = 'none';
+        });
+    }
+});
+
+// Initialize: Hide all dropdowns on page load
+window.addEventListener('load', function() {
+    document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+        dropdown.style.display = 'none';
+    });
+});
