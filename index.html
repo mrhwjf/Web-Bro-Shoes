@@ -15,7 +15,7 @@
 <body>
     <!-- BODY - HEADER -->
     <header>
-        <div class="container">
+        <div class="container" id="header">
             <div class="header-container-left">
                 <a href="index.html" class="header-logo">BRO SHOES</a>
             </div>
@@ -23,16 +23,28 @@
                 <ul class="menu-list">
                     <li><a href="index.html" class="body-header-link">HOME</a></li>
                     <li><a href="">SPORTS</a></li>
-                    <li><a href="">PROFESSIONAL</a></li>
+                    <li><a href="">FORMAL</a></li>
                     <li><a href="">KIDS</a></li>
                     <li><a href="">BRANDS</a></li>
                 </ul>      
             </div>
             <div class="header-container-right">
                 <ul class="menu-list">
-                    <li><a><i class="fa-solid fa-magnifying-glass"></i></a></li>                
-                    <li><a class="hide-on-mobile"><i class="fa-regular fa-user"></i></a></li>
-                    <li><a class="hide-on-mobile"><i class="fa-solid fa-cart-shopping "></i></a></li>    
+                    <li><a onclick="toggleSearchEngine()"><i class="fa-solid fa-magnifying-glass"></i></a></li>                
+                    <li class="hide-on-mobile">
+                        <!-- ACCOUNT DROPDOWN -->
+                        <a ><i class="fa-regular fa-user"></i></a>
+                        <div class="container account-dropdown" id="account-drop-list">
+                            <ul class="menu-list" id="login-dropdown">
+                                <li><a onclick="toggleLogin()"><i class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
+                                <li><a onclick="toggleSignup()"><i class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
+                                <li><a onclick="toggleMyAccount()" class="login-auth"><i class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
+                                <li><a class="login-auth"><i class="fa-solid fa-basket-shopping"></i><span>My Order</span></a></li>
+                                <li><a class="login-auth"><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="hide-on-mobile"><a><i class="fa-solid fa-cart-shopping "></i></a></li>    
                 </ul>
             </div>
             <div class="container hamburger-menu-button hide-on-pc show-on-mobile">
@@ -47,86 +59,220 @@
                     <li><a href="">KIDS</a></li>
                     <li><a href="">BRANDS</a></li>
                     <li>
-                        <div class="sidebar-mini-container">
-                            <ul class="menu-list">
-                                <li><a href=""><i class="fa-regular fa-user"></i></a></li>
-                                <li><a href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
+                        <!-- SIDEBAR ACCOUNT DROPDOWN -->
+                        <a onclick="toggleSidebarAccount()"><span>ACCOUNT</span> <i class="fa-solid fa-chevron-down"></i></a>
+                        <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
+                            <ul class="menu-list" id="login-dropdown">
+                                <li><a onclick="toggleLogin(); toggleSidebar()"><span>Log in</span></a></li>
+                                <li><a onclick="toggleSignup(); toggleSidebar()"><span>Sign up</span></a></li>
+                                <li><a onclick="toggleMyAccount(); toggleSidebar()"><span>My Account</span></a></li>
+                                <li><a class="login-auth"><span>My Order</span></a></li>
+                                <li><a class="login-auth"><span>Sign Out</span></a></li>
                             </ul>
                         </div>
                     </li>
+                    <li><a>CART</a></li>
                 </ul>   
             </div>
         </div>
     </header>
-    <!-- PREFOOTER -->
-    <div class="prefooter container">
-        <div class="prefooter-div">
-            <i class="fa-solid fa-certificate"></i>
-            <span>100% AUTHENTIC</span>
-        </div>
-        <div class="prefooter-div">
-            <i class="fa-solid fa-truck"></i>
-            <span>EXPRESS DELIVERY</span>
-       </div>
-        <div class="prefooter-div">
-            <i class="fa-solid fa-headset"></i>
-            <span>24/7 CUSTOMER SERVICES</span>
-        </div>
-        <div class="prefooter-div">
-            <i class="fa-solid fa-tags"></i>
-            <span>REASONABLE PRICE</span>
+    <main>
+        <!-- SEARCH ENGINE -->
+        <div class="container hidden toggle-page" id="search-engine">
+            <div class="main-search-engine">
+                <div class="main-search-engine-header">
+                    <h2>LOOKING FOR SOMETHING?</h2>
+                </div>
+                <div class="main-search-engine-body">
+                    <form action="" class="search-engine">
+                        <div class="form-group">
+                            <a><i class="fa-solid fa-magnifying-glass"></i></a>
+                            <input type="text" class="form-input-bar" id="search-term" name="search-term" placeholder="Search by product, category, or keyword">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+        <!-- LOG-IN -->
+        <div class="container hidden toggle-page" id="login-user">
+            <div class="main-login">
+                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleLogin()"></i>
+                <div class="main-login-header">
+                    <h2>LOGIN</h2>
+                    <div class="form-msg-error"></div>
+                </div>
+                <div class="main-login-body">
+                    <form action="" class="login-form">
+                        <input class="form-input-bar" type="text" id="username-login" name="username-login" placeholder="Username or Phone number*">
+                        <input class="form-input-bar" type="text" id="password-login" name="password-login" placeholder="Password*">
+                        <button>LOGIN</button>
+                    </form>
+                </div>
+                <div class="main-login-footer">
+                    <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleSignup()">SIGN UP</a></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- SIGN-UP -->
+        <div class="container hidden toggle-page" id="signup-user">
+            <div class="main-login">
+                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleSignup()"></i>
+                <div class="main-login-header">
+                    <h2>SIGN UP</h2>
+                    <div class="form-msg-error"></div>
+                </div>
+                <div class="main-login-body">
+                    <form action="" class="login-form">
+                        <input class="form-input-bar" type="text" id="username-signup" name="username-signup" placeholder="Username*">
+                        <input class="form-input-bar" type="text" id="phone-signup" name="phone-signup" placeholder="Phone number*">
+                        <input class="form-input-bar" type="text" id="password-signup" name="password-signup" placeholder="Password*">
+                        <input class="form-input-bar" type="text" id="confirm-password-signup" name="password-signup" placeholder="Confirm Password*">
+                        <button>SIGN UP</button>
+                    </form>
+                </div>
+                <div class="main-login-footer">
+                    <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleLogin()">LOGIN</a></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- USER - INFO -->
+        <div class="container hidden toggle-page" id="account-user">
+            <div class="main-account">
+                <div class="main-account-header">
+                    <h2>MANAGE YOUR ACCOUNT</h2>
+                    <p>Hi there, <span>[username]</span>!</p>
+                </div>
+                <div class="main-account-body">
+                    <div class="main-account-body-col">
+                        <form action="" class="info-user">
+                            <div class="form-group">
+                                <label for="infoname" class="form-label">Username</label>
+                                <input class="form-input-bar" type="text" name="infoname" id="infoname" placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="infophone" class="form-label">Phone number</label>
+                                <input class="form-input-bar" type="text" name="infophone" id="infophone"
+                                    placeholder="Add phone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="infoemail" class="form-label">Email</label>
+                                <input class="form-input-bar" type="email" name="infoemail" id="infoemail"
+                                    placeholder="broshoes@gmail.com">
+                                <span class="inforemail-error form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="infoaddress" class="form-label">Address</label>
+                                <input class="form-input-bar" type="text" name="infoaddress" id="infoaddress"
+                                placeholder="Add address for shipping">
+                            </div>
+                            <div class="form-group">
+                                <button id="save-info-user" onclick="changeAccInfo()"><i class="fa-regular fa-floppy-disk"></i>Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="main-account-body-col">
+                        <div>
+                            <h4>CHANGE YOUR PASSWORD</h4>
+                        </div>
+                        <form action="" class="change-password">
+                            <div class="form-group">
+                                <label for="curr-pass" class="form-label">Current password</label>
+                                <input class="form-input-bar" type="password" name="curr-pass" id="password-cur-info"
+                                    placeholder="Enter current password">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-pass" class="form-label">New password</label>
+                                <input class="form-input-bar" type="password" name="new-pass" id="password-after-info"
+                                    placeholder="Enter new password">                            
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-new-pass" class="form-label">Confirm new password</label>
+                                <input class="form-input-bar" type="password" name="confirm-new-pass" id="password-comfirm-info"
+                                    placeholder="Confirm new password">
+                            </div>
+                            <div class="form-group">
+                               <button id="save-password" onclick="changePassword()"><i class="fa-solid fa-key"></i>Change password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PREFOOTER -->
+        <div class="container" id="prefooter">
+            <div class="prefooter-div">
+                <i class="fa-solid fa-certificate"></i>
+                <span>100% AUTHENTIC</span>
+            </div>
+            <div class="prefooter-div">
+                <i class="fa-solid fa-truck"></i>
+                <span>EXPRESS DELIVERY</span>
+           </div>
+            <div class="prefooter-div">
+                <i class="fa-solid fa-headset"></i>
+                <span>24/7 CUSTOMER SERVICES</span>
+            </div>
+            <div class="prefooter-div">
+                <i class="fa-solid fa-tags"></i>
+                <span>REASONABLE PRICE</span>
+            </div>
+        </div>
+    </main>
     <footer>
-        <div class="container">
-        <h2 class="footer-title">JOIN OUR COMMUNITY</h2>
-        <div class="footer-container-info">
-            <ul class="menu-list">
-                <li><a href="">ABOUT US</a></li>
-                <li><a href="">FAQ</a></li>
-            </ul>
-            <ul class="menu-list">
-                <li><a href="">PRIVACY POLICY</a></li>
-                <li><a href="">REFUND POLICY</a></li>
-                <li><a href="">TERMS OF SERVICES</a></li>
-            </ul>
-        </div>
-        <div class="footer-container-contacts">
-            <div class="contact-div">
-                <div class="contact-icon-div">
-                    <i class="fa-solid fa-phone"></i>
+        <div class="container" id="footer">
+            <h2 class="footer-title">JOIN OUR COMMUNITY</h2>
+            <div class="footer-container-info">
+                <ul class="menu-list">
+                    <li><a href="">ABOUT US</a></li>
+                    <li><a href="">FAQ</a></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><a href="">PRIVACY POLICY</a></li>
+                    <li><a href="">REFUND POLICY</a></li>
+                    <li><a href="">TERMS OF SERVICES</a></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><a href="">HOW TO ORDER</a></li>
+                    <li><a href="">TRACK YOUR ORDER</a></li>
+                    <li><a href="">RETURN & EXCHANGE</a></li>
+                </ul>
+            </div>
+            <div class="footer-container-contacts">
+                <div class="contact-div">
+                    <div class="contact-icon-div">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="contact-content-div">
+                        <span>0123-456-789</span>
+                    </div>
                 </div>
-                <div class="contact-content-div">
-                    <span>0123-456-789</span>
+                <div class="contact-div">
+                    <div class="contact-icon-div">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="contact-content-div">
+                        <span>broshoes@domain.com</span>                    
+                    </div>
+                </div>
+                <div class="contact-div">
+                    <div class="contact-icon-div">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <span>273 Đ. An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
+                    </div>
                 </div>
             </div>
-            <div class="contact-div">
-                <div class="contact-icon-div">
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div class="contact-content-div">
-                    <span>broshoes@domain.com</span>                    
-                </div>
-            </div>
-            <div class="contact-div">
-                <div class="contact-icon-div">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-                <div>
-                    <span>273 Đ. An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
-                </div>
+            <h1 class="footer-logo"><a href="index.html">BRO SHOES</a></h1>
+            <div class="footer-container-media" id="body-footer-media">
+                <ul class="menu-list">
+                    <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href=""><i class="fa-brands fa-square-instagram"></i></a></li>
+                </ul>
             </div>
         </div>
-        <h1 class="footer-logo"><a href="index.html">BRO SHOES</a></h1>
-        <div class="footer-container-media" id="body-footer-media">
-            <ul class="menu-list">
-                <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
-                <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
-                <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
-                <li><a href=""><i class="fa-brands fa-square-instagram"></i></a></li>
-            </ul>
-        </div>
-    </div>
     </footer>
     <script src="js\main.js"></script>
     <script src="https://kit.fontawesome.com/e8d4a112b7.js" crossorigin="anonymous"></script>
