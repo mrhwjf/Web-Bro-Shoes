@@ -5,9 +5,6 @@
     --theme-color-2: #daa520;
     --border-color: #393E46;
     --text-color: #191919;
-    --text-size-small: 0.75rem;
-    --text-size-med: 1rem;
-    --text-size-large: 1.5rem;
 }
 
 *,
@@ -16,7 +13,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* outline: 1px solid black; */
+    outline: 1px solid blue;
 }
 
 html {
@@ -41,7 +38,7 @@ ul, li {
 
 /* HEADER */
 header{
-    z-index: 100;
+    z-index: 102;
     position: sticky;
     top: 0;
     left: 0;
@@ -256,6 +253,7 @@ ul.dropdown li:hover {
 }
 
 .main-container{
+    position: relative;
     display: flex;
     width: 100%;
 }
@@ -266,13 +264,13 @@ ul.dropdown li:hover {
     z-index: 100;
     position: sticky;
     top: 3rem;
-    height: 0rem;
+    height: 20rem;
     left: 0;
 }
 
 .details-search ul {
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--border-color);
     padding: 10px;
     margin: 15px;
     font-size: x-large;

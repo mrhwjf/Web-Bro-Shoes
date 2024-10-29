@@ -58,157 +58,159 @@
             </div>
         </div>
     </header>
-    <!-- MAIN - catalogue -->
-    <!-- SNEAKER -->
-     <div class="catalogue-container">
-        <div class="catalogue-name">SNEAKER</div>
-        <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search products">
-        </div>
-        <div class="details-search-bar hide-on-pc show-on-mobile">
-            <i class="fa-solid fa-bars"></i>
-            <p>Filter by</p>
-        </div>
-        <div class="catalogue-info">
-            <ul class="products-amount">
-                <p>products</p></ul>
-            <ul class="filter">
-                <label for="dropdown-toggle">Date, new to old
-                    <span class="dropdown-arrow">&#9662;</span>
-                </label>
-                <!-- Hidden checkbox to control the dropdown -->
-                <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
-        
-                <!-- Dropdown list -->
-                <ul class="dropdown">
-                    <li>Best Selling</li>
-                    <li>Alphabetically, A-Z</li>
-                    <li>Alphabetically, Z-A</li>
-                    <li>Price, low to high</li>
-                    <li>Price, high to low</li>
-                    <li>Date, new to old</li>
-                    <li>Date, old to new</li>
+    <main>
+        <!-- MAIN - catalogue -->
+        <!-- SNEAKER -->
+         <div class="catalogue-container">
+            <div class="catalogue-name">SNEAKER</div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search products">
+            </div>
+            <div class="details-search-bar hide-on-pc show-on-mobile">
+                <i class="fa-solid fa-bars"></i>
+                <p>Filter by</p>
+            </div>
+            <div class="catalogue-info">
+                <ul class="products-amount">
+                    <p>products</p></ul>
+                <ul class="filter">
+                    <label for="dropdown-toggle">Date, new to old
+                        <span class="dropdown-arrow">&#9662;</span>
+                    </label>
+                    <!-- Hidden checkbox to control the dropdown -->
+                    <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
+            
+                    <!-- Dropdown list -->
+                    <ul class="dropdown">
+                        <li>Best Selling</li>
+                        <li>Alphabetically, A-Z</li>
+                        <li>Alphabetically, Z-A</li>
+                        <li>Price, low to high</li>
+                        <li>Price, high to low</li>
+                        <li>Date, new to old</li>
+                        <li>Date, old to new</li>
+                    </ul>
                 </ul>
-            </ul>
-            </ul>
-        </div>
-        <div class="main-container">
-                <div class="details-search hide-on-mobile">
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('brand-menu')">BRAND</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="brand-menu">
-                            <li>ADIDAS</li>
-                            <li>CONVERSE</li>
-                            <li>NIKE</li>
-                        </ul>
+                </ul>
+            </div>
+            <div class="main-container">
+                    <div class="details-search hide-on-mobile">
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('brand-menu')">BRAND</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="brand-menu">
+                                <li>ADIDAS</li>
+                                <li>CONVERSE</li>
+                                <li>NIKE</li>
+                            </ul>
+                        </div>
+                
+                        <!-- SIZE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="size-menu">
+                                <li>Small</li>
+                                <li>Medium</li>
+                                <li>Large</li>
+                            </ul>
+                        </div>
+                
+                        <!-- GENDER Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="gender-menu">
+                                <li>Men</li>
+                                <li>Women</li>
+                                <li>Unisex</li>
+                            </ul>
+                        </div>
+                
+                        <!-- PRICE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="price-menu">
+                                <li>Under $50</li>
+                                <li>$50 - $100</li>
+                                <li>$100 - $150</li>
+                                <li>Above $150</li>
+                            </ul>
+                        </div>        
                     </div>
-            
-                    <!-- SIZE Dropdown -->
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('size-menu')">SIZE</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="size-menu">
-                            <li>Small</li>
-                            <li>Medium</li>
-                            <li>Large</li>
-                        </ul>
+                <div class="shoes-box show-on-mobile">
+                    <div>
+                        <img src="asset/img/catalogue/GAZELLE-INDOOR-(W).jpg" alt="Shoe Image">
+                        <div class="shoes-name">GAZELLE INDOOR (W)</div>
+                        <div class="shoes-price">2.900.000 ₫</div>
                     </div>
-            
-                    <!-- GENDER Dropdown -->
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('gender-menu')">GENDER</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="gender-menu">
-                            <li>Men</li>
-                            <li>Women</li>
-                            <li>Unisex</li>
-                        </ul>
+                    <div>
+                        <img src="asset/img/catalogue/SAMBA-XLG.jpg" alt="Shoe Image">
+                        <div class="shoes-name">SAMBA XLG</div>
+                        <div class="shoes-price">3.000.000 ₫</div>
                     </div>
-            
-                    <!-- PRICE Dropdown -->
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('price-menu')">PRICE</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="price-menu">
-                            <li>Under $50</li>
-                            <li>$50 - $100</li>
-                            <li>$100 - $150</li>
-                            <li>Above $150</li>
-                        </ul>
-                    </div>        
-                </div>
-            <div class="shoes-box show-on-mobile">
-                <div>
-                    <img src="asset/img/catalogue/GAZELLE-INDOOR-(W).jpg" alt="Shoe Image">
-                    <div class="shoes-name">GAZELLE INDOOR (W)</div>
-                    <div class="shoes-price">2.900.000 ₫</div>
-                </div>
-                <div>
-                    <img src="asset/img/catalogue/SAMBA-XLG.jpg" alt="Shoe Image">
-                    <div class="shoes-name">SAMBA XLG</div>
-                    <div class="shoes-price">3.000.000 ₫</div>
-                </div>
-                <div>
-                    <img src="asset/img/catalogue/SL72-RS.jpg" alt="Shoe Image">
-                    <div class="shoes-name">SL72 RS</div>
-                    <div class="shoes-price">2.400.000 ₫</div>
-                </div>
-                <div>
-                    <img src="asset/img/catalogue/HANDBALL-SPEZIAL-(W).jpg" alt="Shoe Image">
-                    <div class="shoes-name">HANDBALL SPEZIAL (W)</div>
-                    <div class="shoes-price">2.900.000 ₫</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                    <div class="shoes-name">Running Shoes</div>
-                    <div class="shoes-price">$79.99</div>
+                    <div>
+                        <img src="asset/img/catalogue/SL72-RS.jpg" alt="Shoe Image">
+                        <div class="shoes-name">SL72 RS</div>
+                        <div class="shoes-price">2.400.000 ₫</div>
+                    </div>
+                    <div>
+                        <img src="asset/img/catalogue/HANDBALL-SPEZIAL-(W).jpg" alt="Shoe Image">
+                        <div class="shoes-name">HANDBALL SPEZIAL (W)</div>
+                        <div class="shoes-price">2.900.000 ₫</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
+                    <div>
+                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
+                        <div class="shoes-name">Running Shoes</div>
+                        <div class="shoes-price">$79.99</div>
+                    </div>
                 </div>
             </div>
-        </div>
-     </div>
-    <!-- FORMAL -->
-    <!-- KIDS -->
+         </div>
+        <!-- FORMAL -->
+        <!-- KIDS -->
+    </main>
     <!-- PREFOOTER -->
     <div class="prefooter container">
         <div class="prefooter-div">
