@@ -598,10 +598,12 @@ ul.dropdown li:hover {
 
 .shoes-box-container{
     flex: 0 0 70%;
+    flex-direction: column;
 }
 
 /* PRODUCTS BOX */
 .shoes-box {
+    width: 100%;
     float: left;
     border: 1px solid black;
     border-top: none;

@@ -74,7 +74,7 @@
         display: none;
     }
 
-    .shoes-box.show-on-mobile {
+    .shoes-box-container.show-on-mobile {
         flex: 1;
     }
 }
