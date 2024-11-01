@@ -1,8 +1,8 @@
 const products = [
+        { name: "70-COURT-CANVAS-HI", price: "2.700.000 ₫", image: "../asset/img/catalogue/70-COURT-CANVAS-HI.jpg" },
         { name: "AIR FLIGHT 89 (GS)", price: "2.000.000 ₫", image: "../asset/img/catalogue/AIR-FLIGHT-89-(GS).jpg" },
         { name: "AIR FORCE 1 LV8-3 (GS)", price: "3.500.000 ₫", image: "../asset/img/catalogue/AIR-FORCE-1-LV8-3-(GS).jpg" },
         { name: "AIR FORCE 1'07", price: "2.700.000 ₫", image: "../asset/img/catalogue/AIR-FORCE-1'07.jpg" },
-        { name: "70-COURT-CANVAS-HI", price: "2.700.000 ₫", image: "../asset/img/catalogue/70-COURT-CANVAS-HI.jpg" },
         { name: "AIR MAX 90 LTR", price: "2.700.000 ₫", image: "../asset/img/catalogue/AIR-MAX-90-LTR.jpg" },
         { name: "AIR TERRRA HUMARA", price: "2.700.000 ₫", image: "../asset/img/catalogue/AIR-TERRA-HUMARA.jpg" },
         { name: "AIRIZONA VEG THYME", price: "2.700.000 ₫", image: "../asset/img/catalogue/AIRIZONA-VEG-THYME.jpg" },
