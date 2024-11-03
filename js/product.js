@@ -2,7 +2,7 @@ const products = [
     { 
         id: 1,
         name: "70 COURT CANVAS HI",
-        price: "2.700.000 ₫",
+        price: "2.000.000 ₫",
         image: "../asset/img/catalogue/70-COURT-CANVAS-HI.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -12,7 +12,7 @@ const products = [
     { 
         id: 2,
         name: "AIR FLIGHT 89 (GS)",
-        price: "2.000.000 ₫",
+        price: "2.400.000 ₫",
         image: "../asset/img/catalogue/AIR-FLIGHT-89-(GS).jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -22,7 +22,7 @@ const products = [
     { 
         id: 3,
         name: "AIR FORCE 1 LV8-3 (GS)",
-        price: "3.500.000 ₫",
+        price: "3.200.000 ₫",
         image: "../asset/img/catalogue/AIR-FORCE-1-LV8-3-(GS).jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -32,7 +32,7 @@ const products = [
     { 
         id: 4,
         name: "AIR FORCE 1'07", 
-        price: "2.700.000 ₫", 
+        price: "3.500.000 ₫", 
         image: "../asset/img/catalogue/AIR-FORCE-1'07.jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -42,7 +42,7 @@ const products = [
     { 
         id: 5,
         name: "AIR MAX 90 LTR", 
-        price: "2.700.000 ₫", 
+        price: "4.600.000 ₫", 
         image: "../asset/img/catalogue/AIR-MAX-90-LTR.jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -52,7 +52,7 @@ const products = [
     { 
         id: 6,
         name: "AIR TERRRA HUMARA", 
-        price: "2.700.000 ₫", 
+        price: "3.200.000 ₫", 
         image: "../asset/img/catalogue/AIR-TERRA-HUMARA.jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -62,7 +62,7 @@ const products = [
     { 
         id: 7,
         name: "AIRIZONA VEG THYME", 
-        price: "2.700.000 ₫", 
+        price: "3.500.000 ₫", 
         image: "../asset/img/catalogue/AIRIZONA-VEG-THYME.jpg",
         category: "Sandal",
         brand: "BirkenStock",
@@ -72,7 +72,7 @@ const products = [
     { 
         id: 8,
         name: "ARIZONA BLACKBIRKO FLOR SFB", 
-        price: "2.700.000 ₫", 
+        price: "3.200.000 ₫", 
         image: "../asset/img/catalogue/ARIZONA-BLACKBIRKO-FLOR-SFB.jpg",
         category: "Sandal",
         brand: "BirkenStock",
@@ -82,7 +82,7 @@ const products = [
     { 
         id: 9,
         name: "ARIZONA TOBACCO BROWN OILDED LEATHER", 
-        price: "2.700.000 ₫", 
+        price: "4.000.000 ₫", 
         image: "../asset/img/catalogue/ARIZONA-TOBACCO-BROWN-OILED-LEATHER.jpg",
         category: "Sandal",
         brand: "BirkenStock",
@@ -92,7 +92,7 @@ const products = [
     { 
         id: 10,
         name: "CHUCK 70 SEASONAL", 
-        price: "2.700.000 ₫", 
+        price: "1.650.000 ₫", 
         image: "../asset/img/catalogue/CHUCK-70-SEASONAL.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -102,7 +102,7 @@ const products = [
     { 
         id: 11,
         name: "DUNK LOW (W)", 
-        price: "2.700.000 ₫", 
+        price: "3.500.000 ₫", 
         image: "../asset/img/catalogue/DUNK-LOW-(W).jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -112,7 +112,7 @@ const products = [
     { 
         id: 12,
         name: "FASTBREAK PRO SUEDE MID", 
-        price: "2.700.000 ₫", 
+        price: "2.800.000 ₫", 
         image: "../asset/img/catalogue/FASTBREAK-PRO-SUEDE-MID.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -122,7 +122,7 @@ const products = [
     { 
         id: 13,
         name: "FENG CHENG WANG QS", 
-        price: "2.700.000 ₫", 
+        price: "4.200.000 ₫", 
         image: "../asset/img/catalogue/FENG-CHENG-WANG-QS.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -132,7 +132,7 @@ const products = [
     { 
         id: 14,
         name: "GAZELLE (PS)", 
-        price: "2.700.000 ₫", 
+        price: "1.800.000 ₫", 
         image: "../asset/img/catalogue/GAZELLE-(PS).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -142,7 +142,7 @@ const products = [
     { 
         id: 15,
         name: "GAZELLE INDOOR (W)", 
-        price: "2.700.000 ₫", 
+        price: "2.800.000 ₫", 
         image: "../asset/img/catalogue/GAZELLE-INDOOR-(W).jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -152,7 +152,7 @@ const products = [
     { 
         id: 16,
         name: "HANDBALL SPEZIAL (W)", 
-        price: "2.700.000 ₫", 
+        price: "2.500.000 ₫", 
         image: "../asset/img/catalogue/HANDBALL-SPEZIAL-(W).jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -162,7 +162,7 @@ const products = [
     { 
         id: 17,
         name: "NIKE CALM BEIGE (W)", 
-        price: "2.700.000 ₫", 
+        price: "2.349.000 ₫", 
         image: "../asset/img/catalogue/Nike_Calm_Be(w).jpg",
         category: "Sandal",
         brand: "Nike",
@@ -172,7 +172,7 @@ const products = [
     { 
         id: 18,
         name: "NMD S1", 
-        price: "2.700.000 ₫", 
+        price: "3.000.000 ₫", 
         image: "../asset/img/catalogue/NMD_S1.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -182,7 +182,7 @@ const products = [
     { 
         id: 19,
         name: "RUN STAR HIKE HI", 
-        price: "2.700.000 ₫", 
+        price: "3.200.000 ₫", 
         image: "../asset/img/catalogue/RUN-STAR-HIKE-HI.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -192,7 +192,7 @@ const products = [
     {
         id: 20,
         name: "SAMBA OG", 
-        price: "2.700.000 ₫", 
+        price: "2.500.000 ₫", 
         image: "../asset/img/catalogue/SAMBA-OG.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -202,7 +202,7 @@ const products = [
     { 
         id: 21,
         name: "SABA XLG", 
-        price: "2.700.000 ₫", image: "../asset/img/catalogue/SAMBA-XLG.jpg",
+        price: "3.500.000 ₫", image: "../asset/img/catalogue/SAMBA-XLG.jpg",
         category: "Sneaker",
         brand: "Adidas",
         sex: "M",
@@ -211,7 +211,7 @@ const products = [
     {
         id: 22,
         name: "SL72 RS (PS)", 
-        price: "2.700.000 ₫", 
+        price: "2.000.000 ₫", 
         image: "../asset/img/catalogue/SL-72-RS-(PS).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -221,7 +221,7 @@ const products = [
     { 
         id: 23,
         name: "SL72 RS (TD)", 
-        price: "2.700.000 ₫", 
+        price: "1.800.000 ₫", 
         image: "../asset/img/catalogue/SL72-RS-(TD).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -231,7 +231,7 @@ const products = [
     { 
         id: 24,
         name: "SL72 RS", 
-        price: "2.700.000 ₫", 
+        price: "2.500.000 ₫", 
         image: "../asset/img/catalogue/SL72-RS.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -241,7 +241,7 @@ const products = [
     { 
         id: 25,
         name: "STAN SMITH (TD)", 
-        price: "2.700.000 ₫", 
+        price: "1.500.000 ₫", 
         image: "../asset/img/catalogue/STAN-SMITH-(TD).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -251,7 +251,7 @@ const products = [
     { 
         id: 26,
         name: "SUPERSTAR", 
-        price: "990.000 ₫", 
+        price: "2.500.000 ₫", 
         image: "../asset/img/catalogue/SUPERSTAR.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -301,7 +301,7 @@ const products = [
     {
         id: 31,
         name: "TEVA SANDALS HURRICANE (W)", 
-        price: "2.700.000 ₫", 
+        price: "1.900.000 ₫", 
         image: "../asset/img/catalogue/TevaSandalsHunrricane(w).jpg",
         category: "Sandal",
         brand: "Teva",
