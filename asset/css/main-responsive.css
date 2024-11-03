@@ -78,6 +78,11 @@
         flex: 1;
     }
 
+    .modal-content{
+        top: 20%;
+        left: 11%;
+        width: 80%;
+    }
 
 }
 
@@ -96,13 +101,6 @@
     /* SIDEBAR */
     #header-sidebar.container.sidebar .menu-list {
         font-size: 2rem;
-    }
-
-    .modal-content{
-        top: 20%;
-        left: 11%;
-        width: 80%;
-
     }
 }
 
