@@ -77,6 +77,8 @@
     .shoes-box-container.show-on-mobile {
         flex: 1;
     }
+
+
 }
 
 /* FOR FOOTER-CONTAINER-INFO */
@@ -94,6 +96,13 @@
     /* SIDEBAR */
     #header-sidebar.container.sidebar .menu-list {
         font-size: 2rem;
+    }
+
+    .modal-content{
+        top: 20%;
+        left: 11%;
+        width: 80%;
+
     }
 }
 

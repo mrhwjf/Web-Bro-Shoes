@@ -658,14 +658,15 @@ ul.dropdown li:hover {
 .modal-content {
     background-color: var(--bg-main-color);
     padding: 20px;
-    width: 110%;
+    width: 100%;
+    min-width: 200px;
     max-width: 500px;
     border-radius: 8px;
     position: relative;
     text-align: center;
     outline: 1px solid black;
-    left: 30rem;
-    top: 4rem;
+    left: 33%;
+    top: 10%;
 }
 
 .modal-product-image {
