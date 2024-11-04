@@ -642,8 +642,9 @@ ul.dropdown li:hover {
 }
 
 /* MODAL PRODUCT DETAILS */
+
 .product-details-modal {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -656,23 +657,21 @@ ul.dropdown li:hover {
 }
 
 .modal-content {
-    background-color: var(--bg-main-color);
-    padding: 20px;
-    width: 100%;
-    min-width: 200px;
-    max-width: 500px;
-    border-radius: 8px;
-    position: relative;
-    text-align: center;
-    outline: 1px solid black;
-    left: 33%;
-    top: 10%;
+    background: var(--bg-main-color); /* Background color for modal content */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: shadow for depth */
+    max-width: 880px; /* Set a maximum width for the modal */
+    width: 90%; /* Set width to be responsive */
+    position: relative; /* For absolute positioning of close button */
+    left: 21%;
+    top: 17%;
 }
 
-.modal-product-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+.modal-content-container {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Arrange items in a row */
+    align-items: flex-start; /* Align items at the top */
+    padding: 20px; /* Padding inside the container */
 }
 
 .close-modal {
@@ -683,6 +682,81 @@ ul.dropdown li:hover {
     cursor: pointer;
 }
 
+.modal-product-image {
+    outline: 1px solid black; /* Border around the image */
+    max-width: 500px; /* Limit the width of the image */
+    height: auto;
+    margin-right: 30px; /* Space between image and content */
+}
+
+.modal-product-image img {
+    width: 100%; /* Make the image fill its container */
+    height: auto;
+    max-height: 400px; /* Limit the height of the image */
+    object-fit: contain; /* Ensure the image scales nicely */
+}
+
+.product-info {
+    flex: 1; /* Allow this container to take remaining space */
+}
+
+#modalProductName {
+    font-size: 38px; /* Font size for product name */
+    margin: 20px 0 0 10px; /* Margin around the product name */
+    font-weight: bold; /* Bold font weight */
+}
+
+#modalProductPrice {
+    font-size: 20px; /* Font size for product price */
+    color: #888; /* Color for product price */
+    margin: 10px 0; /* Margin around the product price */
+}
+
+/* Container for size buttons */
+.size-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between size buttons */
+    justify-content: flex-start; /* Align buttons to the left */
+    margin-top: 15px; /* Margin above the size buttons */
+}
+
+/* Styles for size buttons */
+.size-button {
+    width: 70px;
+    padding: 8px 12px; /* Padding for size buttons */
+    font-size: 14px; /* Font size for size buttons */
+    font-weight: bold;
+    border: 1px solid #333; /* Border for size buttons */
+    background-color: var(--bg-main-color); /* Background color for size buttons */
+    color: #333; /* Text color for size buttons */
+    border-radius: 20px; /* Rounded corners for size buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.size-button:hover {
+    background-color: #333; /* Change background on hover */
+    color: #fff; /* Change text color on hover */
+}
+
+/* Styles for the "Add to Cart" button */
+.add-to-cart-button {
+    width: 100%;
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 16px; /* Font size for the button */
+    font-weight: bolder;
+    background-color: var(--theme-color-2); /* Background color for the button */
+    border: 1px solid black;
+    border-radius: 20px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+    margin-top: 20px; /* Margin above the button */
+}
+
+.add-to-cart-button:hover {
+    background-color: #0056b3; /* Change background on hover */
+}
 
 /* PHAN-TRANG-BUTTON */
 .pagination {

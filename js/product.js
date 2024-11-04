@@ -411,99 +411,75 @@ function highlightCurrentPage() {
 // Function to display products
 function displayProducts(page) {
     const productContainer = document.getElementById("product-container");
-    productContainer.innerHTML = ""; // Clear existing products
+    productContainer.innerHTML = ""; // Xóa nội dung hiện tại
 
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const productsToDisplay = products.slice(start, end);
 
+    let productHTML = ""; // Tạo chuỗi HTML
+
     productsToDisplay.forEach(product => {
-        // Create product box
-        const productBox = document.createElement("div");
-        productBox.className = "product-box";
-
-        // Add product image
-        const image = document.createElement("img");
-        image.src = product.image;
-        image.alt = product.name;
-
-        // Add placeholder if image fails to load
-        image.onerror = () => { image.src = "../asset/img/catalogue/coming-soon.jpg"; };
-
-        // Add product name
-        const name = document.createElement("div");
-        name.className = "shoes-name";
-        name.textContent = product.name;
-
-        // Add product price
-        const price = document.createElement("div");
-        price.className = "shoes-price";
-        price.textContent = product.price;
-
-        // Append to product box
-        productBox.appendChild(image);
-        productBox.appendChild(name);
-        productBox.appendChild(price);
-
-        productBox.addEventListener("click", () => openProductDetails(product));
-        // Append product box to container
-        productContainer.appendChild(productBox);
+        // Tạo khối HTML cho sản phẩm
+        productHTML += `
+            <div class="product-box" onclick="openProductDetails(${product.id})">
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='../asset/img/catalogue/coming-soon.jpg'" />
+                <div class="shoes-name">${product.name}</div>
+                <div class="shoes-price">${product.price}</div>
+            </div>
+        `;
     });
+
+    // Gán chuỗi HTML vào innerHTML của container
+    productContainer.innerHTML = productHTML;
 }
 
 // Dynamically create modal structure
-function createModal() {
-const modal = document.createElement("div");
-modal.id = "productDetailsModal";
-modal.className = "product-details-modal";
-modal.style.display = "none"; // Initially hidden
+function createModal(img, productname, price, sizeArray) {
+    const sizeButtonsHTML = sizeArray.map(size => `
+        <button class="size-button">${size}</button>
+    `).join("");
 
-const modalContent = document.createElement("div");
-modalContent.className = "modal-content";
+    const modalHTML = `
+    <div id="productDetailsModal" class="product-details-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProductDetails()">&times;</span>
+            <div class="modal-content-container">
+                <div class="modal-product-image">
+                    <img src="${img}" alt="${productname}">
+                </div>
+                <div class="product-info">
+                    <h2 id="modalProductName">${productname}</h2>
+                    <p id="modalProductPrice">${price}</p>
+                    <div class="size-container">${sizeButtonsHTML}</div>
+                    <div>
+                        <button class="add-to-cart-button">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
 
-// Close button
-const closeModalButton = document.createElement("span");
-closeModalButton.className = "close-modal";
-closeModalButton.innerHTML = "&times;";
-closeModalButton.addEventListener("click", closeProductDetails);
+    // Xóa modal cũ (nếu có) và thêm modal mới vào cuối body
+    const existingModal = document.getElementById("productDetailsModal");
+    if (existingModal) existingModal.remove();
+    document.body.innerHTML += modalHTML;
 
-// Modal elements for displaying product details
-const modalImage = document.createElement("img");
-modalImage.id = "modalProductImage";
-modalImage.className = "modal-product-image";
-
-const modalName = document.createElement("h2");
-modalName.id = "modalProductName";
-
-const modalPrice = document.createElement("p");
-modalPrice.id = "modalProductPrice";
-
-const modalDescription = document.createElement("p");
-modalDescription.id = "modalProductDescription";
-
-// Append elements to modal content
-modalContent.appendChild(closeModalButton);
-modalContent.appendChild(modalImage);
-modalContent.appendChild(modalName);
-modalContent.appendChild(modalPrice);
-modalContent.appendChild(modalDescription);
-
-// Append modal content to modal
-modal.appendChild(modalContent);
-
-// Append modal to the body
-document.body.appendChild(modal);
+    // Hiển thị modal
+    document.getElementById("productDetailsModal").style.display = "block";
 }
 
-// Function to open the modal and populate it with specific product details
-function openProductDetails(product) {
-document.getElementById("modalProductImage").src = product.image;
-document.getElementById("modalProductName").textContent = product.name;
-document.getElementById("modalProductPrice").textContent = `Price: ${product.price}`;
-document.getElementById("modalProductDescription").textContent = product.description || "No description available.";
+// Mở modal với chi tiết sản phẩm cụ thể
+function openProductDetails(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        createModal(product.image, product.name, product.price, product.size);
+    }
+}
 
-// Show the modal
-document.getElementById("productDetailsModal").style.display = "block";
+function closeProductDetails() {
+    document.getElementById("productDetailsModal").style.display = "none";
 }
 
 // Function to close the modal
