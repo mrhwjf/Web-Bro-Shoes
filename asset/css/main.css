@@ -672,6 +672,7 @@ ul.dropdown li:hover {
     flex-direction: row; /* Arrange items in a row */
     align-items: flex-start; /* Align items at the top */
     padding: 20px; /* Padding inside the container */
+    flex-wrap: wrap;
 }
 
 .close-modal {
@@ -690,18 +691,15 @@ ul.dropdown li:hover {
 }
 
 .modal-product-image img {
-    width: 100%; /* Make the image fill its container */
-    height: auto;
-    max-height: 400px; /* Limit the height of the image */
-    object-fit: contain; /* Ensure the image scales nicely */
+    width: 100%;
+    object-fit: cover; /* Ensure the image scales nicely */
 }
 
 .product-info {
-    flex: 1; /* Allow this container to take remaining space */
 }
 
 #modalProductName {
-    font-size: 38px; /* Font size for product name */
+    font-size: 3vw; /* Font size for product name */
     margin: 20px 0 0 10px; /* Margin around the product name */
     font-weight: bold; /* Bold font weight */
 }
@@ -755,7 +753,7 @@ ul.dropdown li:hover {
 }
 
 .add-to-cart-button:hover {
-    background-color: #0056b3; /* Change background on hover */
+    opacity: 0.8;
 }
 
 /* PHAN-TRANG-BUTTON */
