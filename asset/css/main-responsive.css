@@ -77,13 +77,6 @@
     .shoes-box-container.show-on-mobile {
         flex: 1;
     }
-
-    .modal-content{
-        top: 20%;
-        left: 11%;
-        width: 80%;
-    }
-
 }
 
 /* FOR FOOTER-CONTAINER-INFO */

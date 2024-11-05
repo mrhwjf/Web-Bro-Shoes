@@ -464,10 +464,10 @@ function createModal(img, productname, price, sizeArray) {
     // Xóa modal cũ (nếu có) và thêm modal mới vào cuối body
     const existingModal = document.getElementById("productDetailsModal");
     if (existingModal) existingModal.remove();
-    document.body.innerHTML += modalHTML;
+    document.getElementsByClassName("catalogue-container")[0].innerHTML += modalHTML;
 
     // Hiển thị modal
-    document.getElementById("productDetailsModal").style.display = "block";
+    document.getElementById("productDetailsModal").style.display = "flex";
 }
 
 // Mở modal với chi tiết sản phẩm cụ thể
