@@ -38,21 +38,22 @@
         width: 100%;
     }
 
-    /* SIDEBAR */
-    #header-sidebar.container.sidebar .menu-list {
-        font-size: 3rem;
+    /* CATALOGUE - INFO */
+    .catalogue-info .reset-filter.hide-on-mobile{
+        display: none;
     }
 
-    /* CONTENT - DETAIL SEARCH */
+    /* CATALOGUE - DETAIL SEARCH */
     .details-search-bar.show-on-mobile {
-        outline: 1px solid gray;
-        background-color: whitesmoke;
+        outline: 1px solid var(--border-color);
+        background-color: white;
         height: 35px;
         width: 95%;
         display: flex;
         align-items: center;
         margin-bottom: 20px;
         padding: 0 1rem;
+        border-radius: 0.5rem;
     }
 
     .details-search-bar p {
@@ -61,11 +62,10 @@
         padding-left: 10px;
     }
 
-    .details-search.show-on-mobile{
+    .details-search.sidebar.show-on-mobile {
         opacity: 1;
         visibility: visible;
-        display: flex;
-        left: 0;
+        right: 0;
         transition: all 0.5s ease-in-out;
     }
 
@@ -75,6 +75,17 @@
 
     .shoes-box.show-on-mobile {
         flex: 1;
+    }
+
+    .modal-content{
+        top: 20%;
+        left: 11%;
+        width: 80%;
+    }
+
+    /* PRODUCT BOX */
+    .shoes-box-container {
+        flex: 0 0 100%;
     }
 }
 
@@ -86,14 +97,6 @@
 }
 
 @media screen and (max-width: 425px) {
-    .form-input-bar  {
-        width: 200px;
-    }
-    
-    /* SIDEBAR */
-    #header-sidebar.container.sidebar .menu-list {
-        font-size: 2rem;
-    }
 }
 
 @media screen and (max-width: 376px) {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,67 +14,85 @@
     <link rel="stylesheet" href="asset\css\main-responsive.css">
     <script src="https://kit.fontawesome.com/e8d4a112b7.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <!-- BODY - HEADER -->
     <header>
         <div class="container" id="header">
             <div class="header-container-left">
-                <a href="index.html" class="header-logo">BRO SHOES</a>
+                <a onclick="location.reload()" class="header-logo">BRO SHOES</a>
             </div>
             <div class="header-container-mid hide-on-mobile">
                 <ul class="menu-list">
-                    <li><a href="index.html" class="body-header-link">HOME</a></li>
-                    <li><a href="">SPORTS</a></li>
-                    <li><a href="">SANDALS</a></li>
-                    <li><a href="">KIDS</a></li>
-                    <li><a href="">BRANDS</a></li>
-                </ul>      
+                    <li><a onclick="location.reload()" class="body-header-link">HOME</a></li>
+                    <li><a>SNEAKERS</a></li>
+                    <li><a>SANDALS</a></li>
+                    <li><a>KIDS</a></li>
+                </ul>
             </div>
             <div class="header-container-right">
                 <ul class="menu-list">
-                    <li><a onclick="toggleSearchEngine()"><i class="fa-solid fa-magnifying-glass"></i></a></li>                
+                    <li><a onclick="toggleVisibility('search-engine')"><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </li>
                     <li class="hide-on-mobile">
                         <!-- ACCOUNT DROPDOWN -->
-                        <a ><i class="fa-regular fa-user"></i></a>
+                        <a><i class="fa-regular fa-user"></i><span class="display-username"></span></a>
                         <div class="container account-dropdown" id="account-drop-list">
                             <ul class="menu-list" id="login-dropdown">
-                                <li><a onclick="toggleLogin()"><i class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
-                                <li><a onclick="toggleSignup()"><i class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
-                                <li><a onclick="toggleMyAccount()" class="login-auth"><i class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
-                                <li><a class="login-auth"><i class="fa-solid fa-basket-shopping"></i><span>My Order</span></a></li>
-                                <li><a class="login-auth"><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a></li>
+                                <li class="logged-out"><a onclick="toggleVisibility('login-user')"><i
+                                            class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
+                                <li class="logged-out"><a onclick="toggleVisibility('signup-user')"><i
+                                            class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
+                                <li class="admin"><a href="admin.html"><i
+                                            class="fa-solid fa-screwdriver-wrench"></i><span>Manage*</span></a></li>
+                                <li class="logged-in"><a onclick="toggleVisibility('account-user'); loadUserInfo()"><i
+                                            class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
+                                <li class="logged-in"><a><i class="fa-solid fa-basket-shopping"></i><span>My
+                                            Order</span></a></li>
+                                <li class="logged-in"><a onclick="signOut()"><i
+                                            class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="hide-on-mobile"><a><i class="fa-solid fa-cart-shopping "></i></a></li>    
+                    <li class="hide-on-mobile"><a><i class="fa-solid fa-cart-shopping "></i></a></li>
                 </ul>
             </div>
             <div class="container hamburger-menu-button hide-on-pc show-on-mobile">
-                <a class="toggler" id="toggle-sidebar" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></a>
+                <a class="toggler" id="toggle-sidebar" onclick="toggleSidebar('header-sidebar')"><i
+                        class="fa-solid fa-bars"></i></a>
             </div>
             <!-- SIDEBAR -->
             <div class="container sidebar" id="header-sidebar">
                 <ul class="menu-list">
+                    <li>Hi there <span class="display-username"></span>!</li>
                     <li><a href="">HOME</a></li>
-                    <li><a href="">SPORTS</a></li>
+                    <li><a href="">SNEAKERS</a></li>
                     <li><a href="">PROFESSIONAL</a></li>
                     <li><a href="">KIDS</a></li>
-                    <li><a href="">BRANDS</a></li>
                     <li>
                         <!-- SIDEBAR ACCOUNT DROPDOWN -->
-                        <a onclick="toggleSidebarAccount()"><span>ACCOUNT</span> <i class="fa-solid fa-chevron-down"></i></a>
+                        <a onclick="toggleSidebarAccount()"><span>ACCOUNT</span> <i
+                                class="fa-solid fa-chevron-down"></i></a>
                         <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
                             <ul class="menu-list" id="login-dropdown">
-                                <li><a onclick="toggleLogin(); toggleSidebar()"><span>Log in</span></a></li>
-                                <li><a onclick="toggleSignup(); toggleSidebar()"><span>Sign up</span></a></li>
-                                <li><a onclick="toggleMyAccount(); toggleSidebar()"><span>My Account</span></a></li>
-                                <li><a class="login-auth"><span>My Order</span></a></li>
-                                <li><a class="login-auth"><span>Sign Out</span></a></li>
+                                <li class="logged-out"><a
+                                        onclick="toggleVisibility('login-user'); toggleSidebar()"><span>Log
+                                            in</span></a></li>
+                                <li class="logged-out"><a
+                                        onclick="toggleVisibility('signup-user'); toggleSidebar()"><span>Sign
+                                            up</span></a></li>
+                                <li class="admin"><a href="admin.html"><span>Manage*</span></a></li>
+                                <li class="logged-in"><a
+                                        onclick="toggleVisibility('account-user'); toggleSidebar(); loadUserInfo()"><span>My
+                                            Account</span></a></li>
+                                <li class="logged-in"><a><span>My Order</span></a></li>
+                                <li class="logged-in"><a onclick="signOut(); toggleSidebar()"><span>Sign Out</span></a>
+                                </li>
                             </ul>
                         </div>
                     </li>
                     <li><a>CART</a></li>
-                </ul>   
+                </ul>
             </div>
         </div>
     </header>
@@ -88,7 +107,8 @@
                     <form action="" class="search-engine">
                         <div class="form-group">
                             <a><i class="fa-solid fa-magnifying-glass"></i></a>
-                            <input type="text" class="form-input-bar" id="search-term" name="search-term" placeholder="Search by product, category, or keyword">
+                            <input type="text" class="form-input-bar" id="search-term" name="search-term"
+                                placeholder="Search by product, category, or keyword">
                         </div>
                     </form>
                 </div>
@@ -97,42 +117,52 @@
         <!-- LOG-IN -->
         <div class="container hidden toggle-page" id="login-user">
             <div class="main-login">
-                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleLogin()"></i>
+                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('login-user')"></i>
                 <div class="main-login-header">
                     <h2>LOGIN</h2>
-                    <div class="form-msg-error"></div>
                 </div>
                 <div class="main-login-body">
-                    <form action="" class="login-form">
-                        <input class="form-input-bar" type="text" id="username-login" name="username-login" placeholder="Username or Phone number*">
-                        <input class="form-input-bar" type="text" id="password-login" name="password-login" placeholder="Password*">
-                        <button>LOGIN</button>
+                    <div class="form-msg-error hidden" id="login-form-msg-error"></div>
+                    <form action="" class="login-form" id="login-form">
+                        <input class="form-input-bar" type="text" id="username-login" name="username-login"
+                            placeholder="Username or Phone number*">
+                        <input class="form-input-bar" type="password" id="password-login" name="password-login"
+                            placeholder="Password*">
+                        <button onclick="handleLoginForm()">LOGIN</button>
                     </form>
                 </div>
                 <div class="main-login-footer">
-                    <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleSignup()">SIGN UP</a></span></p>
+                    <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('signup-user')">SIGN UP</a></span></p>
                 </div>
             </div>
         </div>
         <!-- SIGN-UP -->
         <div class="container hidden toggle-page" id="signup-user">
             <div class="main-login">
-                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleSignup()"></i>
+                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('signup-user')"></i>
                 <div class="main-login-header">
                     <h2>SIGN UP</h2>
-                    <div class="form-msg-error"></div>
                 </div>
                 <div class="main-login-body">
-                    <form action="" class="login-form">
-                        <input class="form-input-bar" type="text" id="username-signup" name="username-signup" placeholder="Username*">
-                        <input class="form-input-bar" type="text" id="phone-signup" name="phone-signup" placeholder="Phone number*">
-                        <input class="form-input-bar" type="text" id="password-signup" name="password-signup" placeholder="Password*">
-                        <input class="form-input-bar" type="text" id="confirm-password-signup" name="password-signup" placeholder="Confirm Password*">
-                        <button>SIGN UP</button>
+                    <div class="form-msg-error hidden" id="signup-form-msg-error"></div>
+                    <form action="" class="login-form" id="signup-form">
+                        <input class="form-input-bar" type="text" id="username-signup" name="username-signup"
+                            placeholder="Username*">
+                        <input class="form-input-bar" type="text" id="fullname-signup" name="fullname-signup"
+                            placeholder="Full Name*">
+                        <input class="form-input-bar" type="text" id="phone-signup" name="phone-signup"
+                            placeholder="Phone number*">
+                        <input class="form-input-bar" type="text" id="address-signup" name="address-signup"
+                            placeholder="Address*">
+                        <input class="form-input-bar" type="password" id="password-signup" name="password-signup"
+                            placeholder="Password*">
+                        <input class="form-input-bar" type="password" id="confirm-password-signup"
+                            name="password-signup" placeholder="Confirm Password*">
+                        <button onclick="handleSignupForm()">SIGN UP</button>
                     </form>
                 </div>
                 <div class="main-login-footer">
-                    <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleLogin()">LOGIN</a></span></p>
+                    <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('login-user')">LOGIN</a></span></p>
                 </div>
             </div>
         </div>
@@ -141,210 +171,227 @@
             <div class="main-account">
                 <div class="main-account-header">
                     <h2>MANAGE YOUR ACCOUNT</h2>
-                    <p>Hi there, <span>[username]</span>!</p>
+                    <p>Hi there, <span class="display-username"></span>!</p>
                 </div>
                 <div class="main-account-body">
-                    <div class="main-account-body-col">
-                        <form action="" class="info-user">
+                    <div class="main-account-body-col" id="user-info-changeacc">
+                        <div class="form-msg-error hidden" id="changeacc-info-msg-error"></div>
+                        <form action="" class="info-user" id="changeacc-info-form">
                             <div class="form-group">
                                 <label for="infoname" class="form-label">Username</label>
-                                <input class="form-input-bar" type="text" name="infoname" id="infoname" placeholder="John Doe">
+                                <input class="form-input-bar" type="text" name="infoname" id="infoname"
+                                    placeholder="Username*">
+                            </div>
+                            <div class="form-group">
+                                <label for="fullname" class="form-label">Full Name</label>
+                                <input class="form-input-bar" type="text" name="fullname" id="fullname"
+                                    placeholder="Full Name*">
                             </div>
                             <div class="form-group">
                                 <label for="infophone" class="form-label">Phone number</label>
                                 <input class="form-input-bar" type="text" name="infophone" id="infophone"
-                                    placeholder="Add phone number">
+                                    placeholder="Phone number*">
                             </div>
                             <div class="form-group">
                                 <label for="infoemail" class="form-label">Email</label>
                                 <input class="form-input-bar" type="email" name="infoemail" id="infoemail"
-                                    placeholder="broshoes@gmail.com">
+                                    placeholder="example@email.com">
                                 <span class="inforemail-error form-message"></span>
                             </div>
                             <div class="form-group">
                                 <label for="infoaddress" class="form-label">Address</label>
                                 <input class="form-input-bar" type="text" name="infoaddress" id="infoaddress"
-                                placeholder="Add address for shipping">
+                                    placeholder="Add address for shipping">
                             </div>
                             <div class="form-group">
-                                <button id="save-info-user" onclick="changeAccInfo()"><i class="fa-regular fa-floppy-disk"></i>Save changes</button>
+                                <button id="save-info-user" onclick="changeAccInfo()"><i
+                                        class="fa-regular fa-floppy-disk"></i>Save changes</button>
                             </div>
                         </form>
+                        <a onclick="toggleChangePass()"><i class="fa-solid fa-key"></i><span>Change Password</span></a>
                     </div>
-                    <div class="main-account-body-col">
+                    <div class="main-account-body-col hidden" id="user-info-changepass">
                         <div>
                             <h4>CHANGE YOUR PASSWORD</h4>
                         </div>
-                        <form action="" class="change-password">
+                        <div class="form-msg-error hidden" id="changepass-info-msg-error"></div>
+                        <form action="" class="change-password" id="changepass-form">
                             <div class="form-group">
                                 <label for="curr-pass" class="form-label">Current password</label>
                                 <input class="form-input-bar" type="password" name="curr-pass" id="password-cur-info"
-                                    placeholder="Enter current password">
+                                    placeholder="Enter current password*">
                             </div>
                             <div class="form-group">
                                 <label for="new-pass" class="form-label">New password</label>
                                 <input class="form-input-bar" type="password" name="new-pass" id="password-after-info"
-                                    placeholder="Enter new password">                            
+                                    placeholder="Enter new password*">
                             </div>
                             <div class="form-group">
                                 <label for="confirm-new-pass" class="form-label">Confirm new password</label>
-                                <input class="form-input-bar" type="password" name="confirm-new-pass" id="password-comfirm-info"
-                                    placeholder="Confirm new password">
+                                <input class="form-input-bar" type="password" name="confirm-new-pass"
+                                    id="password-comfirm-info" placeholder="Confirm new password*">
                             </div>
                             <div class="form-group">
-                               <button id="save-password" onclick="changePassword()"><i class="fa-solid fa-key"></i>Change password</button>
+                                <button id="save-password" onclick="changePassword()"><i
+                                        class="fa-solid fa-key"></i>Change password</button>
                             </div>
                         </form>
+                        <a onclick="toggleChangePass()"><i class="fa-solid fa-angle-left"></i><span>Return</span></a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- MAIN - CATALOUGE -->
-        <!-- SNEAKER -->
-        <div class="catalogue-container always-active-page">
+        <!-- CATALOGUE -->
+        <div class="catalogue-container always-active-page" id="catalogue">
             <div class="catalogue-name">[template]</div>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search products">
             </div>
-            <div class="details-search-bar hide-on-pc show-on-mobile">
+            <div class="details-search-bar hide-on-pc show-on-mobile" onclick="toggleSidebar('details-search-sidebar')">
                 <i class="fa-solid fa-bars"></i>
                 <p>Filter by</p>
             </div>
             <div class="catalogue-info">
                 <ul class="products-amount">
-                    <p>products</p></ul>
-                <ul class="filter">
-                    <label for="dropdown-toggle">Date, new to old
+                    <p>products</p>
+                </ul>
+                <ul class="sortby">
+                    <label for="dropdown-toggle">
+                        Sort by:
+                        <span id="sortby-mode-display">None</span>
                         <span class="dropdown-arrow">&#9662;</span>
                     </label>
                     <!-- Hidden checkbox to control the dropdown -->
                     <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
                     <ul class="dropdown">
-                        <li>Alphabetically, A-Z</li>
-                        <li>Alphabetically, Z-A</li>
-                        <li>Price, low to high</li>
-                        <li>Price, high to low</li>
+                        <li class="sortby-option">None</li>
+                        <li class="sortby-option">Alphabetically, A-Z</li>
+                        <li class="sortby-option">Alphabetically, Z-A</li>
+                        <li class="sortby-option">Price, low to high</li>
+                        <li class="sortby-option">Price, high to low</li>
                     </ul>
                 </ul>
-                </ul>
             </div>
-            <div class="main-container">
-                    <div class="details-search hide-on-mobile">
-                        <div class="dropdown">
-                            <ul class="dropdown-header">
-                                <li onclick="toggleDropdown('brand-menu')">BRAND</li>
-                            </ul>
-                            <ul class="dropdown-menu" id="brand-menu">
-                                <li>ADIDAS</li>
-                                <li>CONVERSE</li>
-                                <li>NIKE</li>
-                                <li>BITI'S</li>
-                            </ul>
-                        </div>
-                        <!-- SIZE Dropdown -->
-                        <div class="dropdown">
-                            <ul class="dropdown-header">
-                                <li onclick="toggleDropdown('size-menu')">SIZE</li>
-                            </ul>
-                            <ul class="dropdown-menu" id="size-menu">
-                                <li>Small</li>
-                                <li>Medium</li>
-                                <li>Large</li>
-                            </ul>
-                        </div>
-                
-                        <!-- GENDER Dropdown -->
-                        <div class="dropdown">
-                            <ul class="dropdown-header">
-                                <li onclick="toggleDropdown('gender-menu')">GENDER</li>
-                            </ul>
-                            <ul class="dropdown-menu" id="gender-menu">
-                                <li>Men</li>
-                                <li>Women</li>
-                                <li>Unisex</li>
-                            </ul>
-                        </div>
-                
-                        <!-- PRICE Dropdown -->
-                        <div class="dropdown">
-                            <ul class="dropdown-header">
-                                <li onclick="toggleDropdown('price-menu')">PRICE</li>
-                            </ul>
-                            <ul class="dropdown-menu" id="price-menu">
-                                <li>Under $50</li>
-                                <li>$50 - $100</li>
-                                <li>$100 - $150</li>
-                                <li>Above $150</li>
-                            </ul>
-                        </div>        
-                    </div>
-                <div class="shoes-box show-on-mobile">
-                    <div>
-                        <img src="asset/img/catalogue/GAZELLE-INDOOR-(W).jpg" alt="Shoe Image">
-                        <div class="shoes-name">GAZELLE INDOOR (W)</div>
-                        <div class="shoes-price">2.900.000 ₫</div>
-                    </div>
-                    <div>
-                        <img src="asset/img/catalogue/SAMBA-XLG.jpg" alt="Shoe Image">
-                        <div class="shoes-name">SAMBA XLG</div>
-                        <div class="shoes-price">3.000.000 ₫</div>
-                    </div>
-                    <div>
-                        <img src="asset/img/catalogue/SL72-RS.jpg" alt="Shoe Image">
-                        <div class="shoes-name">SL72 RS</div>
-                        <div class="shoes-price">2.400.000 ₫</div>
-                    </div>
-                    <div>
-                        <img src="asset/img/catalogue/HANDBALL-SPEZIAL-(W).jpg" alt="Shoe Image">
-                        <div class="shoes-name">HANDBALL SPEZIAL (W)</div>
-                        <div class="shoes-price">2.900.000 ₫</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/250" alt="Shoe Image">
-                        <div class="shoes-name">Running Shoes</div>
-                        <div class="shoes-price">$79.99</div>
-                    </div>
+            <!-- CATALOGUE - DETAILS SEARCH SIDEBAR -->
+            <div class="details-search sidebar" id="details-search-sidebar">
+                <a><i class="fa-solid fa-xmark" onclick="toggleSidebar('details-search-sidebar')"></i></a>
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('brand-menu-sidebar')">BRAND</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="brand-menu-sidebar">
+                        <li class="filter-option">ADIDAS</li>
+                        <li class="filter-option">CONVERSE</li>
+                        <li class="filter-option">NIKE</li>
+                        <li class="filter-option">BITI'S</li>
+                    </ul>
+                </div>
+                <!-- SIZE Dropdown -->
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('size-menu-sidebar')">SIZE</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="size-menu-sidebar">
+                        <li class="filter-option">Small</li>
+                        <li class="filter-option">Medium</li>
+                        <li class="filter-option">Large</li>
+                    </ul>
+                </div>
+
+                <!-- GENDER Dropdown -->
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('gender-menu-sidebar')">GENDER</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="gender-menu-sidebar">
+                        <li class="filter-option">Male</li>
+                        <li class="filter-option">Female</li>
+                        <li class="filter-option">Unisex</li>
+                    </ul>
+                </div>
+
+                <!-- PRICE Dropdown -->
+                <div class="dropdown">
+                    <ul class="dropdown-header">
+                        <li onclick="toggleDropdown('price-menu-sidebar')">PRICE</li>
+                    </ul>
+                    <ul class="dropdown-menu" id="price-menu-sidebar">
+                        <li>Under $50</li>
+                        <li>$50 - $100</li>
+                        <li>$100 - $150</li>
+                        <li>Above $150</li>
+                    </ul>
+                </div>
+                <div>
+                    <button onclick="toggleSidebar('details-search-sidebar')">APPLY FILTER</button>
+                    <a onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i><span>RESET FILTER</span></a>
                 </div>
             </div>
-         </div>
-        <!-- FORMAL -->
-        <!-- KIDS -->
+            <!-- CATALOOGUE - MAIN -->
+            <div class="main-container">
+                <div class="details-search hide-on-mobile">
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('brand-menu')">BRAND</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="brand-menu">
+                            <li class="filter-option">ADIDAS</li>
+                            <li class="filter-option">CONVERSE</li>
+                            <li class="filter-option">NIKE</li>
+                            <li class="filter-option">BITI'S</li>
+                        </ul>
+                    </div>
+                    <!-- SIZE Dropdown -->
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="size-menu">
+                            <li class="filter-option">Small</li>
+                            <li class="filter-option">Medium</li>
+                            <li class="filter-option">Large</li>
+                        </ul>
+                    </div>
+
+                    <!-- GENDER Dropdown -->
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="gender-menu">
+                            <li class="filter-option">Male</li>
+                            <li class="filter-option">Female</li>
+                            <li class="filter-option">Unisex</li>
+                        </ul>
+                    </div>
+
+                    <!-- PRICE Dropdown -->
+                    <div class="dropdown">
+                        <ul class="dropdown-header">
+                            <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                        </ul>
+                        <ul class="dropdown-menu" id="price-menu">
+                            <li>Under $50</li>
+                            <li>$50 - $100</li>
+                            <li>$100 - $150</li>
+                            <li>Above $150</li>
+                        </ul>
+                    </div>
+                    <!-- RESET FILTER -->
+                    <div>
+                        <a onclick="resetFilter()">RESET FILTER</a>
+                    </div>
+                </div>
+                <!-- DISPLAY PRODUCTS -->
+                <div class="shoes-box-container show-on-mobile">
+                    <div id="product-container" class="shoes-box"></div>
+                    <div class="pagination"></div>
+                    <script src="js/products.js"></script>
+                    <!-- Liên kết tới file js external -->
+                </div>
+            </div>
+        </div>
         <!-- PREFOOTER -->
         <div class="container" id="prefooter">
             <div class="prefooter-div">
@@ -354,7 +401,7 @@
             <div class="prefooter-div">
                 <i class="fa-solid fa-truck"></i>
                 <span>EXPRESS DELIVERY</span>
-           </div>
+            </div>
             <div class="prefooter-div">
                 <i class="fa-solid fa-headset"></i>
                 <span>24/7 CUSTOMER SERVICES</span>
@@ -398,7 +445,7 @@
                         <i class="fa-solid fa-envelope"></i>
                     </div>
                     <div class="contact-content-div">
-                        <span>broshoes@domain.com</span>                    
+                        <span>broshoes@domain.com</span>
                     </div>
                 </div>
                 <div class="contact-div">
@@ -422,5 +469,7 @@
         </div>
     </footer>
     <script src="js\main.js"></script>
+    <script src="js\toast-msg.js"></script>
 </body>
+
 </html>
