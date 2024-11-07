@@ -336,7 +336,8 @@
 //     }
 // }
 
-// Doi sang dinh dang tien VND
+// Mới thêm
+// Doi sang dinh dang tien VND 
 function vnd(price) {
     return new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -344,6 +345,7 @@ function vnd(price) {
     }).format(price);
 }
 
+// Mới sửa
 const itemsPerPage = 8;
 let currentPage = 1;
 
@@ -415,6 +417,7 @@ function displayProducts(page) {
     productContainer.innerHTML = productHTML;
 }
 
+// Cần sửa lại
 // Dynamically create modal structure
 function createModal(img, productname, price, sizeArray) {
     const sizeButtonsHTML = sizeArray.map(size => `
