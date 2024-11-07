@@ -1,8 +1,10 @@
-const products = [
-    { 
+//Khoi tao danh sach san pham
+// function createProduct() {
+//     if (localStorage.getItem('products') == null) {
+        let products = [{
         id: 1,
         name: "70 COURT CANVAS HI",
-        price: "2.000.000 ₫",
+        price: "2000000",
         image: "../asset/img/catalogue/70-COURT-CANVAS-HI.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -12,7 +14,7 @@ const products = [
     { 
         id: 2,
         name: "AIR FLIGHT 89 (GS)",
-        price: "2.400.000 ₫",
+        price: "2400000",
         image: "../asset/img/catalogue/AIR-FLIGHT-89-(GS).jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -22,7 +24,7 @@ const products = [
     { 
         id: 3,
         name: "AIR FORCE 1 LV8-3 (GS)",
-        price: "3.200.000 ₫",
+        price: "3200000",
         image: "../asset/img/catalogue/AIR-FORCE-1-LV8-3-(GS).jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -32,7 +34,7 @@ const products = [
     { 
         id: 4,
         name: "AIR FORCE 1'07", 
-        price: "3.500.000 ₫", 
+        price: "3500000", 
         image: "../asset/img/catalogue/AIR-FORCE-1'07.jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -42,7 +44,7 @@ const products = [
     { 
         id: 5,
         name: "AIR MAX 90 LTR", 
-        price: "4.600.000 ₫", 
+        price: "4600000", 
         image: "../asset/img/catalogue/AIR-MAX-90-LTR.jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -52,7 +54,7 @@ const products = [
     { 
         id: 6,
         name: "AIR TERRRA HUMARA", 
-        price: "3.200.000 ₫", 
+        price: "3200000", 
         image: "../asset/img/catalogue/AIR-TERRA-HUMARA.jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -62,7 +64,7 @@ const products = [
     { 
         id: 7,
         name: "AIRIZONA VEG THYME", 
-        price: "3.500.000 ₫", 
+        price: "3500000", 
         image: "../asset/img/catalogue/AIRIZONA-VEG-THYME.jpg",
         category: "Sandal",
         brand: "BirkenStock",
@@ -72,7 +74,7 @@ const products = [
     { 
         id: 8,
         name: "ARIZONA BLACKBIRKO FLOR SFB", 
-        price: "3.200.000 ₫", 
+        price: "3200000", 
         image: "../asset/img/catalogue/ARIZONA-BLACKBIRKO-FLOR-SFB.jpg",
         category: "Sandal",
         brand: "BirkenStock",
@@ -82,7 +84,7 @@ const products = [
     { 
         id: 9,
         name: "ARIZONA TOBACCO BROWN OILDED LEATHER", 
-        price: "4.000.000 ₫", 
+        price: "4000000", 
         image: "../asset/img/catalogue/ARIZONA-TOBACCO-BROWN-OILED-LEATHER.jpg",
         category: "Sandal",
         brand: "BirkenStock",
@@ -92,7 +94,7 @@ const products = [
     { 
         id: 10,
         name: "CHUCK 70 SEASONAL", 
-        price: "1.650.000 ₫", 
+        price: "1650000", 
         image: "../asset/img/catalogue/CHUCK-70-SEASONAL.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -102,7 +104,7 @@ const products = [
     { 
         id: 11,
         name: "DUNK LOW (W)", 
-        price: "3.500.000 ₫", 
+        price: "3500000", 
         image: "../asset/img/catalogue/DUNK-LOW-(W).jpg",
         category: "Sneaker",
         brand: "Nike",
@@ -112,7 +114,7 @@ const products = [
     { 
         id: 12,
         name: "FASTBREAK PRO SUEDE MID", 
-        price: "2.800.000 ₫", 
+        price: "2800000", 
         image: "../asset/img/catalogue/FASTBREAK-PRO-SUEDE-MID.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -122,7 +124,7 @@ const products = [
     { 
         id: 13,
         name: "FENG CHENG WANG QS", 
-        price: "4.200.000 ₫", 
+        price: "4200000", 
         image: "../asset/img/catalogue/FENG-CHENG-WANG-QS.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -132,7 +134,7 @@ const products = [
     { 
         id: 14,
         name: "GAZELLE (PS)", 
-        price: "1.800.000 ₫", 
+        price: "1800000", 
         image: "../asset/img/catalogue/GAZELLE-(PS).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -142,7 +144,7 @@ const products = [
     { 
         id: 15,
         name: "GAZELLE INDOOR (W)", 
-        price: "2.800.000 ₫", 
+        price: "2800000", 
         image: "../asset/img/catalogue/GAZELLE-INDOOR-(W).jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -152,7 +154,7 @@ const products = [
     { 
         id: 16,
         name: "HANDBALL SPEZIAL (W)", 
-        price: "2.500.000 ₫", 
+        price: "2500000", 
         image: "../asset/img/catalogue/HANDBALL-SPEZIAL-(W).jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -162,7 +164,7 @@ const products = [
     { 
         id: 17,
         name: "NIKE CALM BEIGE (W)", 
-        price: "2.349.000 ₫", 
+        price: "2349000", 
         image: "../asset/img/catalogue/Nike_Calm_Be(w).jpg",
         category: "Sandal",
         brand: "Nike",
@@ -172,7 +174,7 @@ const products = [
     { 
         id: 18,
         name: "NMD S1", 
-        price: "3.000.000 ₫", 
+        price: "3000000", 
         image: "../asset/img/catalogue/NMD_S1.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -182,7 +184,7 @@ const products = [
     { 
         id: 19,
         name: "RUN STAR HIKE HI", 
-        price: "3.200.000 ₫", 
+        price: "3200000", 
         image: "../asset/img/catalogue/RUN-STAR-HIKE-HI.jpg",
         category: "Sneaker",
         brand: "Converse",
@@ -192,7 +194,7 @@ const products = [
     {
         id: 20,
         name: "SAMBA OG", 
-        price: "2.500.000 ₫", 
+        price: "2500000", 
         image: "../asset/img/catalogue/SAMBA-OG.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -202,7 +204,7 @@ const products = [
     { 
         id: 21,
         name: "SABA XLG", 
-        price: "3.500.000 ₫", image: "../asset/img/catalogue/SAMBA-XLG.jpg",
+        price: "3500000", image: "../asset/img/catalogue/SAMBA-XLG.jpg",
         category: "Sneaker",
         brand: "Adidas",
         sex: "M",
@@ -211,7 +213,7 @@ const products = [
     {
         id: 22,
         name: "SL72 RS (PS)", 
-        price: "2.000.000 ₫", 
+        price: "2000000", 
         image: "../asset/img/catalogue/SL-72-RS-(PS).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -221,7 +223,7 @@ const products = [
     { 
         id: 23,
         name: "SL72 RS (TD)", 
-        price: "1.800.000 ₫", 
+        price: "1800000", 
         image: "../asset/img/catalogue/SL72-RS-(TD).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -231,7 +233,7 @@ const products = [
     { 
         id: 24,
         name: "SL72 RS", 
-        price: "2.500.000 ₫", 
+        price: "2500000", 
         image: "../asset/img/catalogue/SL72-RS.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -241,7 +243,7 @@ const products = [
     { 
         id: 25,
         name: "STAN SMITH (TD)", 
-        price: "1.500.000 ₫", 
+        price: "1500000", 
         image: "../asset/img/catalogue/STAN-SMITH-(TD).jpg",
         category: "Kid",
         brand: "Adidas",
@@ -251,7 +253,7 @@ const products = [
     { 
         id: 26,
         name: "SUPERSTAR", 
-        price: "2.500.000 ₫", 
+        price: "2500000", 
         image: "../asset/img/catalogue/SUPERSTAR.jpg",
         category: "Sneaker",
         brand: "Adidas",
@@ -261,7 +263,7 @@ const products = [
     { 
         id: 27,
         name: "TEVA HURRICANE DRIFT (M)", 
-        price: "990.000 ₫", 
+        price: "990000", 
         image: "../asset/img/catalogue/Teva_Hurricane_Drift(m)-990k.jpg",
         category: "Sandal",
         brand: "Teva",
@@ -271,7 +273,7 @@ const products = [
     { 
         id: 28,
         name: "TEVA TERRA FI 5 UNIVERSAL", 
-        price: "2.099.000 ₫", 
+        price: "2099000", 
         image: "../asset/img/catalogue/Teva_Terra_Fi_5_Universal-2099k.jpg",
         category: "Sandal",
         brand: "Teva",
@@ -281,7 +283,7 @@ const products = [
     { 
         id: 29,
         name: "TEVA VOYA STRAPPY (W)", 
-        price: "845.000 ₫", 
+        price: "845000", 
         image: "../asset/img/catalogue/Teva_Voya_Strappy(w)-845k.jpg",
         category: "Sandal",
         brand: "Teva",
@@ -291,7 +293,7 @@ const products = [
     {
         id: 30,
         name: "TEVA ZYMIC (W)", 
-        price: "1.600.000 ₫", 
+        price: "1600000", 
         image: "../asset/img/catalogue/Teva_Zymic-1600k(w).jpg",
         category: "Sandal",
         brand: "Teva",
@@ -301,7 +303,7 @@ const products = [
     {
         id: 31,
         name: "TEVA SANDALS HURRICANE (W)", 
-        price: "1.900.000 ₫", 
+        price: "1900000", 
         image: "../asset/img/catalogue/TevaSandalsHunrricane(w).jpg",
         category: "Sandal",
         brand: "Teva",
@@ -311,7 +313,7 @@ const products = [
     { 
         id: 32,
         name: "UNISEX FILA PONG SD (W)", 
-        price: "1.595.000 ₫", 
+        price: "1595000", 
         image: "../asset/img/catalogue/Unisex_Fila_Pong_Sd-1595k(w).jpg",
         category: "Sandal",
         brand: "Fila",
@@ -321,7 +323,7 @@ const products = [
     { 
         id: 33,
         name: "UNISEX FILA TORI (M)", 
-        price: "1.995.000 ₫", 
+        price: "1995000", 
         image: "../asset/img/catalogue/unisex_fila_tori-1995k(m).jpg",
         category: "Sandal",
         brand: "Fila",
@@ -330,7 +332,17 @@ const products = [
     },
 
 ];
+// localStorage.setItem('products', JSON.stringify(products));
+//     }
+// }
 
+// Doi sang dinh dang tien VND
+function vnd(price) {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(price);
+}
 
 const itemsPerPage = 8;
 let currentPage = 1;
@@ -341,32 +353,10 @@ function setupPagination() {
     paginationContainer.innerHTML = ""; // Clear existing pagination buttons
 
     const totalPages = Math.ceil(products.length / itemsPerPage);
-    const maxButtons = 3; // Total visible buttons in pagination (not including first/last)
-    const half = Math.floor(maxButtons / 2);
-    const startPage = Math.max(2, currentPage - half); // Start after page 1
-    const endPage = Math.min(totalPages - 1, currentPage + half); // End before last page
 
-    // Add first page button
-    createPageButton(1);
-
-    // Add ellipsis if starting page is greater than 2
-    if (startPage > 2) {
-        createEllipsis();
-    }
-
-    // Add page buttons around the current page
-    for (let i = startPage; i <= endPage; i++) {
+    // Create page buttons for all pages
+    for (let i = 1; i <= totalPages; i++) {
         createPageButton(i);
-    }
-
-    // Add ellipsis if ending page is less than the last page - 1
-    if (endPage < totalPages - 1) {
-        createEllipsis();
-    }
-
-    // Add last page button
-    if (totalPages > 1) {
-        createPageButton(totalPages);
     }
 
     // Highlight current page button
@@ -391,15 +381,6 @@ function createPageButton(pageNumber) {
     paginationContainer.appendChild(button);
 }
 
-// Helper function to create ellipsis
-function createEllipsis() {
-    const paginationContainer = document.querySelector(".pagination");
-    const ellipsis = document.createElement("span");
-    ellipsis.textContent = "...";
-    ellipsis.className = "ellipsis";
-    paginationContainer.appendChild(ellipsis);
-}
-
 // Helper function to highlight the current page
 function highlightCurrentPage() {
     const buttons = document.querySelectorAll(".pagination-button");
@@ -411,26 +392,26 @@ function highlightCurrentPage() {
 // Function to display products
 function displayProducts(page) {
     const productContainer = document.getElementById("product-container");
-    productContainer.innerHTML = ""; // Xóa nội dung hiện tại
+    productContainer.innerHTML = ""; // Clear current content
 
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const productsToDisplay = products.slice(start, end);
 
-    let productHTML = ""; // Tạo chuỗi HTML
+    let productHTML = ""; // Create HTML string
 
     productsToDisplay.forEach(product => {
-        // Tạo khối HTML cho sản phẩm
+        // Create HTML block for each product
         productHTML += `
             <div class="product-box" onclick="openProductDetails(${product.id})">
                 <img src="${product.image}" alt="${product.name}" onerror="this.src='../asset/img/catalogue/coming-soon.jpg'" />
                 <div class="shoes-name">${product.name}</div>
-                <div class="shoes-price">${product.price}</div>
+                <div class="shoes-price">${vnd(product.price)}</div>
             </div>
         `;
     });
 
-    // Gán chuỗi HTML vào innerHTML của container
+    // Set HTML string to the container's innerHTML
     productContainer.innerHTML = productHTML;
 }
 
@@ -450,7 +431,7 @@ function createModal(img, productname, price, sizeArray) {
                 </div>
                 <div class="product-info">
                     <h2 id="modalProductName">${productname}</h2>
-                    <p id="modalProductPrice">${price}</p>
+                    <p id="modalProductPrice">${vnd(price)}</p>
                     <div class="size-container">${sizeButtonsHTML}</div>
                     <div>
                         <button class="add-to-cart-button">Add to cart</button>
@@ -475,16 +456,18 @@ function openProductDetails(productId) {
     const product = products.find(p => p.id === productId);
     if (product) {
         createModal(product.image, product.name, product.price, product.size);
+        const modal = document.getElementById("productDetailsModal");
+        modal.classList.add("active"); // Add class to show modal
     }
 }
 
 function closeProductDetails() {
-    document.getElementById("productDetailsModal").style.display = "none";
-}
-
-// Function to close the modal
-function closeProductDetails() {
-document.getElementById("productDetailsModal").style.display = "none";
+    const modal = document.getElementById("productDetailsModal");
+    if (modal) {
+        modal.style.display = "none";
+    }
+    // Đảm bảo .pagination có thể nhận sự kiện
+    document.querySelector(".pagination").style.pointerEvents = "auto";
 }
 
 // Initialize pagination and display products on page load

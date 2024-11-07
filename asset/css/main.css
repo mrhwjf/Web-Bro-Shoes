@@ -656,6 +656,7 @@ ul.dropdown li:hover {
     padding: 3rem;
 }
 
+
 .modal-content {
     background: var(--bg-main-color); /* Background color for modal content */
     border-radius: 8px; 
@@ -679,7 +680,7 @@ ul.dropdown li:hover {
 }
 
 .modal-product-image {
-    flex: 0 0 300px;
+    flex: 0 0 350px;
     outline: 1px solid black; /* Border around the image */
     width: 50%;
 }
@@ -694,6 +695,9 @@ ul.dropdown li:hover {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+    margin-top: 30px;
+    margin-left: 20px;
+    width: 130px;
 }
 
 #modalProductName {
@@ -760,6 +764,7 @@ ul.dropdown li:hover {
     gap: 5px;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 
 .pagination-button {
