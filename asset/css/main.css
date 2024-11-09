@@ -604,7 +604,6 @@ ul.dropdown li:hover {
 /* PRODUCTS BOX */
 .product-box-container {
     width: 100%;
-    /* float: left; */
     border: 1px solid black;
     border-top: none;
     background-color: #fdfbf5;
@@ -614,10 +613,14 @@ ul.dropdown li:hover {
 }
 
 .product-box {
-    width: 50%; /* Width of each shoe box, so three can fit side-by-side in 450px width */
-    background-color: #fdfbf5;
+    width: 50%;
+    background-color: var(--bg-main-color);
     padding: 20px;
     outline: 1px solid black;
+}
+
+.product-box-container :hover {
+    cursor: pointer;
 }
 
 /* Image styling */
@@ -643,72 +646,192 @@ ul.dropdown li:hover {
 
 /* MODAL PRODUCT DETAILS */
 
-.product-details-modal {
+.modal {
+    background-color: rgba(0, 0, 0, .6);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    z-index: 100;
-    top: 3rem;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 3rem);
-    background: rgba(0, 0, 0, 0.25);
-    padding: 3rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 16;
 }
 
-
-.modal-content {
-    background: var(--bg-main-color); /* Background color for modal content */
-    border-radius: 8px; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: shadow for depth */
-    position: relative; /* For absolute positioning of close button */
-    overflow-y: auto;
-
+.modal.open {
+    pointer-events: auto;
+    opacity: 1;
 }
 
-.modal-content-container {
-    display: flex; /* Use flexbox for layout */
-    flex-wrap: wrap;
+.modal.open .modal-container{
+    transform: scale(1);
 }
 
-.close-modal {
+.modal-close {
+    background-color: rgb(0 0 0 / 40%);
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: 28px;
+    color: var(--white);
+    border: 0;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 50px;
+    top: 20px;
+    right: 20px;
+    padding: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.modal-product-image {
-    flex: 0 0 350px;
-    outline: 1px solid black; /* Border around the image */
-    width: 50%;
+.modal-close i {
+    transition: all 0.4s;
 }
 
-.modal-product-image img {
+.modal-close:hover i {
+    transform: rotate(180deg)
+}
+
+.modal-container {
+    background-color: var(--white);
+    max-height: calc(100vh - 60px);
+    box-shadow: 0px 4px 30px rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    overflow: hidden;
+    overflow-y: scroll;
+    overflow-y: overlay;
+    position: relative;
+    transform: scale(0.8);
+    transition: 0.3s ease;
+}
+
+.modal-body {
+    padding: 15px 20px;
+}
+
+.product-detail .modal-container {
+    width: 585px;
+}
+
+.product-image {
     width: 100%;
-    object-fit: cover; /* Ensure the image scales nicely */
+    object-fit: cover;
+    max-height: 375px;
 }
 
-.product-info {
-    flex: 1 0 300px;
+h2.product-title {
+    color: var(--black);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+
+}
+
+.product-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.priceBox .current-price {
+    color: var(--red);
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.priceBox .old-price {
+    text-decoration: line-through;
+    color: #808080;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.buttons_added {
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+.is-form {
+    background-color: #f9f9f9;
+    height: 25px;
+    width: 25px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.is-form:focus,.input-text:focus {
+    outline: none;
+}
+
+.is-form.plus,.is-form.minus {
+    border-radius: 50%;
+}
+
+.input-qty {
+    background-color: #fff;
+    height: 25px;
+    width: 30px;
+    text-align: center;
+    font-size: 14px;
+    display: inline-block;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    padding: 0;
+    border-radius: 5px;
+    outline: none;
+}
+
+.input-qty::-webkit-outer-spin-button,
+.input-qty::-webkit-inner-spin-button {
+    --webkit-appearance: none;
+    margin: 0;
+}
+
+.modal-footer {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    background-color: var(--white);
+    position: sticky;
+    bottom: 0;
+}
+
+.price-total {
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
-    margin-top: 30px;
-    margin-left: 20px;
-    width: 130px;
 }
 
-#modalProductName {
-    font-size: 2rem;
-    text-wrap: wrap;
-    font-weight: bold;
+.price-total .thanhtien {
+    color: #808080;
+    font-size: 13px;
 }
 
-#modalProductPrice {
-    font-size: 20px; /* Font size for product price */
-    color: #888; /* Color for product price */
+.price-total .price {
+    color: var(--red);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.modal-footer-control button {
+    background-color: var(--red);
+    border: none;
+    outline: none;
+    color: var(--white);
+    padding: 10px 25px;
+    font-size: 15px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
 }
 
 /* Container for size buttons */
@@ -735,23 +858,6 @@ ul.dropdown li:hover {
 .size-button:hover {
     background-color: #333; /* Change background on hover */
     color: #fff; /* Change text color on hover */
-}
-
-/* Styles for the "Add to Cart" button */
-.add-to-cart-button {
-    padding: 10px 20px; /* Padding for the button */
-    font-size: 16px; /* Font size for the button */
-    font-weight: bolder;
-    background-color: var(--theme-color-2); /* Background color for the button */
-    border: 1px solid black;
-    border-radius: 20px; /* Rounded corners for the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth background transition */
-    margin-top: 20px; /* Margin above the button */
-}
-
-.add-to-cart-button:hover {
-    opacity: 0.8;
 }
 
 /* Page Nav  */

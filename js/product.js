@@ -344,6 +344,95 @@ function vnd(price) {
     }).format(price);
 }
 
+// Close popup 
+const body = document.querySelector("body");
+let modalContainer = document.querySelectorAll('.modal');
+let modalBox = document.querySelectorAll('.mdl-cnt');
+
+// Click vùng ngoài sẽ tắt Popup
+modalContainer.forEach(item => {
+    item.addEventListener('click', closeModal);
+});
+
+modalBox.forEach(item => {
+    item.addEventListener('click', function (event) {
+        event.stopPropagation();
+    })
+});
+
+function closeModal() {
+    modalContainer.forEach(item => {
+        item.classList.remove('open');
+    });
+    console.log(modalContainer)
+    body.style.overflow = "auto";
+}
+
+function increasingNumber(e) {
+    let qty = e.parentNode.querySelector('.input-qty');
+    if (parseInt(qty.value) < qty.max) {
+        qty.value = parseInt(qty.value) + 1;
+    } else {
+        qty.value = qty.max;
+    }
+}
+
+function decreasingNumber(e) {
+    let qty = e.parentNode.querySelector('.input-qty');
+    if (qty.value > qty.min) {
+        qty.value = parseInt(qty.value) - 1;
+    } else {
+        qty.value = qty.min;
+    }
+}
+
+function detailProduct(index) {
+    let modal = document.querySelector('.modal.product-detail');
+    let products = JSON.parse(localStorage.getItem('products'));
+    event.preventDefault();
+    let infoProduct = products.find(sp => {
+        return sp.id === index;
+    })
+    const sizeButtonsHTML = sizeArray.map(size => `
+        <button class="size-button">${size}</button>
+    `).join("");
+    let modalHtml = `<div class="modal-header">
+    <img class="product-image" src="${infoProduct.image}" alt="">
+    </div>
+    <div class="modal-body">
+        <h2 class="product-title">${infoProduct.name}</h2>
+        <div class="product-control">
+            <div class="priceBox">
+                <span class="current-price">${vnd(infoProduct.price)}</span>
+            </div>
+            <div class="size-container">${sizeButtonsHTML}</div>
+    </div>
+    <div class="modal-footer">
+        <div class="price-total">
+            <span class="thanhtien">Total</span>
+            <span class="price">${vnd(infoProduct.price)}</span>
+        </div>
+        <div class="modal-footer-control">
+            <button class="button-dathangngay" data-product="${infoProduct.id}">Buy now</button>
+            <button class="button-dat" id="add-cart" onclick="animationCart()"><i class="fa-light fa-basket-shopping"></i></button>
+        </div>
+    </div>`;
+    document.querySelector('#product-detail-content').innerHTML = modalHtml;
+    modal.classList.add('open');
+    body.style.overflow = "hidden";
+    //Cap nhat gia tien khi tang so luong san pham
+    let tgbtn = document.querySelectorAll('.is-form');
+    let qty = document.querySelector('.product-control .input-qty');
+    let priceText = document.querySelector('.price');
+    tgbtn.forEach(element => {
+        element.addEventListener('click', () => {
+            let price = infoProduct.price * parseInt(qty.value);
+            priceText.innerHTML = vnd(price);
+        });
+    });
+    console.log("Product clicked:", index);
+}
+
 function displayProducts(productShow) {
     const productContainer = document.getElementById("home-product");
     productContainer.innerHTML = ""; // Clear current content
@@ -353,7 +442,7 @@ function displayProducts(productShow) {
     productShow.forEach(product => {
         // Create HTML block for each product
         productHTML += `
-            <div class="product-box"">
+            <div class="product-box" onclick="detailProduct(${product.id})">
                 <img src="${product.image}" alt="${product.name}" onerror="this.src='../asset/img/catalogue/coming-soon.jpg'" />
                 <div class="shoes-name">${product.name}</div>
                 <div class="shoes-price">${vnd(product.price)}</div>
@@ -409,13 +498,8 @@ function paginationChange(page, productAll, currentPage) {
     return node;
 }
 
-// Use a single window.onload to ensure everything is initialized correctly
 window.onload = function() {
     createProduct(); // Ensure products are created in localStorage
     let products = JSON.parse(localStorage.getItem('products')); // Fetch the products from localStorage
     showHomeProduct(products); // Display products after initialization
 }
-
-
-
-
