@@ -16,89 +16,98 @@
 </head>
 
 <body>
-    <!-- BODY - HEADER -->
-    <header>
-        <div class="container" id="header">
-            <div class="header-container-left">
-                <a onclick="location.reload()" class="header-logo">BRO SHOES</a>
+    <div class="wrapper">
+        <!-- BODY - HEADER -->
+        <header>
+            <div class="container" id="header">
+                <div class="header-container-left">
+                    <a onclick="location.reload()" class="header-logo">BRO SHOES</a>
+                </div>
+                <div class="header-container-mid hide-on-mobile">
+                    <ul class="menu-list">
+                        <li><a onclick="location.reload()" class="body-header-link">HOME</a></li>
+                        <li><a>SNEAKERS</a></li>
+                        <li><a>SANDALS</a></li>
+                        <li><a>KIDS</a></li>
+                    </ul>
+                </div>
+                <div class="header-container-right">
+                    <ul class="menu-list">
+                        <li><label for="search-bar"><a><i class="fa-solid fa-magnifying-glass"></i></label></a>
+                        </li>
+                        <li class="hide-on-mobile">
+                            <!-- ACCOUNT DROPDOWN -->
+                            <a><i class="fa-regular fa-user"></i><span class="display-username"></span></a>
+                            <div class="container float-dropdown" id="account-drop-list">
+                                <ul class="menu-list" id="login-dropdown">
+                                    <li class="logged-out"><a onclick="toggleVisibility('login-user')"><i
+                                                class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
+                                    <li class="logged-out"><a onclick="toggleVisibility('signup-user')"><i
+                                                class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
+                                    <li class="admin"><a href="admin.html"><i
+                                                class="fa-solid fa-screwdriver-wrench"></i><span>Manage*</span></a></li>
+                                    <li class="logged-in"><a
+                                            onclick="toggleVisibility('account-user'); loadUserInfo()"><i
+                                                class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
+                                    <li class="logged-in"><a onclick="toggleVisibility('order-history')"><i
+                                                class="fa-solid fa-basket-shopping"></i><span>My
+                                                Order</span></a></li>
+                                    <li class="logged-in"><a onclick="signOut()"><i
+                                                class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="hide-on-mobile"><a onclick="toggleSidebarMobile('cart')"><i
+                                    class="fa-solid fa-cart-shopping "></i></a></li>
+                    </ul>
+                </div>
+                <div class="container hamburger-menu-button hide-on-pc show-on-mobile">
+                    <a class="toggler" id="toggle-sidebar" onclick="toggleSidebarMobile('header-sidebar')"><i
+                            class="fa-solid fa-bars"></i></a>
+                </div>
+                <!-- SIDEBAR -->
+                <div class="container sidebar" id="header-sidebar">
+                    <ul class="menu-list">
+                        <li>Hi there <span class="display-username"></span>!</li>
+                        <li><a onclick="location.reload()">HOME</a></li>
+                        <li><a>SNEAKERS</a></li>
+                        <li><a>PROFESSIONAL</a></li>
+                        <li><a>KIDS</a></li>
+                        <li>
+                            <!-- SIDEBAR ACCOUNT DROPDOWN -->
+                            <a onclick="toggleSidebar('account-drop-list-sidebar')"><span>ACCOUNT</span> <i
+                                    class="fa-solid fa-chevron-down"></i></a>
+                            <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
+                                <ul class="menu-list" id="login-dropdown">
+                                    <li class="logged-out"><a
+                                            onclick="toggleVisibility('login-user'); toggleSidebarMobile('header-sidebar')"><span>Log
+                                                in</span></a></li>
+                                    <li class="logged-out"><a
+                                            onclick="toggleVisibility('signup-user'); toggleSidebarMobile('header-sidebar')"><span>Sign
+                                                up</span></a></li>
+                                    <li class="admin"><a href="admin.html"><span>Manage*</span></a></li>
+                                    <li class="logged-in"><a
+                                            onclick="toggleVisibility('account-user'); toggleSidebarMobile('header-sidebar'); loadUserInfo()"><span>My
+                                                Account</span></a></li>
+                                    <li class="logged-in"><a onclick="toggleVisibility('order-history')"><span>My
+                                                Order</span></a></li>
+                                    <li class="logged-in"><a
+                                            onclick="signOut(); toggleSidebarMobile('header-sidebar')"><span>Sign
+                                                Out</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a onclick="toggleSidebarMobile('cart'); toggleSidebarMobile('header-sidebar')">CART</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="header-container-mid hide-on-mobile">
-                <ul class="menu-list">
-                    <li><a onclick="location.reload()" class="body-header-link">HOME</a></li>
-                    <li><a>SNEAKERS</a></li>
-                    <li><a>SANDALS</a></li>
-                    <li><a>KIDS</a></li>
-                </ul>
-            </div>
-            <div class="header-container-right">
-                <ul class="menu-list">
-                    <li><a onclick="toggleVisibility('search-engine')"><i class="fa-solid fa-magnifying-glass"></i></a>
-                    </li>
-                    <li class="hide-on-mobile">
-                        <!-- ACCOUNT DROPDOWN -->
-                        <a><i class="fa-regular fa-user"></i><span class="display-username"></span></a>
-                        <div class="container account-dropdown" id="account-drop-list">
-                            <ul class="menu-list" id="login-dropdown">
-                                <li class="logged-out"><a onclick="toggleVisibility('login-user')"><i
-                                            class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
-                                <li class="logged-out"><a onclick="toggleVisibility('signup-user')"><i
-                                            class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
-                                <li class="admin"><a href="admin.html"><i
-                                            class="fa-solid fa-screwdriver-wrench"></i><span>Manage*</span></a></li>
-                                <li class="logged-in"><a onclick="toggleVisibility('account-user'); loadUserInfo()"><i
-                                            class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
-                                <li class="logged-in"><a><i class="fa-solid fa-basket-shopping"></i><span>My
-                                            Order</span></a></li>
-                                <li class="logged-in"><a onclick="signOut()"><i
-                                            class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="hide-on-mobile"><a><i class="fa-solid fa-cart-shopping "></i></a></li>
-                </ul>
-            </div>
-            <div class="container hamburger-menu-button hide-on-pc show-on-mobile">
-                <a class="toggler" id="toggle-sidebar" onclick="toggleSidebar('header-sidebar')"><i
-                        class="fa-solid fa-bars"></i></a>
-            </div>
-            <!-- SIDEBAR -->
-            <div class="container sidebar" id="header-sidebar">
-                <ul class="menu-list">
-                    <li>Hi there <span class="display-username"></span>!</li>
-                    <li><a href="">HOME</a></li>
-                    <li><a href="">SNEAKERS</a></li>
-                    <li><a href="">PROFESSIONAL</a></li>
-                    <li><a href="">KIDS</a></li>
-                    <li>
-                        <!-- SIDEBAR ACCOUNT DROPDOWN -->
-                        <a onclick="toggleSidebarAccount()"><span>ACCOUNT</span> <i
-                                class="fa-solid fa-chevron-down"></i></a>
-                        <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
-                            <ul class="menu-list" id="login-dropdown">
-                                <li class="logged-out"><a
-                                        onclick="toggleVisibility('login-user'); toggleSidebar()"><span>Log
-                                            in</span></a></li>
-                                <li class="logged-out"><a
-                                        onclick="toggleVisibility('signup-user'); toggleSidebar()"><span>Sign
-                                            up</span></a></li>
-                                <li class="admin"><a href="admin.html"><span>Manage*</span></a></li>
-                                <li class="logged-in"><a
-                                        onclick="toggleVisibility('account-user'); toggleSidebar(); loadUserInfo()"><span>My
-                                            Account</span></a></li>
-                                <li class="logged-in"><a><span>My Order</span></a></li>
-                                <li class="logged-in"><a onclick="signOut(); toggleSidebar()"><span>Sign Out</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a>CART</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
-    <main>
-        <!-- SEARCH ENGINE -->
-        <div class="container hidden toggle-page" id="search-engine">
+        </header>
+        <main>
+            <!-- SEARCH ENGINE -->
+            <!-- <div class="container hidden toggle-page" id="search-engine">
             <div class="main-search-engine">
                 <div class="main-search-engine-header">
                     <h2>LOOKING FOR SOMETHING?</h2>
@@ -113,229 +122,294 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <!-- LOG-IN -->
-        <div class="container hidden toggle-page" id="login-user">
-            <div class="main-login">
-                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('login-user')"></i>
-                <div class="main-login-header">
-                    <h2>LOGIN</h2>
-                </div>
-                <div class="main-login-body">
-                    <div class="form-msg-error hidden" id="login-form-msg-error"></div>
-                    <form action="" class="login-form" id="login-form">
-                        <input class="form-input-bar" type="text" id="username-login" name="username-login"
-                            placeholder="Username or Phone number*">
-                        <input class="form-input-bar" type="password" id="password-login" name="password-login"
-                            placeholder="Password*">
-                        <button onclick="handleLoginForm()">LOGIN</button>
-                    </form>
-                </div>
-                <div class="main-login-footer">
-                    <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('signup-user')">SIGN UP</a></span></p>
-                </div>
-            </div>
-        </div>
-        <!-- SIGN-UP -->
-        <div class="container hidden toggle-page" id="signup-user">
-            <div class="main-login">
-                <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('signup-user')"></i>
-                <div class="main-login-header">
-                    <h2>SIGN UP</h2>
-                </div>
-                <div class="main-login-body">
-                    <div class="form-msg-error hidden" id="signup-form-msg-error"></div>
-                    <form action="" class="login-form" id="signup-form">
-                        <input class="form-input-bar" type="text" id="username-signup" name="username-signup"
-                            placeholder="Username*">
-                        <input class="form-input-bar" type="text" id="fullname-signup" name="fullname-signup"
-                            placeholder="Full Name*">
-                        <input class="form-input-bar" type="text" id="phone-signup" name="phone-signup"
-                            placeholder="Phone number*">
-                        <input class="form-input-bar" type="text" id="address-signup" name="address-signup"
-                            placeholder="Address*">
-                        <input class="form-input-bar" type="password" id="password-signup" name="password-signup"
-                            placeholder="Password*">
-                        <input class="form-input-bar" type="password" id="confirm-password-signup"
-                            name="password-signup" placeholder="Confirm Password*">
-                        <button onclick="handleSignupForm()">SIGN UP</button>
-                    </form>
-                </div>
-                <div class="main-login-footer">
-                    <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('login-user')">LOGIN</a></span></p>
-                </div>
-            </div>
-        </div>
-        <!-- USER - INFO -->
-        <div class="container hidden toggle-page" id="account-user">
-            <div class="main-account">
-                <div class="main-account-header">
-                    <h2>MANAGE YOUR ACCOUNT</h2>
-                    <p>Hi there, <span class="display-username"></span>!</p>
-                </div>
-                <div class="main-account-body">
-                    <div class="main-account-body-col" id="user-info-changeacc">
-                        <div class="form-msg-error hidden" id="changeacc-info-msg-error"></div>
-                        <form action="" class="info-user" id="changeacc-info-form">
-                            <div class="form-group">
-                                <label for="infoname" class="form-label">Username</label>
-                                <input class="form-input-bar" type="text" name="infoname" id="infoname"
-                                    placeholder="Username*">
-                            </div>
-                            <div class="form-group">
-                                <label for="fullname" class="form-label">Full Name</label>
-                                <input class="form-input-bar" type="text" name="fullname" id="fullname"
-                                    placeholder="Full Name*">
-                            </div>
-                            <div class="form-group">
-                                <label for="infophone" class="form-label">Phone number</label>
-                                <input class="form-input-bar" type="text" name="infophone" id="infophone"
-                                    placeholder="Phone number*">
-                            </div>
-                            <div class="form-group">
-                                <label for="infoemail" class="form-label">Email</label>
-                                <input class="form-input-bar" type="email" name="infoemail" id="infoemail"
-                                    placeholder="example@email.com">
-                                <span class="inforemail-error form-message"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="infoaddress" class="form-label">Address</label>
-                                <input class="form-input-bar" type="text" name="infoaddress" id="infoaddress"
-                                    placeholder="Add address for shipping">
-                            </div>
-                            <div class="form-group">
-                                <button id="save-info-user" onclick="changeAccInfo()"><i
-                                        class="fa-regular fa-floppy-disk"></i>Save changes</button>
-                            </div>
-                        </form>
-                        <a onclick="toggleChangePass()"><i class="fa-solid fa-key"></i><span>Change Password</span></a>
+        </div> -->
+            <!-- LOG-IN -->
+            <div class="container toggle-page" id="login-user">
+                <div class="main-login">
+                    <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('login-user')"></i>
+                    <div class="main-login-header">
+                        <h2>LOGIN</h2>
                     </div>
-                    <div class="main-account-body-col hidden" id="user-info-changepass">
-                        <div>
-                            <h4>CHANGE YOUR PASSWORD</h4>
+                    <div class="main-login-body">
+                        <div class="form-msg-error hidden" id="login-form-msg-error"></div>
+                        <form action="" class="login-form" id="login-form">
+                            <input class="form-input-bar" type="text" id="username-login" name="username-login"
+                                placeholder="Username or Phone number*">
+                            <input class="form-input-bar" type="password" id="password-login" name="password-login"
+                                placeholder="Password*">
+                            <button onclick="handleLoginForm()">LOGIN</button>
+                        </form>
+                    </div>
+                    <div class="main-login-footer">
+                        <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('signup-user')">SIGN UP</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- SIGN-UP -->
+            <div class="container toggle-page" id="signup-user">
+                <div class="main-login">
+                    <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('signup-user')"></i>
+                    <div class="main-login-header">
+                        <h2>SIGN UP</h2>
+                    </div>
+                    <div class="main-login-body">
+                        <div class="form-msg-error hidden" id="signup-form-msg-error"></div>
+                        <form action="" class="login-form" id="signup-form">
+                            <input class="form-input-bar" type="text" id="username-signup" name="username-signup"
+                                placeholder="Username*">
+                            <input class="form-input-bar" type="text" id="fullname-signup" name="fullname-signup"
+                                placeholder="Full Name*">
+                            <input class="form-input-bar" type="number" id="phone-signup" name="phone-signup"
+                                placeholder="Phone number*" inputmode="tel">
+                            <input class="form-input-bar" type="text" id="address-signup" name="address-signup"
+                                placeholder="Address*">
+                            <input class="form-input-bar" type="password" id="password-signup" name="password-signup"
+                                placeholder="Password*">
+                            <input class="form-input-bar" type="password" id="confirm-password-signup"
+                                name="password-signup" placeholder="Confirm Password*">
+                            <button onclick="handleSignupForm()">SIGN UP</button>
+                        </form>
+                    </div>
+                    <div class="main-login-footer">
+                        <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('login-user')">LOGIN</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- USER - INFO -->
+            <div class="container hidden toggle-page" id="account-user">
+                <div class="main-account">
+                    <div class="main-account-header">
+                        <h2>MANAGE YOUR ACCOUNT</h2>
+                        <p>Hi there, <span class="display-username"></span>!</p>
+                    </div>
+                    <div class="main-account-body">
+                        <div class="main-account-body-col" id="user-info-changeacc">
+                            <div class="form-msg-error hidden" id="changeacc-info-msg-error"></div>
+                            <form action="" class="info-user" id="changeacc-info-form">
+                                <div class="form-group">
+                                    <label for="infoname" class="form-label">Username</label>
+                                    <input class="form-input-bar" type="text" name="infoname" id="infoname"
+                                        placeholder="Username*">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fullname" class="form-label">Full Name</label>
+                                    <input class="form-input-bar" type="text" name="fullname" id="fullname"
+                                        placeholder="Full Name*">
+                                </div>
+                                <div class="form-group">
+                                    <label for="infophone" class="form-label">Phone number</label>
+                                    <input class="form-input-bar" type="number" name="infophone" id="infophone"
+                                        placeholder="Phone number*" inputmode="tel">
+                                </div>
+                                <div class="form-group">
+                                    <label for="infoemail" class="form-label">Email</label>
+                                    <input class="form-input-bar" type="email" name="infoemail" id="infoemail"
+                                        placeholder="example@email.com" inputmode="email">
+                                    <span class="inforemail-error form-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="infoaddress" class="form-label">Address</label>
+                                    <input class="form-input-bar" type="text" name="infoaddress" id="infoaddress"
+                                        placeholder="Add address for shipping">
+                                </div>
+                                <div class="form-group">
+                                    <button id="save-info-user" onclick="changeAccInfo()"><i
+                                            class="fa-regular fa-floppy-disk"></i>Save changes</button>
+                                    <button id="undo-info-user" onclick="loadUserInfo()"><i
+                                            class="fa-solid fa-rotate-right"></i>Undo changes</button>
+                                </div>
+                            </form>
+                            <a onclick="toggleChangePass()"><i class="fa-solid fa-key"></i><span>Change
+                                    Password</span></a>
                         </div>
-                        <div class="form-msg-error hidden" id="changepass-info-msg-error"></div>
-                        <form action="" class="change-password" id="changepass-form">
-                            <div class="form-group">
-                                <label for="curr-pass" class="form-label">Current password</label>
-                                <input class="form-input-bar" type="password" name="curr-pass" id="password-cur-info"
-                                    placeholder="Enter current password*">
+                        <div class="main-account-body-col hidden" id="user-info-changepass">
+                            <div>
+                                <h4>CHANGE YOUR PASSWORD</h4>
                             </div>
-                            <div class="form-group">
-                                <label for="new-pass" class="form-label">New password</label>
-                                <input class="form-input-bar" type="password" name="new-pass" id="password-after-info"
-                                    placeholder="Enter new password*">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm-new-pass" class="form-label">Confirm new password</label>
-                                <input class="form-input-bar" type="password" name="confirm-new-pass"
-                                    id="password-comfirm-info" placeholder="Confirm new password*">
-                            </div>
-                            <div class="form-group">
-                                <button id="save-password" onclick="changePassword()"><i
-                                        class="fa-solid fa-key"></i>Change password</button>
-                            </div>
-                        </form>
-                        <a onclick="toggleChangePass()"><i class="fa-solid fa-angle-left"></i><span>Return</span></a>
+                            <div class="form-msg-error hidden" id="changepass-info-msg-error"></div>
+                            <form action="" class="change-password" id="changepass-form">
+                                <div class="form-group">
+                                    <label for="curr-pass" class="form-label">Current password</label>
+                                    <input class="form-input-bar" type="password" name="curr-pass"
+                                        id="password-cur-info" placeholder="Enter current password*">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-pass" class="form-label">New password</label>
+                                    <input class="form-input-bar" type="password" name="new-pass"
+                                        id="password-after-info" placeholder="Enter new password*">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-new-pass" class="form-label">Confirm new password</label>
+                                    <input class="form-input-bar" type="password" name="confirm-new-pass"
+                                        id="password-comfirm-info" placeholder="Confirm new password*">
+                                </div>
+                                <div class="form-group">
+                                    <button id="save-password" onclick="changePassword()"><i
+                                            class="fa-solid fa-key"></i>Change password</button>
+                                </div>
+                            </form>
+                            <a onclick="toggleChangePass()">
+                                <i class="fa-solid fa-user"></i><span>Update user info</span></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- CATALOGUE -->
-        <div class="catalogue-container always-active-page" id="catalogue">
-            <div class="catalogue-name">[template]</div>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search products">
-            </div>
-            <div class="details-search-bar hide-on-pc show-on-mobile" onclick="toggleSidebar('details-search-sidebar')">
-                <i class="fa-solid fa-bars"></i>
-                <p>Filter by</p>
-            </div>
-            <div class="catalogue-info">
-                <ul class="products-amount">
-                    <p>products</p>
-                </ul>
-                <ul class="sortby">
-                    <label for="dropdown-toggle">
-                        Sort by:
-                        <span id="sortby-mode-display">None</span>
-                        <span class="dropdown-arrow">&#9662;</span>
-                    </label>
-                    <!-- Hidden checkbox to control the dropdown -->
-                    <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle" />
-                    <ul class="dropdown">
-                        <li class="sortby-option">None</li>
-                        <li class="sortby-option">Alphabetically, A-Z</li>
-                        <li class="sortby-option">Alphabetically, Z-A</li>
-                        <li class="sortby-option">Price, low to high</li>
-                        <li class="sortby-option">Price, high to low</li>
-                    </ul>
-                </ul>
-            </div>
-            <!-- CATALOGUE - DETAILS SEARCH SIDEBAR -->
-            <div class="details-search sidebar" id="details-search-sidebar">
-                <a><i class="fa-solid fa-xmark" onclick="toggleSidebar('details-search-sidebar')"></i></a>
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('brand-menu-sidebar')">BRAND</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="brand-menu-sidebar">
-                        <li class="filter-option">ADIDAS</li>
-                        <li class="filter-option">CONVERSE</li>
-                        <li class="filter-option">NIKE</li>
-                        <li class="filter-option">BITI'S</li>
-                    </ul>
-                </div>
-                <!-- SIZE Dropdown -->
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('size-menu-sidebar')">SIZE</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="size-menu-sidebar">
-                        <li class="filter-option">Small</li>
-                        <li class="filter-option">Medium</li>
-                        <li class="filter-option">Large</li>
-                    </ul>
-                </div>
-
-                <!-- GENDER Dropdown -->
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('gender-menu-sidebar')">GENDER</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="gender-menu-sidebar">
-                        <li class="filter-option">Male</li>
-                        <li class="filter-option">Female</li>
-                        <li class="filter-option">Unisex</li>
-                    </ul>
-                </div>
-
-                <!-- PRICE Dropdown -->
-                <div class="dropdown">
-                    <ul class="dropdown-header">
-                        <li onclick="toggleDropdown('price-menu-sidebar')">PRICE</li>
-                    </ul>
-                    <ul class="dropdown-menu" id="price-menu-sidebar">
-                        <li>Under $50</li>
-                        <li>$50 - $100</li>
-                        <li>$100 - $150</li>
-                        <li>Above $150</li>
-                    </ul>
-                </div>
-                <div>
-                    <button onclick="toggleSidebar('details-search-sidebar')">APPLY FILTER</button>
-                    <a onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i><span>RESET FILTER</span></a>
+            <!-- USER - ORDER HISTORY -->
+            <div class="container hidden toggle-page" id="order-history">
+                <div class="main-account">
+                    <div class="main-account-header">
+                        <h2>ORDER HISTORY</h2>
+                        <p>Hey, <span class="display-username"></span>! Check out what you have ordered so far!</p>
+                    </div>
+                    <div class="main-account-body">
+                        <div class="main-account-body-col">
+                            <div class="display-when-empty">
+                                <img src="asset\img\empty-order-history.png">
+                                <p>It's empty here... <a onclick="toggleVisibility('order-history')">Start shopping
+                                        now!</a></p>
+                            </div>
+                            <!-- <div class="modal-container order-history">
+                                <div class="cart-main">
+                                    <div class="modal-container cart-product">
+                                        <div class="img-container">
+                                            <img src="asset\img\catalogue\coming-soon.jpg">
+                                        </div>
+                                        <div class="cart-product-info">
+                                            <p class="display-product-name">COMING SOON</p>
+                                            <p>Brand: <span class="display-product-brand">Nike</span></p>
+                                            <p>Size: <span class="display-product-size">35</span></p>
+                                            <p class="display-product-price">1.000.000 d</p>
+                                        </div>
+                                        <div class="cart-product-func">
+                                            <div class="cart-product-amount">
+                                                <p>x<span class="display-cart-amount">1</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-container cart-product">
+                                        <div class="img-container">
+                                            <img src="asset\img\catalogue\coming-soon.jpg">
+                                        </div>
+                                        <div class="cart-product-info">
+                                            <p class="display-product-name">COMING SOON</p>
+                                            <p>Brand: <span class="display-product-brand">Nike</span></p>
+                                            <p>Size: <span class="display-product-size">35</span></p>
+                                            <p class="display-product-price">1.000.000 d</p>
+                                        </div>
+                                        <div class="cart-product-func">
+                                            <div class="cart-product-amount">
+                                                <p>x<span class="display-cart-amount">1</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-footer">
+                                        <div class="cart-totalprice">
+                                            <p>GRAND TOTAL</p>
+                                            <p class="display-totalprice">1.000.000 d</p>
+                                        </div>
+                                        <div class="cart-product-status">
+                                            <div>
+                                                <p class="display-product-status">Status: <span
+                                                        class="display-">Pending</span> <span
+                                                        class="display-product-status-icon">x</span></p>
+                                            </div>
+                                            <button>Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- CATALOOGUE - MAIN -->
-            <div class="main-container">
-                <div class="details-search hide-on-mobile">
+            <!-- CART -->
+            <div class="container toggle-page" id="cart">
+                <div class="cart-main">
+                    <div class="cart-header">
+                        <p>YOUR CART</p>
+                        <a onclick="toggleSidebarMobile('cart')">CLOSE</a>
+                    </div>
+                    <div class="cart-body">
+                        <div class="display-when-empty">
+                            <p>Your cart is empty... Start shopping now!</p>
+                        </div>
+                        <div class="modal-container cart-product">
+                            <div class="img-container">
+                                <img src="asset\img\catalogue\coming-soon.jpg">
+                            </div>
+                            <div class="cart-product-info">
+                                <p class="display-product-name">COMING SOON</p>
+                                <p>Brand: <span class="display-product-brand">Nike</span></p>
+                                <p>Size: <span class="display-product-size">35</span></p>
+                                <p class="display-product-price">1.000.000 d</p>
+                            </div>
+                            <div class="cart-product-func">
+                                <a><i class="fa-regular fa-circle-xmark"></i></a>
+                                <div class="cart-product-amount">
+                                    <button><i class="fa-solid fa-minus"></i></button>
+                                    <p class="display-cart-amount">1</p>
+                                    <button><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-footer">
+                        <div class="cart-totalprice">
+                            <p>GRAND TOTAL</p>
+                            <p class="display-totalprice">1.000.000 d</p>
+                        </div>
+                        <div class="cart-btns">
+                            <button>CONTINUE SHOPPING</button>
+                            <button>TO CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CATALOGUE -->
+            <div class="catalogue-container always-active-page" id="catalogue">
+                <div class="catalogue-name">[template]</div>
+                <div class="search-bar">
+                    <label for="search-bar"><i class="fas fa-search"></i></label>
+                    <input class="form-input-bar filter-option" type="text" name="search-bar" id="search-bar"
+                        placeholder="Search products by name">
+                </div>
+                <div class="details-search-bar hide-on-pc show-on-mobile"
+                    onclick="toggleSidebarMobile('details-search-sidebar')">
+                    <i class="fa-solid fa-bars"></i>
+                    <p>Filter by</p>
+                </div>
+                <div class="catalogue-info">
+                    <div class="products-amount">
+                        <p><span id="display-products-amount"></span>product(s)</p>
+                    </div>
+                    <div class="sortby">
+                        <div>
+                            <span>Sort by:</span>
+                            <span id="sortby-mode-display">None</span>
+                            <span class="dropdown-arrow">&#9662;</span>
+                        </div>
+                        <!-- Hidden checkbox to control the dropdown -->
+                        <div class="container float-dropdown">
+                            <ul class="menu-list">
+                                <li class="sortby-option"><a>None</a></li>
+                                <li class="sortby-option"><a>Alphabetically, A-Z</a></li>
+                                <li class="sortby-option"><a>Alphabetically, Z-A</a></li>
+                                <li class="sortby-option"><a>Price, low to high</a></li>
+                                <li class="sortby-option"><a>Price, high to low</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- CATALOGUE - DETAILS SEARCH SIDEBAR -->
+                <div class="details-search sidebar" id="details-search-sidebar">
+                    <a><i class="fa-solid fa-xmark" onclick="toggleSidebarMobile('details-search-sidebar')"></i></a>
                     <div class="dropdown">
                         <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('brand-menu')">BRAND</li>
+                            <li onclick="toggleDropdown('brand-menu-sidebar')">BRAND</li>
                         </ul>
-                        <ul class="dropdown-menu" id="brand-menu">
+                        <ul class="dropdown-menu" id="brand-menu-sidebar">
                             <li class="filter-option">ADIDAS</li>
                             <li class="filter-option">CONVERSE</li>
                             <li class="filter-option">NIKE</li>
@@ -345,9 +419,9 @@
                     <!-- SIZE Dropdown -->
                     <div class="dropdown">
                         <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                            <li onclick="toggleDropdown('size-menu-sidebar')">SIZE</li>
                         </ul>
-                        <ul class="dropdown-menu" id="size-menu">
+                        <ul class="dropdown-menu" id="size-menu-sidebar">
                             <li class="filter-option">Small</li>
                             <li class="filter-option">Medium</li>
                             <li class="filter-option">Large</li>
@@ -357,9 +431,9 @@
                     <!-- GENDER Dropdown -->
                     <div class="dropdown">
                         <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                            <li onclick="toggleDropdown('gender-menu-sidebar')">GENDER</li>
                         </ul>
-                        <ul class="dropdown-menu" id="gender-menu">
+                        <ul class="dropdown-menu" id="gender-menu-sidebar">
                             <li class="filter-option">Male</li>
                             <li class="filter-option">Female</li>
                             <li class="filter-option">Unisex</li>
@@ -369,107 +443,166 @@
                     <!-- PRICE Dropdown -->
                     <div class="dropdown">
                         <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                            <li onclick="toggleDropdown('price-menu-sidebar')">PRICE</li>
                         </ul>
-                        <ul class="dropdown-menu" id="price-menu">
-                            <li>Under $50</li>
-                            <li>$50 - $100</li>
-                            <li>$100 - $150</li>
-                            <li>Above $150</li>
+                        <ul class="dropdown-menu" id="price-menu-sidebar">
+                            <label for="price-lowerbound-sidebar">Between</label>
+                            <input class="form-input-bar filter-option" type="number" name="price-lowerbound-sidebar"
+                                id="price-lowerbound-sidebar" placeholder="Minimun price" inputmode="tel">
+                            <label for="price-upperbound-sidebar">and</label>
+                            <input class="form-input-bar filter-option" type="number" name="price-upperbound-sidebar"
+                                id="price-upperbound-sidebar" placeholder="Maximum price" inputmode="tel">
                         </ul>
-                    </div>
-                    <!-- RESET FILTER -->
-                    <div>
-                        <a onclick="resetFilter()">RESET FILTER</a>
-                    </div>
-                </div>
-                <!-- DISPLAY PRODUCTS -->
-                <div class="shoes-box-container show-on-mobile">
-                    <div id="product-container" class="shoes-box"></div>
-                    <div class="pagination"></div>
-                    <script src="js/products.js"></script>
-                    <!-- Liên kết tới file js external -->
-                </div>
-            </div>
-        </div>
-        <!-- PREFOOTER -->
-        <div class="container" id="prefooter">
-            <div class="prefooter-div">
-                <i class="fa-solid fa-certificate"></i>
-                <span>100% AUTHENTIC</span>
-            </div>
-            <div class="prefooter-div">
-                <i class="fa-solid fa-truck"></i>
-                <span>EXPRESS DELIVERY</span>
-            </div>
-            <div class="prefooter-div">
-                <i class="fa-solid fa-headset"></i>
-                <span>24/7 CUSTOMER SERVICES</span>
-            </div>
-            <div class="prefooter-div">
-                <i class="fa-solid fa-tags"></i>
-                <span>REASONABLE PRICE</span>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <div class="container" id="footer">
-            <h2 class="footer-title">JOIN OUR COMMUNITY</h2>
-            <div class="footer-container-info">
-                <ul class="menu-list">
-                    <li><a href="">ABOUT US</a></li>
-                    <li><a href="">FAQ</a></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><a href="">PRIVACY POLICY</a></li>
-                    <li><a href="">REFUND POLICY</a></li>
-                    <li><a href="">TERMS OF SERVICES</a></li>
-                </ul>
-                <ul class="menu-list">
-                    <li><a href="">HOW TO ORDER</a></li>
-                    <li><a href="">TRACK YOUR ORDER</a></li>
-                    <li><a href="">RETURN & EXCHANGE</a></li>
-                </ul>
-            </div>
-            <div class="footer-container-contacts">
-                <div class="contact-div">
-                    <div class="contact-icon-div">
-                        <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <div class="contact-content-div">
-                        <span>0123-456-789</span>
-                    </div>
-                </div>
-                <div class="contact-div">
-                    <div class="contact-icon-div">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <div class="contact-content-div">
-                        <span>broshoes@domain.com</span>
-                    </div>
-                </div>
-                <div class="contact-div">
-                    <div class="contact-icon-div">
-                        <i class="fa-solid fa-location-dot"></i>
                     </div>
                     <div>
-                        <span>273 Đ. An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
+                        <button onclick="toggleSidebarMobile('details-search-sidebar')">APPLY FILTER</button>
+                        <a onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i><span>RESET FILTER</span></a>
+                    </div>
+                </div>
+                <!-- CATALOGUE - MAIN -->
+                <div class="main-container">
+                    <div class="details-search hide-on-mobile">
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('brand-menu')">BRAND</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="brand-menu">
+                                <li class="filter-option">ADIDAS</li>
+                                <li class="filter-option">CONVERSE</li>
+                                <li class="filter-option">NIKE</li>
+                                <li class="filter-option">BITI'S</li>
+                            </ul>
+                        </div>
+                        <!-- SIZE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('size-menu')">SIZE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="size-menu">
+                                <li class="filter-option">Small</li>
+                                <li class="filter-option">Medium</li>
+                                <li class="filter-option">Large</li>
+                            </ul>
+                        </div>
+
+                        <!-- GENDER Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('gender-menu')">GENDER</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="gender-menu">
+                                <li class="filter-option">Male</li>
+                                <li class="filter-option">Female</li>
+                                <li class="filter-option">Unisex</li>
+                            </ul>
+                        </div>
+
+                        <!-- PRICE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('price-menu')">PRICE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="price-menu">
+                                <label for="price-lowerbound">Between</label>
+                                <input class="form-input-bar filter-option" type="number" name="price-lowerbound"
+                                    id="price-lowerbound" placeholder="Minimun price" inputmode="tel">
+                                <label for="price-upperbound">and</label>
+                                <input class="form-input-bar filter-option" type="number" name="price-upperbound"
+                                    id="price-upperbound" placeholder="Maximum price" inputmode="tel">
+                            </ul>
+                        </div>
+                        <!-- RESET FILTER -->
+                        <div>
+                            <a onclick="resetFilter()">RESET FILTER</a>
+                        </div>
+                    </div>
+                    <!-- DISPLAY PRODUCTS -->
+                    <div class="shoes-box-container show-on-mobile">
+                        <div id="product-container" class="shoes-box"></div>
+                        <div class="pagination"></div>
                     </div>
                 </div>
             </div>
-            <h1 class="footer-logo"><a href="index.html">BRO SHOES</a></h1>
-            <div class="footer-container-media" id="body-footer-media">
-                <ul class="menu-list">
-                    <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
-                    <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
-                    <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
-                    <li><a href=""><i class="fa-brands fa-square-instagram"></i></a></li>
-                </ul>
+            <!-- PREFOOTER -->
+            <div class="container" id="prefooter">
+                <div class="prefooter-div">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>100% AUTHENTIC</span>
+                </div>
+                <div class="prefooter-div">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>EXPRESS DELIVERY</span>
+                </div>
+                <div class="prefooter-div">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>24/7 CUSTOMER SERVICES</span>
+                </div>
+                <div class="prefooter-div">
+                    <i class="fa-solid fa-tags"></i>
+                    <span>REASONABLE PRICE</span>
+                </div>
             </div>
-        </div>
-    </footer>
-    <script src="js\main.js"></script>
-    <script src="js\toast-msg.js"></script>
+        </main>
+        <footer>
+            <div class="container" id="footer">
+                <h2 class="footer-title">JOIN OUR COMMUNITY</h2>
+                <div class="footer-container-info">
+                    <ul class="menu-list">
+                        <li><a href="">ABOUT US</a></li>
+                        <li><a href="">FAQ</a></li>
+                    </ul>
+                    <ul class="menu-list">
+                        <li><a href="">PRIVACY POLICY</a></li>
+                        <li><a href="">REFUND POLICY</a></li>
+                        <li><a href="">TERMS OF SERVICES</a></li>
+                    </ul>
+                    <ul class="menu-list">
+                        <li><a href="">HOW TO ORDER</a></li>
+                        <li><a href="">TRACK YOUR ORDER</a></li>
+                        <li><a href="">RETURN & EXCHANGE</a></li>
+                    </ul>
+                </div>
+                <div class="footer-container-contacts">
+                    <div class="contact-div">
+                        <div class="contact-icon-div">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="contact-content-div">
+                            <span>0123-456-789</span>
+                        </div>
+                    </div>
+                    <div class="contact-div">
+                        <div class="contact-icon-div">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="contact-content-div">
+                            <span>broshoes@domain.com</span>
+                        </div>
+                    </div>
+                    <div class="contact-div">
+                        <div class="contact-icon-div">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span>273 Đ. An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="footer-logo"><a href="index.html">BRO SHOES</a></h1>
+                <div class="footer-container-media" id="body-footer-media">
+                    <ul class="menu-list">
+                        <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-square-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <script src="js\main.js"></script>
+        <script src="js/products.js"></script>
+        <!-- <script src="js\toast-msg.js"></script> -->
+    </div>
 </body>
 
 </html>

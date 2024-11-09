@@ -25,18 +25,17 @@
         border-left: 1px solid var(--border-color);
     }
 
-    #header .container.sidebar.show-on-mobile {
-        opacity: 1;
+    #header-sidebar.container.sidebar.show-on-mobile {
         visibility: visible;
         display: flex;
-        left: 0;
-        transition: all 0.5s ease-in-out;
+        width: 100%;
     }
 
     /* ACCOUNT-USER */
     .main-account-body-col {
         width: 100%;
     }
+
 
     /* CATALOGUE - INFO */
     .catalogue-info .reset-filter.hide-on-mobile{
@@ -63,9 +62,8 @@
     }
 
     .details-search.sidebar.show-on-mobile {
-        opacity: 1;
         visibility: visible;
-        right: 0;
+        width: 100%;
         transition: all 0.5s ease-in-out;
     }
 

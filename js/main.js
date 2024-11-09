@@ -1,5 +1,5 @@
 // VISIBILITY - BEGIN DEFINE /////////////////////////////////////////////////////
-function toggleSidebar(elementId) {
+function toggleSidebarMobile(elementId) {
     let x = document.getElementById(elementId);
     if (!x.classList.contains("show-on-mobile"))
         x.classList.add("show-on-mobile");
@@ -7,53 +7,42 @@ function toggleSidebar(elementId) {
         x.classList.remove("show-on-mobile");
 }
 
-function toggleSidebarAccount() {
-    let x = document.getElementById("account-drop-list-sidebar");
+function toggleSidebar(elementId) {
+    let x = document.getElementById(elementId);
     if (!x.classList.contains("hidden"))
         x.classList.add("hidden");
     else
         x.classList.remove("hidden");
 }
 
-function toggleChangePass() {
-    let changepass = document.getElementById("user-info-changepass");
-    let changeacc = document.getElementById("user-info-changeacc");
-    if (changepass.classList.contains("hidden")) {
-        changepass.classList.remove("hidden");
-        changeacc.classList.add("hidden");
-    } else {
-        changepass.classList.add("hidden");
-        changeacc.classList.remove("hidden");
-    }
-    window.scrollTo(0, 0);
-}
-
 function toggleVisibility(elementId) {
     let selectedPage = document.getElementById(elementId);
     let catalougePage = document.getElementById("catalogue");
+    let allPages = document.querySelectorAll(".toggle-page");
+
+    const exceptPages = ["login-user", "signup-user"];      // Pop-up pages
+    const fullDisplay = ["account-user", "order-history"];  // New pages over catalogue
 
     // Toggle visibility of the selected page
     if (!selectedPage.classList.contains("is-active-page")) {
-        selectedPage.classList.remove("hidden");
         selectedPage.classList.add("is-active-page");
+        selectedPage.classList.remove("hidden");
     } else {
-        selectedPage.classList.add("hidden");
         selectedPage.classList.remove("is-active-page");
+        if (fullDisplay.includes(elementId))
+            selectedPage.classList.add("hidden");
     }
 
+    
     // Hide all pages except the selected one
-    let allPages = document.querySelectorAll(".toggle-page");
-
     allPages.forEach(page => {
         if (page.id !== elementId) {
-            page.classList.add("hidden");
             page.classList.remove("is-active-page");
         }
     });
 
     // If selectedPage is a login/signup form, don"t hide the catalogue
-    let exceptPages = ["login-user", "signup-user"];
-    if (exceptPages.includes(selectedPage.id)) {
+    if (exceptPages.includes(elementId)) {
         catalougePage.classList.remove("hidden");
         return;
     }
@@ -96,8 +85,6 @@ function updateMenuVisibility() {
         item.textContent = isLoggedIn ? username : "";
     });
 }
-
-window.onload = updateMenuVisibility;
 
 // For signup form
 function handleSignupForm() {
@@ -153,6 +140,7 @@ function handleSignupForm() {
         address: address,
         password: password,
         join: new Date(),
+        orderHistory: [],
         cart: [],
         isAdmin: 0,
         status: 1
@@ -173,7 +161,7 @@ function handleSignupForm() {
         updateMenuVisibility();
         toggleVisibility("signup-user");
         document.getElementById("signup-form").reset();
-        toastMsg({ title: "Success", message: "Account created successfully!", type: "success", duration: 3000 });
+        // toastMsg({ title: "Success", message: "Account created successfully!", type: "success", duration: 3000 });
     } else {
         alert("Account already exited!");
         // toastMsg({ title: "Failed", message: "Account already existed!", type: "error", duration: 3000 });
@@ -213,7 +201,7 @@ function handleLoginForm() {
             errorMsg.innerHTML = "<p>This account has been locked.</p>";
         } else {
             localStorage.setItem("currentuser", JSON.stringify(accounts[userIdx]));
-            toast({ title: "Success", message: "Login successful", type: "success", duration: 3000 });
+            // toast({ title: "Success", message: "Login successful", type: "success", duration: 3000 });
             alert("Login successful!");
             updateMenuVisibility();
             toggleVisibility("login-user");
@@ -234,6 +222,8 @@ function signOut() {
 
 // Load user info to My Account after user has logged in
 function loadUserInfo() {
+    event.preventDefault();
+
     let currentUser = JSON.parse(localStorage.getItem("currentuser"));
 
     if (currentUser) {
@@ -308,6 +298,19 @@ function changeAccInfo() {
     } else {
         alert("Failed to update account information. Please try again.");
     }
+}
+
+function toggleChangePass() {
+    let changepass = document.getElementById("user-info-changepass");
+    let changeacc = document.getElementById("user-info-changeacc");
+    if (changepass.classList.contains("hidden")) {
+        changepass.classList.remove("hidden");
+        changeacc.classList.add("hidden");
+    } else {
+        changepass.classList.add("hidden");
+        changeacc.classList.remove("hidden");
+    }
+    window.scrollTo(0, 0);
 }
 
 // Change current user"s password
@@ -428,10 +431,16 @@ function resetFilter() {
     const filterOptions = document.querySelectorAll(".filter-option");
     filterOptions.forEach(option => {
         option.classList.remove("active");
+        option.value = "";
     });
-    sortbyDisplay.innerText = "None";
+    sortbyDisplay.textContent = "None";
 }
 
 // CATALOGUE - FILTER - END DEFINE /////////////////////////////////////////////////////
 
 // CATALOGUE - END DEFINE /////////////////////////////////////////////////////
+
+// ONLOAD /////////////////////////////////////////////////////
+window.onload = () => {
+    updateMenuVisibility();
+}
