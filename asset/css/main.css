@@ -777,7 +777,7 @@ ul.dropdown li:hover {
     width: 30px;
     text-align: center;
     line-height: 29px;
-    border-radius: 50%;
+    border-radius: 6px;
     font-size: medium;
 }
 
