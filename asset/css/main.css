@@ -699,7 +699,7 @@ ul.dropdown li:hover {
 }
 
 .modal-container {
-    background-color: var(--white);
+    background-color: var(--bg-main-color);
     max-height: calc(100vh - 60px);
     box-shadow: 0px 4px 30px rgb(0 0 0 / 25%);
     border-radius: 5px;
@@ -716,7 +716,8 @@ ul.dropdown li:hover {
 }
 
 .product-detail .modal-container {
-    width: 585px;
+    width: 600px;
+    padding: 10px;
 }
 
 .product-image {
@@ -726,10 +727,11 @@ ul.dropdown li:hover {
 }
 
 h2.product-title {
-    color: var(--black);
-    font-size: 18px;
+    color: black;
+    font-size: 20px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
 
 }
 
@@ -741,20 +743,13 @@ h2.product-title {
 }
 
 .priceBox .current-price {
-    color: var(--red);
-    font-weight: 600;
+    color: black;
+    font-weight: medium;
     font-size: 17px;
-}
-
-.priceBox .old-price {
-    text-decoration: line-through;
-    color: #808080;
-    font-size: 13px;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .buttons_added {
-    display: -ms-inline-flexbox;
     display: inline-flex;
     white-space: nowrap;
 }
@@ -773,18 +768,18 @@ h2.product-title {
 }
 
 .is-form.plus,.is-form.minus {
-    border-radius: 50%;
+    border-radius: 5px;
 }
 
 .input-qty {
-    background-color: #fff;
+    background-color: var(--bg-main-color);
     height: 25px;
     width: 30px;
     text-align: center;
     font-size: 14px;
     display: inline-block;
     margin: 0 5px;
-    border: 1px solid #ddd;
+    border: none;
     padding: 0;
     border-radius: 5px;
     outline: none;
@@ -797,7 +792,7 @@ h2.product-title {
 }
 
 .modal-footer {
-    padding: 12px 20px;
+    padding: 12px;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid #eee;
@@ -817,20 +812,19 @@ h2.product-title {
 }
 
 .price-total .price {
-    color: var(--red);
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .modal-footer-control button {
-    background-color: var(--red);
+    background-color: var(--theme-color-2);
     border: none;
-    outline: none;
+    outline: 1px solid black;
     color: var(--white);
     padding: 10px 25px;
     font-size: 15px;
     border-radius: 25px;
-    font-weight: 500;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -853,6 +847,7 @@ h2.product-title {
     border-radius: 20px; /* Rounded corners for size buttons */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s ease; /* Smooth background transition */
+    margin-bottom: 10px;
 }
 
 .size-button:hover {

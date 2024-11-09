@@ -9,7 +9,7 @@ function createProduct() {
         category: "Sneaker",
         brand: "Converse",
         sex: "U",
-        size: [36,37,38,39,41,42,43]
+        size: [36,37,38,41,42]
     },
     { 
         id: 2,
@@ -29,7 +29,7 @@ function createProduct() {
         category: "Sneaker",
         brand: "Nike",
         sex: "U",
-        size: [36,37,38,39,41,42,43]
+        size: [36,37,38,41,42]
     },
     { 
         id: 4,
@@ -39,7 +39,7 @@ function createProduct() {
         category: "Sneaker",
         brand: "Nike",
         sex: "U",
-        size: [36,37,38,39,41,42,43]
+        size: [36,37,38,41,42]
     },
     { 
         id: 5,
@@ -129,7 +129,7 @@ function createProduct() {
         category: "Sneaker",
         brand: "Converse",
         sex: "U",
-        size: [36,37,38,39,41,42,43]
+        size: [36,37,38,41,42]
     },
     { 
         id: 14,
@@ -189,7 +189,7 @@ function createProduct() {
         category: "Sneaker",
         brand: "Converse",
         sex: "U",
-        size: [36,37,38,39,41,42,43]
+        size: [36,37,38,41,42]
     },
     {
         id: 20,
@@ -199,7 +199,7 @@ function createProduct() {
         category: "Sneaker",
         brand: "Adidas",
         sex: "U",
-        size: [36,37,38,39,41,42,43]
+        size: [36,37,38,41,42]
     },
     { 
         id: 21,
@@ -405,8 +405,13 @@ function detailProduct(index) {
             <div class="priceBox">
                 <span class="current-price">${vnd(infoProduct.price)}</span>
             </div>
-            <div class="size-container">${sizeButtonsHTML}</div>
+             <div class="buttons_added">
+                <input class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+                <input class="input-qty" max="100" min="1" name="" type="number" value="1">
+                <input class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+            </div>
     </div>
+    <div class="size-container">${sizeButtonsHTML}</div>
     <div class="modal-footer">
         <div class="price-total">
             <span class="thanhtien">Total</span>
@@ -414,7 +419,7 @@ function detailProduct(index) {
         </div>
         <div class="modal-footer-control">
             <button class="button-dathangngay" data-product="${infoProduct.id}">Buy now</button>
-            <button class="button-dat" id="add-cart" onclick="animationCart()"><i class="fa-light fa-basket-shopping"></i></button>
+            <button class="button-dat" id="add-cart" onclick="animationCart()"><i class="fa-solid fa-cart-shopping "></i></button>
         </div>
     </div>`;
     document.querySelector('#product-detail-content').innerHTML = modalHtml;
@@ -430,7 +435,6 @@ function detailProduct(index) {
             priceText.innerHTML = vnd(price);
         });
     });
-    console.log("Product clicked:", index);
 }
 
 function displayProducts(productShow) {
