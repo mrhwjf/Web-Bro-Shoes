@@ -393,7 +393,7 @@ function detailProduct(index) {
     let infoProduct = products.find(sp => {
         return sp.id === index;
     })
-    const sizeButtonsHTML = sizeArray.map(size => `
+    const sizeButtonsHTML = infoProduct.size.map(size => `
         <button class="size-button">${size}</button>
     `).join("");
     let modalHtml = `<div class="modal-header">
