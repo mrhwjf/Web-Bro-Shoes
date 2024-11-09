@@ -1,6 +1,6 @@
 //Khoi tao danh sach san pham
-// function createProduct() {
-//     if (localStorage.getItem('products') == null) {
+function createProduct() {
+    if (localStorage.getItem('products') == null) {
         let products = [{
         id: 1,
         name: "70 COURT CANVAS HI",
@@ -331,11 +331,10 @@
         size: [41,42,43]
     },
 
-];
-// localStorage.setItem('products', JSON.stringify(products));
-//     }
-// }
-
+    ]
+    localStorage.setItem('products', JSON.stringify(products));
+    }
+}
 // Mới thêm
 // Doi sang dinh dang tien VND 
 function vnd(price) {
@@ -345,67 +344,16 @@ function vnd(price) {
     }).format(price);
 }
 
-// Mới sửa
-const itemsPerPage = 8;
-let currentPage = 1;
-
-// Function to setup pagination
-function setupPagination() {
-    const paginationContainer = document.querySelector(".pagination");
-    paginationContainer.innerHTML = ""; // Clear existing pagination buttons
-
-    const totalPages = Math.ceil(products.length / itemsPerPage);
-
-    // Create page buttons for all pages
-    for (let i = 1; i <= totalPages; i++) {
-        createPageButton(i);
-    }
-
-    // Highlight current page button
-    highlightCurrentPage();
-}
-
-// Helper function to create a page button
-function createPageButton(pageNumber) {
-    const paginationContainer = document.querySelector(".pagination");
-    const button = document.createElement("button");
-    button.textContent = pageNumber;
-    button.className = "pagination-button";
-    button.addEventListener("click", function() {
-        currentPage = pageNumber;
-        displayProducts(currentPage); // Call your display function
-        setupPagination(); // Rebuild pagination
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth" // Adds a smooth scroll effect
-        });
-    });
-    paginationContainer.appendChild(button);
-}
-
-// Helper function to highlight the current page
-function highlightCurrentPage() {
-    const buttons = document.querySelectorAll(".pagination-button");
-    buttons.forEach(button => {
-        button.classList.toggle("active", parseInt(button.textContent) === currentPage);
-    });
-}
-
-// Function to display products
-function displayProducts(page) {
-    const productContainer = document.getElementById("product-container");
+function displayProducts(productShow) {
+    const productContainer = document.getElementById("home-product");
     productContainer.innerHTML = ""; // Clear current content
-
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const productsToDisplay = products.slice(start, end);
 
     let productHTML = ""; // Create HTML string
 
-    productsToDisplay.forEach(product => {
+    productShow.forEach(product => {
         // Create HTML block for each product
         productHTML += `
-            <div class="product-box" onclick="openProductDetails(${product.id})">
+            <div class="product-box"">
                 <img src="${product.image}" alt="${product.name}" onerror="this.src='../asset/img/catalogue/coming-soon.jpg'" />
                 <div class="shoes-name">${product.name}</div>
                 <div class="shoes-price">${vnd(product.price)}</div>
@@ -413,69 +361,61 @@ function displayProducts(page) {
         `;
     });
 
-    // Set HTML string to the container's innerHTML
     productContainer.innerHTML = productHTML;
 }
 
-// Cần sửa lại
-// Dynamically create modal structure
-function createModal(img, productname, price, sizeArray) {
-    const sizeButtonsHTML = sizeArray.map(size => `
-        <button class="size-button">${size}</button>
-    `).join("");
 
-    const modalHTML = `
-    <div id="productDetailsModal" class="product-details-modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeProductDetails()">&times;</span>
-            <div class="modal-content-container">
-                <div class="modal-product-image">
-                    <img src="${img}" alt="${productname}">
-                </div>
-                <div class="product-info">
-                    <h2 id="modalProductName">${productname}</h2>
-                    <p id="modalProductPrice">${vnd(price)}</p>
-                    <div class="size-container">${sizeButtonsHTML}</div>
-                    <div>
-                        <button class="add-to-cart-button">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-`;
+// Phân trang 
+let perPage = 8;
+let currentPage = 1;
 
-    // Xóa modal cũ (nếu có) và thêm modal mới vào cuối body
-    const existingModal = document.getElementById("productDetailsModal");
-    if (existingModal) existingModal.remove();
-    document.getElementsByClassName("catalogue-container")[0].innerHTML += modalHTML;
-
-    // Hiển thị modal
-    document.getElementById("productDetailsModal").style.display = "flex";
+function displayList(productAll, perPage, currentPage) {
+    let start = (currentPage - 1) * perPage;
+    let end = (currentPage - 1) * perPage + perPage;
+    let productShow = productAll.slice(start, end);
+    displayProducts(productShow);
 }
 
-// Mở modal với chi tiết sản phẩm cụ thể
-function openProductDetails(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        createModal(product.image, product.name, product.price, product.size);
-        const modal = document.getElementById("productDetailsModal");
-        modal.classList.add("active"); // Add class to show modal
+function showHomeProduct(products) {
+    let productAll = products;
+    displayList(productAll, perPage, currentPage);
+    setupPagination(productAll, perPage);
+}
+
+function setupPagination(productAll, perPage) {
+    document.querySelector('.page-nav-list').innerHTML = '';
+    let page_count = Math.ceil(productAll.length / perPage);
+    for (let i = 1; i <= page_count; i++) {
+        let li = paginationChange(i, productAll, currentPage);
+        document.querySelector('.page-nav-list').appendChild(li);
     }
 }
 
-function closeProductDetails() {
-    const modal = document.getElementById("productDetailsModal");
-    if (modal) {
-        modal.style.display = "none";
-    }
-    // Đảm bảo .pagination có thể nhận sự kiện
-    document.querySelector(".pagination").style.pointerEvents = "auto";
+function paginationChange(page, productAll, currentPage) {
+    let node = document.createElement(`li`);
+    node.classList.add('page-nav-item');
+    node.innerHTML = `<a href="javascript:;">${page}</a>`;
+    if (currentPage == page) node.classList.add('active');
+    node.addEventListener('click', function () {
+        currentPage = page;
+        displayList(productAll, perPage, currentPage);
+        let t = document.querySelectorAll('.page-nav-item.active');
+        for (let i = 0; i < t.length; i++) {
+            t[i].classList.remove('active');
+        }
+        node.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    return node;
 }
 
-// Initialize pagination and display products on page load
-document.addEventListener("DOMContentLoaded", function() {
-    setupPagination();
-    displayProducts(currentPage);
-    createModal();
-});
+// Use a single window.onload to ensure everything is initialized correctly
+window.onload = function() {
+    createProduct(); // Ensure products are created in localStorage
+    let products = JSON.parse(localStorage.getItem('products')); // Fetch the products from localStorage
+    showHomeProduct(products); // Display products after initialization
+}
+
+
+
+
