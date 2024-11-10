@@ -444,3 +444,8 @@ function resetFilter() {
 window.onload = () => {
     updateMenuVisibility();
 }
+
+
+// CHECKOUT - /////////////////////////////////////////////////////
+
+  

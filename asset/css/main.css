@@ -679,7 +679,169 @@ header {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
+/*.....................................................*/
+/* Checkout Page */
+/* Toàn bộ trang thanh toán */
+.checkout-page {
+    background-color: #f5f5f5; /* Màu nền của trang thanh toán */
+    position: fixed; /* Đặt trang thanh toán cố định */
+    top: 0; /* Cố định ở trên cùng */
+    right: 0; /* Cố định ở bên phải */
+    left: 0; /* Cố định ở bên trái */
+    bottom: 0; /* Cố định ở dưới cùng */
+    z-index: 103; /* Đảm bảo trang thanh toán hiển thị trên các phần tử khác */
+    overflow-y: auto; /* Cho phép cuộn dọc nếu nội dung quá dài */
+    transform: translateX(100%); /* Ban đầu, trang thanh toán nằm ngoài màn hình (trượt từ phải vào) */
+    transition: all 0.5s ease; /* Thêm hiệu ứng chuyển động trượt vào */
+}
 
+
+/* Khi class "active" được thêm vào, trang thanh toán sẽ trượt vào */
+.checkout-page.active {
+    transform: translateX(0); /* Trả trang về vị trí ban đầu */
+}
+
+/* Phần tiêu đề của trang thanh toán */
+.checkout-header {
+    background-color: var(--white); /* Màu nền trắng */
+    text-align: center; /* Căn giữa nội dung */
+    padding: 20px; /* Khoảng cách bên trong */
+    border-bottom: 1px solid #eee; /* Viền dưới mờ */
+    position: sticky; /* Giữ tiêu đề luôn ở trên khi cuộn */
+    top: 0; /* Đặt ở trên cùng */
+    width: 100%; /* Chiếm hết chiều rộng */
+    z-index: 104; /* Đảm bảo tiêu đề hiển thị trên các phần tử khác */
+}
+
+/* Nút quay lại ở bên trái của tiêu đề */
+.checkout-return {
+    float: left; /* Đặt nút về bên trái */
+}
+
+/* Nút quay lại có kiểu dáng riêng */
+.checkout-return button {
+    float: left; /* Nút nằm bên trái */
+    border: none; /* Không có viền */
+    width: 30px; /* Chiều rộng của nút */
+    background-color: transparent; /* Nền trong suốt */
+    outline: none; /* Loại bỏ viền khi nhấn */
+    font-size: 20px; /* Kích thước font chữ */
+    cursor: pointer; /* Hiển thị con trỏ chuột khi di chuyển qua */
+    color: var(--text-color); /* Màu chữ */
+}
+
+/* Tiêu đề của trang thanh toán */
+.checkout-title {
+    font-weight: 700; /* Định dạng chữ đậm */
+    font-size: 20px; /* Kích thước chữ */
+    color: var(--text-color); /* Màu chữ */
+}
+
+/* Các phần trong trang thanh toán */
+.checkout-section {
+    padding-top: 15px; /* Khoảng cách phía trên */
+    display: flex; /* Sử dụng Flexbox để bố trí các phần tử */
+    column-gap: 20px; /* Khoảng cách giữa các cột */
+}
+
+/* Các hàng và cột trong trang thanh toán */
+.checkout-row,
+.checkout-col-right {
+    background-color: var(--white); /* Nền trắng */
+    border-radius: 5px; /* Bo góc */
+    border: 1px solid rgba(0, 0, 0, 0.15); /* Viền mờ */
+    box-shadow: 0px 4px 10px rgb(0 0 0 / 3%); /* Hiệu ứng đổ bóng nhẹ */
+    margin-bottom: 20px; /* Khoảng cách dưới các phần tử */
+}
+
+/* Cột bên phải (thông tin chi tiết đơn hàng) */
+.checkout-col-right {
+    border: 1px solid var(--red); /* Viền đỏ */
+    padding: 15px; /* Khoảng cách bên trong */
+    height: 100%; /* Chiều cao đầy đủ */
+}
+
+/* Nhan đề cho các mục trong cột phải */
+.checkout-col-right .checkout-content-label {
+    font-size: 17px; /* Kích thước chữ */
+}
+
+/* Nhóm các phần tử nội dung */
+.content-group {
+    padding: 15px 20px; /* Khoảng cách bên trong */
+}
+
+/* Nhãn cho các nội dung trong phần thanh toán */
+.checkout-content-label {
+    color: var(--black); /* Màu chữ */
+    font-weight: 600; /* Kiểu chữ đậm */
+    margin-bottom: 15px; /* Khoảng cách dưới nhãn */
+}
+
+/* Phần hiển thị ngày đặt hàng */
+.date-order {
+    display: flex; /* Sử dụng Flexbox để bố trí */
+    justify-content: space-between; /* Căn giữa và phân chia khoảng cách */
+    column-gap: 20px; /* Khoảng cách giữa các phần tử */
+}
+
+/* Cột bên trái của trang thanh toán */
+.checkout-col-left {
+    width: 70%; /* Chiếm 70% chiều rộng */
+}
+
+/* Cột bên phải (tóm tắt đơn hàng) */
+.checkout-col-right {
+    width: 30%; /* Chiếm 30% chiều rộng */
+}
+
+/* Tiêu đề cho các cột bên trái và phải */
+.checkout-col-title {
+    padding: 15px 20px 15px 33px; /* Khoảng cách bên trong */
+    position: relative; /* Để có thể sử dụng tuyệt đối cho dấu chấm bên trái */
+    font-size: 15px; /* Kích thước chữ */
+    line-height: 100%; /* Độ cao dòng */
+    text-transform: uppercase; /* Chữ in hoa */
+    color: #222222; /* Màu chữ */
+    font-weight: 700; /* Kiểu chữ đậm */
+    border-bottom: 1px solid #E7E7E7; /* Viền dưới mờ */
+}
+
+/* Dấu chấm màu đỏ trước tiêu đề của cột */
+.checkout-col-title:before {
+    background: var(--red); /* Màu nền đỏ */
+    width: 4px; /* Chiều rộng dấu chấm */
+    height: 17px; /* Chiều cao dấu chấm */
+    left: 20px; /* Đặt dấu chấm từ bên trái */
+    top: 50%; /* Căn giữa dấu chấm theo chiều dọc */
+    transform: translateY(-50%); /* Căn giữa chính xác */
+    display: block; /* Hiển thị dấu chấm */
+    content: ""; /* Nội dung trống */
+    position: absolute; /* Đặt tuyệt đối */
+}
+
+
+
+/* Khi người dùng hover hoặc chọn nút */
+.type-order-btn:hover,
+.type-order-btn.active {
+    border: 1px solid var(--red); /* Viền đỏ khi hover hoặc chọn */
+    background-color: var(--white); /* Nền trắng khi hover hoặc chọn */
+    color: var(--text-color); /* Màu chữ thay đổi */
+}
+
+/* Biểu tượng trong nút chọn loại đơn hàng */
+.type-order-btn i {
+    font-size: 22px; /* Kích thước biểu tượng */
+    margin-right: 20px; /* Khoảng cách bên phải biểu tượng */
+}
+
+/* Phần tổng hóa đơn */
+.bill-total {
+    margin-bottom: 20px; /* Khoảng cách dưới phần tổng hóa đơn */
+}
+
+/*.....................................................*/
 .cart-main .cart-footer .cart-btns {
     display: flex;
     flex-wrap: wrap;

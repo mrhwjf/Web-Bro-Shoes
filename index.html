@@ -362,11 +362,12 @@
                         </div>
                         <div class="cart-btns">
                             <button>CONTINUE SHOPPING</button>
-                            <button>TO CHECKOUT</button>
+                            <button class="thanh-toan disabled">Thanh toán</button>
+
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>                     
             <!-- CATALOGUE -->
             <div class="catalogue-container always-active-page" id="catalogue">
                 <div class="catalogue-name">[template]</div>
@@ -542,6 +543,46 @@
                     <span>REASONABLE PRICE</span>
                 </div>
             </div>
+            <!-- thanhtoan -->
+            <div class="checkout-page">
+                <div class="checkout-header">
+                    <div class="checkout-return">
+                        <button onclick="closecheckout()"><i class="fa-regular fa-chevron-left"></i></button>
+                    </div>
+                    <h2 class="checkout-title">Thanh toán</h2>
+                </div>
+                <main class="checkout-section container">
+                    <div class="checkout-col-left">
+                        <div class="checkout-row">
+                            <div class="checkout-col-title">
+                                Thông tin đơn hàng
+                            </div>
+                            <div class="checkout-col-content">
+                                <div class="content-group">
+                                    <p class="checkout-content-label">Ngày giao hàng</p>
+                                    <div class="date-order">
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <p class="checkout-content-label">ĐỊA CHỈ</p>
+                                    <textarea type="text" class="note-order" placeholder="Nhập địa chỉ nhận hàng"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-row">
+                            <div class="checkout-col-title">
+                                cách thức thanh toán
+                            </div>
+                            <div class="checkout-col-content">
+                                <!--phương thức thanh toán-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-col-right">
+                        hhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    </div>
+
+                            
         </main>
         <footer>
             <div class="container" id="footer">
@@ -602,6 +643,7 @@
         <script src="js\main.js"></script>
         <script src="js/products.js"></script>
         <!-- <script src="js\toast-msg.js"></script> -->
+        <script src="js\checkout.js"></script>
     </div>
 </body>
 
