@@ -45,8 +45,25 @@
                                 <li><a class="login-auth"><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a></li>
                             </ul>
                         </div>
+                    </li>                   
+                    
+                    <li class="hide-on-mobile" onclick="openCart()">
+                        <div class="cart-icon-menu">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="count-product-cart">0</span>
+                        </div>
                     </li>
-                    <li class="hide-on-mobile"><a><i class="fa-solid fa-cart-shopping "></i></a></li>    
+                
+                    <!-- Modal Giỏ Hàng -->
+                    <div class="modal-cart" id="cartModal" onclick="closeModalIfClickedOutside(event)">
+                        <div class="cart-container">
+                            <button onclick="closeCart()" class="close-cart-btn">X</button> <!-- Nút đóng với chữ "X" -->
+                            <!-- Nội dung giỏ hàng -->
+                            <h2>Giỏ hàng của bạn</h2>
+                            <p>Không có sản phẩm nào trong giỏ hàng.</p>
+                        </div>
+                    </div>
+
                 </ul>
             </div>
             <div class="container hamburger-menu-button hide-on-pc show-on-mobile">

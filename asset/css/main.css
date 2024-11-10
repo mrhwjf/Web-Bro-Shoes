@@ -909,3 +909,97 @@ ul.dropdown li:hover {
     border: 1px solid var(--border-color);
     border-radius: 50%;
 }
+
+/*----------------------------------*/
+/*
+.modal-cart {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1000; 
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px; 
+    border-radius: 8px;
+    padding: 20px;
+}*/
+
+
+.modal-cart {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(27, 22, 25, 0.5); /* Nền mờ */
+    display: none; /* Ẩn modal theo mặc định */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    height: 100vh;
+}
+.modal-cart.open {
+    display: block; /* Hiển thị modal khi có lớp 'open' */
+}
+
+/* Nền mờ khi modal mở */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+.modal-overlay.open {
+    display: block;
+}
+
+
+.close-cart-icon {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+.close-cart-icon:hover {
+    color: #ff4d4f; /* Đổi màu khi hover để người dùng dễ nhận biết */
+}
+
+
+
+.cart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-cart-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 20px;
+}
