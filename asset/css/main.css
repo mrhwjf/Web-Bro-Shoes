@@ -738,7 +738,7 @@ header {
 .checkout-section {
     padding: 1rem;
     display: flex;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     justify-content: space-between;
     gap: 1rem;
 }
@@ -746,6 +746,7 @@ header {
 /* Nhóm các phần tử nội dung */
 .content-group {
     padding: 15px 20px; /* Khoảng cách bên trong */
+    
 }
 
 /* Nhãn cho các nội dung trong phần thanh toán */
@@ -764,16 +765,32 @@ header {
 
 /* Cột bên trái của trang thanh toán */
 .checkout-col-left {
-
-    outline: 1px solid var(--border-color);
+    width: 70%;
+    /*outline: 1px solid var(--border-color);*/
 }
-
+.checkout-col-content {
+    outline: 1px solid var(--border-color);
+    
+    border-radius: 8px;
+}
+.checkout-row-one {
+    padding: 1rem;    
+}
 /* Cột bên phải (tóm tắt đơn hàng) */
 .checkout-col-right {
-    outline: 1px solid var(--border-color);
+    width: 30%;
+    /*outline: 1px solid var(--border-color);*/
     height: fit-content;
 }
-
+@media (max-width: 700px) {
+    .checkout-section {
+        flex-direction: column-reverse;
+    }
+    .checkout-col-left,
+    .checkout-col-right {
+        width: 100%;
+    }
+}
 /* Tiêu đề cho các cột bên trái và phải */
 .checkout-col-title {
     display: flex;
@@ -863,11 +880,45 @@ header {
 }
 
 
-.cardsthanhtoan .img-container {
-    
+.cardsthanhtoan {
+    display: flex;
+    justify-content: flex-end; /* Căn các ảnh về bên phải */
+    gap: 10px; /* Khoảng cách giữa các ảnh */
 }
 
+.img-container-card {
+    flex: 0 0 15%; /* Mỗi ảnh chiếm 15% chiều rộng */
+    max-width: 15%; /* Đảm bảo container không vượt quá 15% */
+    height: 100%; /* Đặt chiều cao để ảnh lấp đầy container */
+    overflow: hidden; /* Ẩn phần ảnh thừa nếu có */
+}
 
+.img-container-card img {
+    width: 100%; /* Chiều rộng ảnh lấp đầy container */
+    height: 100%; /* Chiều cao ảnh lấp đầy container */
+    object-fit: cover; /* Căn ảnh ra đầy khung mà không méo tỷ lệ */
+}
+
+.third-row{
+    margin-left: 1rem;
+}
+.selection {
+    display: flex;
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+}
+
+.date {
+    flex: 0 0 60%; /* Chiếm 60% chiều rộng của .selection */
+    display: flex;
+    gap: 0.5rem; /* Khoảng cách giữa hai thẻ <select> */
+    height: 2rem; /* Đặt chiều cao cho .date */
+}
+
+.date select {
+    width: 50%; /* Mỗi thẻ <select> sẽ chiếm đầy trong .date */
+    height: 100%; /* Đặt chiều cao của <select> là 1rem */
+    font-size: 1rem; /* Đảm bảo văn bản vừa khít trong chiều cao 1rem */
+}
 
 .checkout-options {
     display: flex;
