@@ -683,7 +683,7 @@ header {
 /* Checkout Page */
 /* Toàn bộ trang thanh toán */
 .checkout-page {
-    background-color: #f5f5f5; /* Màu nền của trang thanh toán */
+    background-color: var(--bg-main-color); /* Màu nền của trang thanh toán */
     position: fixed; /* Đặt trang thanh toán cố định */
     top: 0; /* Cố định ở trên cùng */
     right: 0; /* Cố định ở bên phải */
@@ -692,7 +692,7 @@ header {
     z-index: 103; /* Đảm bảo trang thanh toán hiển thị trên các phần tử khác */
     overflow-y: auto; /* Cho phép cuộn dọc nếu nội dung quá dài */
     transform: translateX(100%); /* Ban đầu, trang thanh toán nằm ngoài màn hình (trượt từ phải vào) */
-    transition: all 0.5s ease; /* Thêm hiệu ứng chuyển động trượt vào */
+    transition: all 0.5s ease-in-out; /* Thêm hiệu ứng chuyển động trượt vào */
 }
 
 
@@ -703,10 +703,11 @@ header {
 
 /* Phần tiêu đề của trang thanh toán */
 .checkout-header {
-    background-color: var(--white); /* Màu nền trắng */
+    background-color: var(--bg-main-color); /* Màu nền trắng */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center; /* Căn giữa nội dung */
     padding: 20px; /* Khoảng cách bên trong */
-    border-bottom: 1px solid #eee; /* Viền dưới mờ */
+    border-bottom: 1px solid var(--border-color); /* Viền dưới mờ */
     position: sticky; /* Giữ tiêu đề luôn ở trên khi cuộn */
     top: 0; /* Đặt ở trên cùng */
     width: 100%; /* Chiếm hết chiều rộng */
@@ -720,50 +721,26 @@ header {
 
 /* Nút quay lại có kiểu dáng riêng */
 .checkout-return button {
-    float: left; /* Nút nằm bên trái */
     border: none; /* Không có viền */
-    width: 30px; /* Chiều rộng của nút */
     background-color: transparent; /* Nền trong suốt */
-    outline: none; /* Loại bỏ viền khi nhấn */
-    font-size: 20px; /* Kích thước font chữ */
-    cursor: pointer; /* Hiển thị con trỏ chuột khi di chuyển qua */
-    color: var(--text-color); /* Màu chữ */
+    font-size: 1.5rem;
+    color: var(--text-color);
 }
 
 /* Tiêu đề của trang thanh toán */
 .checkout-title {
-    font-weight: 700; /* Định dạng chữ đậm */
-    font-size: 20px; /* Kích thước chữ */
+    font-weight: bold; /* Định dạng chữ đậm */
+    font-size: 1.5rem; /* Kích thước chữ */
     color: var(--text-color); /* Màu chữ */
 }
 
 /* Các phần trong trang thanh toán */
 .checkout-section {
-    padding-top: 15px; /* Khoảng cách phía trên */
-    display: flex; /* Sử dụng Flexbox để bố trí các phần tử */
-    column-gap: 20px; /* Khoảng cách giữa các cột */
-}
-
-/* Các hàng và cột trong trang thanh toán */
-.checkout-row,
-.checkout-col-right {
-    background-color: var(--white); /* Nền trắng */
-    border-radius: 5px; /* Bo góc */
-    border: 1px solid rgba(0, 0, 0, 0.15); /* Viền mờ */
-    box-shadow: 0px 4px 10px rgb(0 0 0 / 3%); /* Hiệu ứng đổ bóng nhẹ */
-    margin-bottom: 20px; /* Khoảng cách dưới các phần tử */
-}
-
-/* Cột bên phải (thông tin chi tiết đơn hàng) */
-.checkout-col-right {
-    border: 1px solid var(--red); /* Viền đỏ */
-    padding: 15px; /* Khoảng cách bên trong */
-    height: 100%; /* Chiều cao đầy đủ */
-}
-
-/* Nhan đề cho các mục trong cột phải */
-.checkout-col-right .checkout-content-label {
-    font-size: 17px; /* Kích thước chữ */
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 /* Nhóm các phần tử nội dung */
@@ -787,24 +764,24 @@ header {
 
 /* Cột bên trái của trang thanh toán */
 .checkout-col-left {
-    width: 70%; /* Chiếm 70% chiều rộng */
+
+    outline: 1px solid var(--border-color);
 }
 
 /* Cột bên phải (tóm tắt đơn hàng) */
 .checkout-col-right {
-    width: 30%; /* Chiếm 30% chiều rộng */
+    outline: 1px solid var(--border-color);
+    height: fit-content;
 }
 
 /* Tiêu đề cho các cột bên trái và phải */
 .checkout-col-title {
-    padding: 15px 20px 15px 33px; /* Khoảng cách bên trong */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
     position: relative; /* Để có thể sử dụng tuyệt đối cho dấu chấm bên trái */
-    font-size: 15px; /* Kích thước chữ */
-    line-height: 100%; /* Độ cao dòng */
-    text-transform: uppercase; /* Chữ in hoa */
-    color: #222222; /* Màu chữ */
-    font-weight: 700; /* Kiểu chữ đậm */
-    border-bottom: 1px solid #E7E7E7; /* Viền dưới mờ */
+    font-weight: bold; /* Kiểu chữ đậm */
 }
 
 /* Dấu chấm màu đỏ trước tiêu đề của cột */
@@ -830,16 +807,111 @@ header {
     color: var(--text-color); /* Màu chữ thay đổi */
 }
 
-/* Biểu tượng trong nút chọn loại đơn hàng */
-.type-order-btn i {
-    font-size: 22px; /* Kích thước biểu tượng */
-    margin-right: 20px; /* Khoảng cách bên phải biểu tượng */
+
+.pick-date {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-main-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    /* -webkit-transition: 0.2s; */
+    transition: 0.25s all ease-in-out;
+    color: var(--text-color);
+}
+.pick-date.active,
+.pick-date:hover {
+    background: var(--theme-color-2);
+}
+.container-card{
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-main-color);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: space-around;
 }
 
-/* Phần tổng hóa đơn */
-.bill-total {
-    margin-bottom: 20px; /* Khoảng cách dưới phần tổng hóa đơn */
+
+.owner{
+    width: 100%;
+    margin-right: 40px;
 }
+
+.input-field{
+    border: 1px solid #999;
+}
+
+.input-field input{
+    width: 100%;
+    border:none;
+    outline: none;
+    padding: 10px;
+}
+
+.selection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selection select{
+    width: 100%;
+    float: left;
+}
+
+
+.cardsthanhtoan .img-container {
+    
+}
+
+
+
+.checkout-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.payment-option {
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.payment-option div:first-child {
+    display: flex;
+    gap: 1rem;
+}
+
+.payment-option .form-group {
+    align-items: flex-start;
+}
+
+.payment-details * {
+    margin-bottom: 0.5rem;
+}
+
+.confirm-payment button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.confirm-payment button:hover {
+    background-color: #45a049;
+}
+
 
 /*.....................................................*/
 .cart-main .cart-footer .cart-btns {

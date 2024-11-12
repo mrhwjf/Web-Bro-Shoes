@@ -367,7 +367,7 @@
                         </div>
                     </div>
                 </div>
-            </div>                     
+            </div>
             <!-- CATALOGUE -->
             <div class="catalogue-container always-active-page" id="catalogue">
                 <div class="catalogue-name">[template]</div>
@@ -524,7 +524,138 @@
                     </div>
                 </div>
             </div>
-            <!-- PREFOOTER -->
+            <!-- thanhtoan -->
+            <div class="checkout-page">
+                <div class="checkout-header">
+                    <div class="checkout-return">
+                        <a onclick="closecheckout()"><i class="fa-regular fa-chevron-left"></i></a>
+                    </div>
+                    <h2 class="checkout-title">CHECKOUT</h2>
+                </div>
+                <div class="checkout-section container">
+                    <div class="checkout-col-left">
+                        <div class="checkout-row">
+                            <div class="checkout-col-title">
+                                <h1>CART DETAIL</h1>
+                            </div>
+                            <div class="checkout-col-content">
+                                <div class="content-group">
+                                    <h2 class="checkout-content-label">DELIVERY DATE</h2>
+                                    <div class="date-order">
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <h2 class="checkout-content-label">ADDRESS</h2>
+                                    <input type="text" class="note-order form-input-bar"
+                                        placeholder="Enter address"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-row">
+                            <div class="checkout-col-title">
+                                <h2>PAYMENT METHOD</h2>
+                                <div class="checkout-options">
+                                    <!-- Phần thanh toán bằng tiền mặt -->
+                                    <div class="payment-option">
+                                        <div>
+                                            <input type="radio" name="payment-method" id="cash" value="cash"
+                                                onclick="togglePaymentMethod('cash')" checked>
+                                            <label for="cash">
+                                                <h3>PAY WITH CASH</h3>
+                                            </label>
+                                        </div>
+                                        <div id="cash-option" class="payment-details">
+                                            <p>You will pay with cash.</p>
+                                            <div class="confirm-payment">
+                                                <button type="button" onclick="confirmPayment('cash')">CONFIRM
+                                                    PAYMENT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Phần thanh toán bằng thẻ -->
+                                    <div class="payment-option">
+                                        <div>
+                                            <input type="radio" name="payment-method" id="card" value="card"
+                                                onclick="togglePaymentMethod('card')">
+                                            <label for="card">
+                                                <h3>PAY WITH CARD</h3>
+                                            </label>
+                                        </div>
+                                        <div id="card-option" class="payment-details" style="display: none;">
+                                            <div class="form-group">
+                                                <label for="card-owner-name">Owner</label>
+                                                <input type="text" class="form-input-bar"
+                                                    placeholder="Card owner's name" id="card-owner-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cvv">CVV</label>
+                                                <input type="password" class="form-input-bar" placeholder="CVV"
+                                                    limit="3" id="cvv">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="card-number">Card Number</label>
+                                                <input type="number" class="form-input-bar" placeholder="Card number"
+                                                    id="card-number">
+                                            </div>
+                                        </div>
+                                        <div class="third-row">
+                                            <h3>Exp. Date</h3>
+                                            <div class="selection">
+                                                <div class="date">
+                                                    <select name="months" id="months">
+                                                        <option value="Jan">Jan</option>
+                                                        <option value="Feb">Feb</option>
+                                                        <option value="Mar">Mar</option>
+                                                        <option value="Apr">Apr</option>
+                                                        <option value="May">May</option>
+                                                        <option value="Jun">Jun</option>
+                                                        <option value="Jul">Jul</option>
+                                                        <option value="Aug">Aug</option>
+                                                        <option value="Sep">Sep</option>
+                                                        <option value="Oct">Oct</option>
+                                                        <option value="Nov">Nov</option>
+                                                        <option value="Dec">Dec</option>
+                                                    </select>
+                                                    <select name="years" id="years">
+                                                        <option value="2024">2024</option>
+                                                        <option value="2020">2020</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2016">2016</option>
+                                                        <option value="2015">2015</option>
+                                                    </select>
+                                                </div>
+                                                <div class="cardsthanhtoan">
+                                                    <div class="img-container">
+                                                        <img src="asset/img/card/mc.png" alt="">
+                                                    </div>
+                                                    <div class="img-container">
+                                                        <img src="asset/img/card/pp.png" alt="">
+                                                    </div>
+                                                    <div class="img-container">
+                                                        <img src="asset/img/card/vi.png" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="confirm-payment">
+                                                <button type="button" onclick="confirmPayment('card')">CONFIRM
+                                                    PAYMENT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-col-content">
+                            <!--xác nhận-->
+                        </div>
+                    </div>
+                    <div class="checkout-col-right">
+                        <p>hhhhhhhhhhhhhhhhhhhhhhhhhhhhh</p>
+                    </div>
+                </div>
+            </div>
             <div class="container" id="prefooter">
                 <div class="prefooter-div">
                     <i class="fa-solid fa-certificate"></i>
@@ -543,107 +674,68 @@
                     <span>REASONABLE PRICE</span>
                 </div>
             </div>
-            <!-- thanhtoan -->
-            <div class="checkout-page">
-                <div class="checkout-header">
-                    <div class="checkout-return">
-                        <button onclick="closecheckout()"><i class="fa-regular fa-chevron-left"></i></button>
+    </div>
+    </main>
+    <footer>
+        <div class="container" id="footer">
+            <h2 class="footer-title">JOIN OUR COMMUNITY</h2>
+            <div class="footer-container-info">
+                <ul class="menu-list">
+                    <li><a href="">ABOUT US</a></li>
+                    <li><a href="">FAQ</a></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><a href="">PRIVACY POLICY</a></li>
+                    <li><a href="">REFUND POLICY</a></li>
+                    <li><a href="">TERMS OF SERVICES</a></li>
+                </ul>
+                <ul class="menu-list">
+                    <li><a href="">HOW TO ORDER</a></li>
+                    <li><a href="">TRACK YOUR ORDER</a></li>
+                    <li><a href="">RETURN & EXCHANGE</a></li>
+                </ul>
+            </div>
+            <div class="footer-container-contacts">
+                <div class="contact-div">
+                    <div class="contact-icon-div">
+                        <i class="fa-solid fa-phone"></i>
                     </div>
-                    <h2 class="checkout-title">Thanh toán</h2>
-                </div>
-                <main class="checkout-section container">
-                    <div class="checkout-col-left">
-                        <div class="checkout-row">
-                            <div class="checkout-col-title">
-                                Thông tin đơn hàng
-                            </div>
-                            <div class="checkout-col-content">
-                                <div class="content-group">
-                                    <p class="checkout-content-label">Ngày giao hàng</p>
-                                    <div class="date-order">
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <p class="checkout-content-label">ĐỊA CHỈ</p>
-                                    <textarea type="text" class="note-order" placeholder="Nhập địa chỉ nhận hàng"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkout-row">
-                            <div class="checkout-col-title">
-                                cách thức thanh toán
-                            </div>
-                            <div class="checkout-col-content">
-                                <!--phương thức thanh toán-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="checkout-col-right">
-                        hhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-                    </div>
-
-                            
-        </main>
-        <footer>
-            <div class="container" id="footer">
-                <h2 class="footer-title">JOIN OUR COMMUNITY</h2>
-                <div class="footer-container-info">
-                    <ul class="menu-list">
-                        <li><a href="">ABOUT US</a></li>
-                        <li><a href="">FAQ</a></li>
-                    </ul>
-                    <ul class="menu-list">
-                        <li><a href="">PRIVACY POLICY</a></li>
-                        <li><a href="">REFUND POLICY</a></li>
-                        <li><a href="">TERMS OF SERVICES</a></li>
-                    </ul>
-                    <ul class="menu-list">
-                        <li><a href="">HOW TO ORDER</a></li>
-                        <li><a href="">TRACK YOUR ORDER</a></li>
-                        <li><a href="">RETURN & EXCHANGE</a></li>
-                    </ul>
-                </div>
-                <div class="footer-container-contacts">
-                    <div class="contact-div">
-                        <div class="contact-icon-div">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-                        <div class="contact-content-div">
-                            <span>0123-456-789</span>
-                        </div>
-                    </div>
-                    <div class="contact-div">
-                        <div class="contact-icon-div">
-                            <i class="fa-solid fa-envelope"></i>
-                        </div>
-                        <div class="contact-content-div">
-                            <span>broshoes@domain.com</span>
-                        </div>
-                    </div>
-                    <div class="contact-div">
-                        <div class="contact-icon-div">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <span>273 Đ. An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
-                        </div>
+                    <div class="contact-content-div">
+                        <span>0123-456-789</span>
                     </div>
                 </div>
-                <h1 class="footer-logo"><a href="index.html">BRO SHOES</a></h1>
-                <div class="footer-container-media" id="body-footer-media">
-                    <ul class="menu-list">
-                        <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
-                        <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
-                        <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
-                        <li><a href=""><i class="fa-brands fa-square-instagram"></i></a></li>
-                    </ul>
+                <div class="contact-div">
+                    <div class="contact-icon-div">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="contact-content-div">
+                        <span>broshoes@domain.com</span>
+                    </div>
+                </div>
+                <div class="contact-div">
+                    <div class="contact-icon-div">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <span>273 Đ. An Dương Vương, Phường 3, Quận 5, Hồ Chí Minh</span>
+                    </div>
                 </div>
             </div>
-        </footer>
-        <script src="js\main.js"></script>
-        <script src="js/products.js"></script>
-        <!-- <script src="js\toast-msg.js"></script> -->
-        <script src="js\checkout.js"></script>
+            <h1 class="footer-logo"><a href="index.html">BRO SHOES</a></h1>
+            <div class="footer-container-media" id="body-footer-media">
+                <ul class="menu-list">
+                    <li><a href=""><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href=""><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href=""><i class="fa-brands fa-square-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="js\main.js"></script>
+    <script src="js/products.js"></script>
+    <!-- <script src="js\toast-msg.js"></script> -->
+    <script src="js\checkout.js"></script>
     </div>
 </body>
 

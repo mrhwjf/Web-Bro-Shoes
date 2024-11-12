@@ -46,3 +46,19 @@ function thanhtoanpage(option, product) {
         }
     }
 }
+
+
+//......................................
+
+function togglePaymentMethod(method) {
+    document.getElementById('cash-option').style.display = method === 'cash' ? 'block' : 'none';
+    document.getElementById('card-option').style.display = method === 'card' ? 'block' : 'none';
+}
+
+function confirmPayment(method) {
+    if (method === 'cash') {
+        alert("Thanh toán bằng tiền mặt đã được xác nhận!");
+    } else if (method === 'card') {
+        alert("Thanh toán bằng thẻ đã được xác nhận!");
+    }
+}
