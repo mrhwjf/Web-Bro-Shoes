@@ -25,10 +25,10 @@
                 </div>
                 <div class="header-container-mid hide-on-mobile">
                     <ul class="menu-list">
-                        <li><a onclick="location.reload()" class="body-header-link">HOME</a></li>
-                        <li><a>SNEAKERS</a></li>
-                        <li><a>SANDALS</a></li>
-                        <li><a>KIDS</a></li>
+                        <li><a class="filter-category active" data-filter="Home">HOME</a></li>
+                        <li><a class="filter-category" data-filter="Sneaker">SNEAKERS</a></li>
+                        <li><a class="filter-category" data-filter="Sandal">SANDALS</a></li>
+                        <li><a class="filter-category" data-filter="Kid">KIDS</a></li>
                     </ul>
                 </div>
                 <div class="header-container-right">
@@ -40,16 +40,16 @@
                             <a><i class="fa-regular fa-user"></i><span class="display-username"></span></a>
                             <div class="container float-dropdown" id="account-drop-list">
                                 <ul class="menu-list" id="login-dropdown">
-                                    <li class="logged-out"><a onclick="toggleVisibility('login-user')"><i
+                                    <li class="logged-out"><a onclick="toggleModal('login-user')"><i
                                                 class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
-                                    <li class="logged-out"><a onclick="toggleVisibility('signup-user')"><i
+                                    <li class="logged-out"><a onclick="toggleModal('signup-user')"><i
                                                 class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
                                     <li class="admin"><a href="admin.html"><i
                                                 class="fa-solid fa-screwdriver-wrench"></i><span>Manage*</span></a></li>
                                     <li class="logged-in"><a
-                                            onclick="toggleVisibility('account-user'); loadUserInfo()"><i
+                                            onclick="togglePage('account-user'); loadUserInfo()"><i
                                                 class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
-                                    <li class="logged-in"><a onclick="toggleVisibility('order-history')"><i
+                                    <li class="logged-in"><a onclick="togglePage('order-history')"><i
                                                 class="fa-solid fa-basket-shopping"></i><span>My
                                                 Order</span></a></li>
                                     <li class="logged-in"><a onclick="signOut()"><i
@@ -58,50 +58,52 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="hide-on-mobile"><a onclick="toggleSidebarMobile('cart')"><i
-                                    class="fa-solid fa-cart-shopping "></i></a></li>
+                        <li class="hide-on-mobile"><a onclick="toggleModal('cart'); showCart()"><i
+                                    class="fa-solid fa-cart-shopping "></i>(<span class="display-cart-total-amount">0</span>)</a></li>
                     </ul>
                 </div>
                 <div class="container hamburger-menu-button hide-on-pc show-on-mobile">
-                    <a class="toggler" id="toggle-sidebar" onclick="toggleSidebarMobile('header-sidebar')"><i
+                    <a class="toggler" id="toggle-sidebar" onclick="toggleModal('header-sidebar')"><i
                             class="fa-solid fa-bars"></i></a>
                 </div>
                 <!-- SIDEBAR -->
-                <div class="container sidebar" id="header-sidebar">
-                    <ul class="menu-list">
-                        <li>Hi there <span class="display-username"></span>!</li>
-                        <li><a onclick="location.reload()">HOME</a></li>
-                        <li><a>SNEAKERS</a></li>
-                        <li><a>PROFESSIONAL</a></li>
-                        <li><a>KIDS</a></li>
-                        <li>
-                            <!-- SIDEBAR ACCOUNT DROPDOWN -->
-                            <a onclick="toggleSidebar('account-drop-list-sidebar')"><span>ACCOUNT</span> <i
-                                    class="fa-solid fa-chevron-down"></i></a>
-                            <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
-                                <ul class="menu-list" id="login-dropdown">
-                                    <li class="logged-out"><a
-                                            onclick="toggleVisibility('login-user'); toggleSidebarMobile('header-sidebar')"><span>Log
-                                                in</span></a></li>
-                                    <li class="logged-out"><a
-                                            onclick="toggleVisibility('signup-user'); toggleSidebarMobile('header-sidebar')"><span>Sign
-                                                up</span></a></li>
-                                    <li class="admin"><a href="admin.html"><span>Manage*</span></a></li>
-                                    <li class="logged-in"><a
-                                            onclick="toggleVisibility('account-user'); toggleSidebarMobile('header-sidebar'); loadUserInfo()"><span>My
-                                                Account</span></a></li>
-                                    <li class="logged-in"><a onclick="toggleVisibility('order-history')"><span>My
-                                                Order</span></a></li>
-                                    <li class="logged-in"><a
-                                            onclick="signOut(); toggleSidebarMobile('header-sidebar')"><span>Sign
-                                                Out</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a onclick="toggleSidebarMobile('cart'); toggleSidebarMobile('header-sidebar')">CART</a>
-                        </li>
-                    </ul>
+                <div class="modal sidebar header-sidebar" id="header-sidebar">
+                    <div class="sidebar-main mdl-cnt">
+                        <ul class="menu-list">
+                            <li>Hi there <span class="display-username"></span>!</li>
+                            <li><a class="filter-category active" data-filter="Home">HOME</a></li>
+                            <li><a class="filter-category" data-filter="Sneaker">SNEAKERS</a></li>
+                            <li><a class="filter-category" data-filter="Sandal">SANDALS</a></li>
+                            <li><a class="filter-category" data-filter="Kid">KIDS</a></li>
+                            <li>
+                                <!-- SIDEBAR ACCOUNT DROPDOWN -->
+                                <a onclick="toggleSidebarDropdown('account-drop-list-sidebar')"><span>ACCOUNT</span> <i
+                                        class="fa-solid fa-chevron-down"></i></a>
+                                <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
+                                    <ul class="menu-list" id="login-dropdown">
+                                        <li class="logged-out"><a
+                                                onclick="toggleModal('login-user')"><span>Log
+                                                    in</span></a></li>
+                                        <li class="logged-out"><a
+                                                onclick="toggleModal('signup-user')"><span>Sign
+                                                    up</span></a></li>
+                                        <li class="admin"><a href="admin.html"><span>Manage*</span></a></li>
+                                        <li class="logged-in"><a
+                                                onclick="loadUserInfo(); togglePage('account-user'); toggleModal('header-sidebar')"><span>My
+                                                    Account</span></a></li>
+                                        <li class="logged-in"><a onclick="togglePage('order-history'); toggleModal('header-sidebar')"><span>My
+                                                    Order</span></a></li>
+                                        <li class="logged-in"><a
+                                                onclick="signOut(); toggleModal('header-sidebar')"><span>Sign
+                                                    Out</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a onclick="toggleModal('cart'); showCart()">CART (<span class="display-cart-total-amount">0</span>)</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </header>
@@ -124,9 +126,9 @@
             </div>
         </div> -->
             <!-- LOG-IN -->
-            <div class="container toggle-page" id="login-user">
-                <div class="main-login">
-                    <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('login-user')"></i>
+            <div class="modal login-user" id="login-user">
+                <div class="main-login mdl-cnt">
+                    <i class="fa-regular fa-circle-xmark form-close" onclick="toggleModal('login-user')"></i>
                     <div class="main-login-header">
                         <h2>LOGIN</h2>
                     </div>
@@ -141,15 +143,15 @@
                         </form>
                     </div>
                     <div class="main-login-footer">
-                        <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('signup-user')">SIGN UP</a></span>
+                        <p>DON'T HAVE AN ACCOUNT? <span><a onclick="toggleModal('signup-user')">SIGN UP</a></span>
                         </p>
                     </div>
                 </div>
             </div>
             <!-- SIGN-UP -->
-            <div class="container toggle-page" id="signup-user">
-                <div class="main-login">
-                    <i class="fa-regular fa-circle-xmark form-close" onclick="toggleVisibility('signup-user')"></i>
+            <div class="modal login-user signup-user" id="signup-user">
+                <div class="main-login mdl-cnt">
+                    <i class="fa-regular fa-circle-xmark form-close" onclick="toggleModal('signup-user')"></i>
                     <div class="main-login-header">
                         <h2>SIGN UP</h2>
                     </div>
@@ -172,13 +174,13 @@
                         </form>
                     </div>
                     <div class="main-login-footer">
-                        <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleVisibility('login-user')">LOGIN</a></span>
+                        <p>ALREADY HAVE AN ACCOUNT? <span><a onclick="toggleModal('login-user')">LOGIN</a></span>
                         </p>
                     </div>
                 </div>
             </div>
             <!-- USER - INFO -->
-            <div class="container hidden toggle-page" id="account-user">
+            <div class="container account-user hidden toggle-page" id="account-user">
                 <div class="main-account">
                     <div class="main-account-header">
                         <h2>MANAGE YOUR ACCOUNT</h2>
@@ -191,7 +193,7 @@
                                 <div class="form-group">
                                     <label for="infoname" class="form-label">Username</label>
                                     <input class="form-input-bar" type="text" name="infoname" id="infoname"
-                                        placeholder="Username*">
+                                        placeholder="Username*" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="fullname" class="form-label">Full Name</label>
@@ -257,7 +259,7 @@
                 </div>
             </div>
             <!-- USER - ORDER HISTORY -->
-            <div class="container hidden toggle-page" id="order-history">
+            <div class="container order-history hidden toggle-page" id="order-history">
                 <div class="main-account">
                     <div class="main-account-header">
                         <h2>ORDER HISTORY</h2>
@@ -266,8 +268,10 @@
                     <div class="main-account-body">
                         <div class="main-account-body-col">
                             <div class="display-when-empty">
-                                <img src="asset\img\empty-order-history.png">
-                                <p>It's empty here... <a onclick="toggleVisibility('order-history')">Start shopping
+                                <div class="img-container">
+                                    <img src="asset\img\empty-order-history.png">
+                                </div>
+                                <p>It's empty here... <a onclick="togglePage('order-history')">Start shopping
                                         now!</a></p>
                             </div>
                             <!-- <div class="modal-container order-history">
@@ -282,7 +286,7 @@
                                             <p>Size: <span class="display-product-size">35</span></p>
                                             <p class="display-product-price">1.000.000 d</p>
                                         </div>
-                                        <div class="cart-product-func">
+                                        <div class="ccart-product-control">
                                             <div class="cart-product-amount">
                                                 <p>x<span class="display-cart-amount">1</span></p>
                                             </div>
@@ -298,7 +302,7 @@
                                             <p>Size: <span class="display-product-size">35</span></p>
                                             <p class="display-product-price">1.000.000 d</p>
                                         </div>
-                                        <div class="cart-product-func">
+                                        <div class="ccart-product-control">
                                             <div class="cart-product-amount">
                                                 <p>x<span class="display-cart-amount">1</span></p>
                                             </div>
@@ -325,17 +329,17 @@
                 </div>
             </div>
             <!-- CART -->
-            <div class="container toggle-page" id="cart">
-                <div class="cart-main">
+            <div class="modal sidebar cart" id="cart">
+                <div class="sidebar-main mdl-cnt">
                     <div class="cart-header">
                         <p>YOUR CART</p>
-                        <a onclick="toggleSidebarMobile('cart')">CLOSE</a>
+                        <a onclick="toggleModal('cart')">CLOSE</a>
                     </div>
-                    <div class="cart-body">
+                    <div class="cart-body" id="cart-body">
                         <div class="display-when-empty">
                             <p>Your cart is empty... Start shopping now!</p>
                         </div>
-                        <div class="modal-container cart-product">
+                        <!-- <div class="modal-container cart-product">
                             <div class="img-container">
                                 <img src="asset\img\catalogue\coming-soon.jpg">
                             </div>
@@ -345,7 +349,7 @@
                                 <p>Size: <span class="display-product-size">35</span></p>
                                 <p class="display-product-price">1.000.000 d</p>
                             </div>
-                            <div class="cart-product-func">
+                            <div class="ccart-product-control">
                                 <a><i class="fa-regular fa-circle-xmark"></i></a>
                                 <div class="cart-product-amount">
                                     <button><i class="fa-solid fa-minus"></i></button>
@@ -353,36 +357,36 @@
                                     <button><i class="fa-solid fa-plus"></i></button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="cart-footer">
                         <div class="cart-totalprice">
                             <p>GRAND TOTAL</p>
-                            <p class="display-totalprice">1.000.000 d</p>
+                            <p class="display-totalprice">0</p>
                         </div>
                         <div class="cart-btns">
-                            <button>CONTINUE SHOPPING</button>
-                            <button>TO CHECKOUT</button>
+                            <button onclick="toggleModal('cart')">CONTINUE SHOPPING</button>
+                            <button id="checkout-btn">TO CHECKOUT</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- CATALOGUE -->
             <div class="catalogue-container always-active-page" id="catalogue">
-                <div class="catalogue-name">[template]</div>
+                <div class="catalogue-name" id="display-catalogue-name">HOME</div>
                 <div class="search-bar">
                     <label for="search-bar"><i class="fas fa-search"></i></label>
                     <input class="form-input-bar filter-option" type="text" name="search-bar" id="search-bar"
                         placeholder="Search products by name">
                 </div>
                 <div class="details-search-bar hide-on-pc show-on-mobile"
-                    onclick="toggleSidebarMobile('details-search-sidebar')">
+                    onclick="toggleModal('details-search-sidebar')">
                     <i class="fa-solid fa-bars"></i>
                     <p>Filter by</p>
                 </div>
                 <div class="catalogue-info">
                     <div class="products-amount">
-                        <p><span id="display-products-amount"></span>product(s)</p>
+                        <p><span id="display-catalogue-amount"></span>product(s)</p>
                     </div>
                     <div class="sortby">
                         <div>
@@ -403,60 +407,73 @@
                     </div>
                 </div>
                 <!-- CATALOGUE - DETAILS SEARCH SIDEBAR -->
-                <div class="details-search sidebar" id="details-search-sidebar">
-                    <a><i class="fa-solid fa-xmark" onclick="toggleSidebarMobile('details-search-sidebar')"></i></a>
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('brand-menu-sidebar')">BRAND</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="brand-menu-sidebar">
-                            <li class="filter-option">ADIDAS</li>
-                            <li class="filter-option">CONVERSE</li>
-                            <li class="filter-option">NIKE</li>
-                            <li class="filter-option">BITI'S</li>
-                        </ul>
-                    </div>
-                    <!-- SIZE Dropdown -->
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('size-menu-sidebar')">SIZE</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="size-menu-sidebar">
-                            <li class="filter-option">Small</li>
-                            <li class="filter-option">Medium</li>
-                            <li class="filter-option">Large</li>
-                        </ul>
-                    </div>
+                <div class="modal details-search sidebar" id="details-search-sidebar">
+                    <div class="sidebar-main mdl-cnt">
+                        <a><i class="fa-solid fa-xmark" onclick="toggleModal('details-search-sidebar')"></i></a>
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('brand-menu-sidebar')">BRAND</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="brand-menu-sidebar">
+                                <li class="filter-option filter-brand" data-filter="Adidas">ADIDAS</li>
+                                <li class="filter-option filter-brand" data-filter="Converse">CONVERSE</li>
+                                <li class="filter-option filter-brand" data-filter="Nike">NIKE</li>
+                            </ul>
+                        </div>
+                        <!-- SIZE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('size-menu-sidebar')">SIZE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="size-menu-sidebar">
+                                <li class="filter-option filter-size" data-filter="20">20</li>
+                                <li class="filter-option filter-size" data-filter="21">21</li>
+                                <li class="filter-option filter-size" data-filter="22">22</li>
+                                <li class="filter-option filter-size" data-filter="23">23</li>
+                                <li class="filter-option filter-size" data-filter="24">24</li>
+                                <li class="filter-option filter-size" data-filter="35">35</li>
+                                <li class="filter-option filter-size" data-filter="36">36</li>
+                                <li class="filter-option filter-size" data-filter="37">37</li>
+                                <li class="filter-option filter-size" data-filter="38">38</li>
+                                <li class="filter-option filter-size" data-filter="39">39</li>
+                                <li class="filter-option filter-size" data-filter="41">41</li>
+                                <li class="filter-option filter-size" data-filter="42">42</li>
+                                <li class="filter-option filter-size" data-filter="43">43</li>
+                            </ul>
+                        </div>
 
-                    <!-- GENDER Dropdown -->
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('gender-menu-sidebar')">GENDER</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="gender-menu-sidebar">
-                            <li class="filter-option">Male</li>
-                            <li class="filter-option">Female</li>
-                            <li class="filter-option">Unisex</li>
-                        </ul>
-                    </div>
-
-                    <!-- PRICE Dropdown -->
-                    <div class="dropdown">
-                        <ul class="dropdown-header">
-                            <li onclick="toggleDropdown('price-menu-sidebar')">PRICE</li>
-                        </ul>
-                        <ul class="dropdown-menu" id="price-menu-sidebar">
-                            <label for="price-lowerbound-sidebar">Between</label>
-                            <input class="form-input-bar filter-option" type="number" name="price-lowerbound-sidebar"
-                                id="price-lowerbound-sidebar" placeholder="Minimun price" inputmode="tel">
-                            <label for="price-upperbound-sidebar">and</label>
-                            <input class="form-input-bar filter-option" type="number" name="price-upperbound-sidebar"
-                                id="price-upperbound-sidebar" placeholder="Maximum price" inputmode="tel">
-                        </ul>
-                    </div>
-                    <div>
-                        <button onclick="toggleSidebarMobile('details-search-sidebar')">APPLY FILTER</button>
-                        <a onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i><span>RESET FILTER</span></a>
+                        <!-- GENDER Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('gender-menu-sidebar')">GENDER</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="gender-menu-sidebar">
+                                <li class="filter-option filter-gender" data-filter="M">Male</li>
+                                <li class="filter-option filter-gender" data-filter="F">Female</li>
+                                <li class="filter-option filter-gender" data-filter="U">Unisex</li>
+                            </ul>
+                        </div>
+                        <!-- PRICE Dropdown -->
+                        <div class="dropdown">
+                            <ul class="dropdown-header">
+                                <li onclick="toggleDropdown('price-menu-sidebar')">PRICE</li>
+                            </ul>
+                            <ul class="dropdown-menu" id="price-menu-sidebar">
+                                <label for="price-lowerbound-sidebar">Between</label>
+                                <input class="form-input-bar filter-option" type="number"
+                                    name="price-lowerbound-sidebar" id="price-lowerbound-sidebar"
+                                    placeholder="Minimun price" inputmode="tel">
+                                <label for="price-upperbound-sidebar">and</label>
+                                <input class="form-input-bar filter-option" type="number"
+                                    name="price-upperbound-sidebar" id="price-upperbound-sidebar"
+                                    placeholder="Maximum price" inputmode="tel">
+                            </ul>
+                        </div>
+                        <div>
+                            <button class="apply-filter-btn" onclick="toggleModal('details-search-sidebar'); ">APPLY FILTER</button>
+                            <a onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i><span>RESET
+                                    FILTER</span></a>
+                        </div>
                     </div>
                 </div>
                 <!-- CATALOGUE - MAIN -->
@@ -467,10 +484,9 @@
                                 <li onclick="toggleDropdown('brand-menu')">BRAND</li>
                             </ul>
                             <ul class="dropdown-menu" id="brand-menu">
-                                <li class="filter-option">ADIDAS</li>
-                                <li class="filter-option">CONVERSE</li>
-                                <li class="filter-option">NIKE</li>
-                                <li class="filter-option">BITI'S</li>
+                                <li class="filter-option filter-brand" data-filter="Adidas">ADIDAS</li>
+                                <li class="filter-option filter-brand" data-filter="Converse">CONVERSE</li>
+                                <li class="filter-option filter-brand" data-filter="Nike">NIKE</li>
                             </ul>
                         </div>
                         <!-- SIZE Dropdown -->
@@ -479,9 +495,19 @@
                                 <li onclick="toggleDropdown('size-menu')">SIZE</li>
                             </ul>
                             <ul class="dropdown-menu" id="size-menu">
-                                <li class="filter-option">Small</li>
-                                <li class="filter-option">Medium</li>
-                                <li class="filter-option">Large</li>
+                                <li class="filter-option filter-size" data-filter="20">20</li>
+                                <li class="filter-option filter-size" data-filter="21">21</li>
+                                <li class="filter-option filter-size" data-filter="22">22</li>
+                                <li class="filter-option filter-size" data-filter="23">23</li>
+                                <li class="filter-option filter-size" data-filter="24">24</li>
+                                <li class="filter-option filter-size" data-filter="35">35</li>
+                                <li class="filter-option filter-size" data-filter="36">36</li>
+                                <li class="filter-option filter-size" data-filter="37">37</li>
+                                <li class="filter-option filter-size" data-filter="38">38</li>
+                                <li class="filter-option filter-size" data-filter="39">39</li>
+                                <li class="filter-option filter-size" data-filter="41">41</li>
+                                <li class="filter-option filter-size" data-filter="42">42</li>
+                                <li class="filter-option filter-size" data-filter="43">43</li>
                             </ul>
                         </div>
 
@@ -491,9 +517,9 @@
                                 <li onclick="toggleDropdown('gender-menu')">GENDER</li>
                             </ul>
                             <ul class="dropdown-menu" id="gender-menu">
-                                <li class="filter-option">Male</li>
-                                <li class="filter-option">Female</li>
-                                <li class="filter-option">Unisex</li>
+                                <li class="filter-option filter-gender" data-filter="M">Male</li>
+                                <li class="filter-option filter-gender" data-filter="F">Female</li>
+                                <li class="filter-option filter-gender" data-filter="U">Unisex</li>
                             </ul>
                         </div>
 
@@ -505,21 +531,32 @@
                             <ul class="dropdown-menu" id="price-menu">
                                 <label for="price-lowerbound">Between</label>
                                 <input class="form-input-bar filter-option" type="number" name="price-lowerbound"
-                                    id="price-lowerbound" placeholder="Minimun price" inputmode="tel">
+                                    id="price-lowerbound" placeholder="Minimun price" inputmode="numeric">
                                 <label for="price-upperbound">and</label>
                                 <input class="form-input-bar filter-option" type="number" name="price-upperbound"
-                                    id="price-upperbound" placeholder="Maximum price" inputmode="tel">
+                                    id="price-upperbound" placeholder="Maximum price" inputmode="numeric">
                             </ul>
                         </div>
                         <!-- RESET FILTER -->
-                        <div>
+                        <div class="details-search-control">
+                            <button class="apply-filter-btn">APPLY FILTER</button>
                             <a onclick="resetFilter()">RESET FILTER</a>
                         </div>
                     </div>
                     <!-- DISPLAY PRODUCTS -->
                     <div class="shoes-box-container show-on-mobile">
-                        <div id="product-container" class="shoes-box"></div>
-                        <div class="pagination"></div>
+                        <div class="product-box-container" id="home-product">
+                        </div>
+                        <div class="page-nav">
+                            <ul class="page-nav-list">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal product-detail">
+                        <button class="modal-close close-popup"><i class="fa-solid fa-xmark"
+                                style="color: white;"></i></button>
+                        <div class="modal-container product-detail-content mdl-cnt" id="product-detail-content">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -600,7 +637,7 @@
             </div>
         </footer>
         <script src="js\main.js"></script>
-        <script src="js/products.js"></script>
+        <script src="js\products.js"></script>
         <!-- <script src="js\toast-msg.js"></script> -->
     </div>
 </body>
