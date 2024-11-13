@@ -548,6 +548,21 @@
                                     <h2 class="checkout-content-label">ADDRESS</h2>
                                     <input type="text" class="note-order form-input-bar"
                                         placeholder="Enter address"></input>
+                                    <div class="address-new">
+                                        <select id="province" class="input-addres" onchange="updateDistricts()">
+                                            <option value="">Chọn Tỉnh/Thành phố</option>
+                                        </select>
+                                        <select id="district" class="input-addres" onchange="updateWards()">
+                                            <option value="">Chọn Quận/Huyện</option>
+                                            <!-- Các huyện sẽ được cập nhật tự động -->
+                                        </select>
+
+                                        <!-- Lựa chọn xã -->
+                                        <select id="ward" class="input-addres">
+                                            <option value="">Chọn Xã/Phường</option>
+                                            <!-- Các xã sẽ được cập nhật tự động -->
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -647,7 +662,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="checkout-col-right">
                         <p>hhhhhhhhhhhhhhhhh</p>
@@ -674,7 +689,7 @@
             </div>
         </main>
     </div>
-    
+
     <footer>
         <div class="container" id="footer">
             <h2 class="footer-title">JOIN OUR COMMUNITY</h2>

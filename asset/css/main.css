@@ -919,6 +919,9 @@ header {
     height: 100%; /* Đặt chiều cao của <select> là 1rem */
     font-size: 1rem; /* Đảm bảo văn bản vừa khít trong chiều cao 1rem */
 }
+.address-new select{
+
+}
 
 .checkout-options {
     display: flex;
@@ -963,7 +966,19 @@ header {
     background-color: #45a049;
 }
 
+.input-addres {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 180px; /* Đặt chiều rộng tối thiểu để đồng đều */
+    font-size: 14px;
+}
 
+.input-addres:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
 /*.....................................................*/
 .cart-main .cart-footer .cart-btns {
     display: flex;
