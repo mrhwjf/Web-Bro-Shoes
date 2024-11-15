@@ -24,7 +24,7 @@
                     <a onclick="location.reload()" class="header-logo">BRO SHOES</a>
                 </div>
                 <div class="header-container-mid hide-on-mobile">
-                    <ul class="menu-list">
+                    <ul class="menu-list category-menu">
                         <li><a class="filter-category active" data-filter="Home">HOME</a></li>
                         <li><a class="filter-category" data-filter="Sneaker">SNEAKERS</a></li>
                         <li><a class="filter-category" data-filter="Sandal">SANDALS</a></li>
@@ -49,7 +49,7 @@
                                     <li class="logged-in"><a
                                             onclick="togglePage('account-user'); loadUserInfo()"><i
                                                 class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
-                                    <li class="logged-in"><a onclick="togglePage('order-history')"><i
+                                    <li class="logged-in"><a onclick="togglePage('order-history'); showOrderHistory()"><i
                                                 class="fa-solid fa-basket-shopping"></i><span>My
                                                 Order</span></a></li>
                                     <li class="logged-in"><a onclick="signOut()"><i
@@ -58,7 +58,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="hide-on-mobile"><a onclick="toggleModal('cart'); showCart()"><i
+                        <li class="hide-on-mobile"><a onclick="toggleModal('cart')"><i
                                     class="fa-solid fa-cart-shopping "></i>(<span class="display-cart-total-amount">0</span>)</a></li>
                     </ul>
                 </div>
@@ -69,7 +69,7 @@
                 <!-- SIDEBAR -->
                 <div class="modal sidebar header-sidebar" id="header-sidebar">
                     <div class="sidebar-main mdl-cnt">
-                        <ul class="menu-list">
+                        <ul class="menu-list category-menu">
                             <li>Hi there <span class="display-username"></span>!</li>
                             <li><a class="filter-category active" data-filter="Home">HOME</a></li>
                             <li><a class="filter-category" data-filter="Sneaker">SNEAKERS</a></li>
@@ -91,7 +91,7 @@
                                         <li class="logged-in"><a
                                                 onclick="loadUserInfo(); togglePage('account-user'); toggleModal('header-sidebar')"><span>My
                                                     Account</span></a></li>
-                                        <li class="logged-in"><a onclick="togglePage('order-history'); toggleModal('header-sidebar')"><span>My
+                                        <li class="logged-in"><a onclick="showOrderHistory(); togglePage('order-history'); toggleModal('header-sidebar')"><span>My
                                                     Order</span></a></li>
                                         <li class="logged-in"><a
                                                 onclick="signOut(); toggleModal('header-sidebar')"><span>Sign
@@ -100,7 +100,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a onclick="toggleModal('cart'); showCart()">CART (<span class="display-cart-total-amount">0</span>)</a>
+                            <li><a onclick="toggleModal('cart');">CART (<span class="display-cart-total-amount">0</span>)</a>
                             </li>
                         </ul>
                     </div>
@@ -267,43 +267,36 @@
                     </div>
                     <div class="main-account-body">
                         <div class="main-account-body-col">
-                            <div class="display-when-empty">
-                                <div class="img-container">
-                                    <img src="asset\img\empty-order-history.png">
-                                </div>
-                                <p>It's empty here... <a onclick="togglePage('order-history')">Start shopping
-                                        now!</a></p>
-                            </div>
                             <!-- <div class="modal-container order-history">
                                 <div class="cart-main">
-                                    <div class="modal-container cart-product">
+                                    <div class="modal-container cart-item">
                                         <div class="img-container">
                                             <img src="asset\img\catalogue\coming-soon.jpg">
                                         </div>
-                                        <div class="cart-product-info">
+                                        <div class="cart-item-info">
                                             <p class="display-product-name">COMING SOON</p>
                                             <p>Brand: <span class="display-product-brand">Nike</span></p>
                                             <p>Size: <span class="display-product-size">35</span></p>
                                             <p class="display-product-price">1.000.000 d</p>
                                         </div>
-                                        <div class="ccart-product-control">
-                                            <div class="cart-product-amount">
+                                        <div class="ccart-item-control">
+                                            <div class="cart-item-amount">
                                                 <p>x<span class="display-cart-amount">1</span></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-container cart-product">
+                                    <div class="modal-container cart-item">
                                         <div class="img-container">
                                             <img src="asset\img\catalogue\coming-soon.jpg">
                                         </div>
-                                        <div class="cart-product-info">
+                                        <div class="cart-item-info">
                                             <p class="display-product-name">COMING SOON</p>
                                             <p>Brand: <span class="display-product-brand">Nike</span></p>
                                             <p>Size: <span class="display-product-size">35</span></p>
                                             <p class="display-product-price">1.000.000 d</p>
                                         </div>
-                                        <div class="ccart-product-control">
-                                            <div class="cart-product-amount">
+                                        <div class="cart-item-control">
+                                            <div class="cart-item-amount">
                                                 <p>x<span class="display-cart-amount">1</span></p>
                                             </div>
                                         </div>
@@ -313,7 +306,7 @@
                                             <p>GRAND TOTAL</p>
                                             <p class="display-totalprice">1.000.000 d</p>
                                         </div>
-                                        <div class="cart-product-status">
+                                        <div class="cart-item-status">
                                             <div>
                                                 <p class="display-product-status">Status: <span
                                                         class="display-">Pending</span> <span
@@ -335,30 +328,7 @@
                         <p>YOUR CART</p>
                         <a onclick="toggleModal('cart')">CLOSE</a>
                     </div>
-                    <div class="cart-body" id="cart-body">
-                        <div class="display-when-empty">
-                            <p>Your cart is empty... Start shopping now!</p>
-                        </div>
-                        <!-- <div class="modal-container cart-product">
-                            <div class="img-container">
-                                <img src="asset\img\catalogue\coming-soon.jpg">
-                            </div>
-                            <div class="cart-product-info">
-                                <p class="display-product-name">COMING SOON</p>
-                                <p>Brand: <span class="display-product-brand">Nike</span></p>
-                                <p>Size: <span class="display-product-size">35</span></p>
-                                <p class="display-product-price">1.000.000 d</p>
-                            </div>
-                            <div class="ccart-product-control">
-                                <a><i class="fa-regular fa-circle-xmark"></i></a>
-                                <div class="cart-product-amount">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <p class="display-cart-amount">1</p>
-                                    <button><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
+                    <div class="cart-body" id="cart-body"></div>
                     <div class="cart-footer">
                         <div class="cart-totalprice">
                             <p>GRAND TOTAL</p>
@@ -561,7 +531,7 @@
                 </div>
             </div>
             <!-- PREFOOTER -->
-            <div class="container" id="prefooter">
+            <div class="container prefooter" id="prefooter">
                 <div class="prefooter-div">
                     <i class="fa-solid fa-certificate"></i>
                     <span>100% AUTHENTIC</span>

@@ -61,9 +61,22 @@ function updateMenuVisibility() {
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     let username = currentuser ? currentuser.username : null;
 
-    //Disable checkout-btn if user is not logged in
+    // Show checkout-btn if user is logged in
     let checkoutBtn = document.getElementById("checkout-btn");
-    isLoggedIn ? checkoutBtn.style.display = "" : checkoutBtn.style.display = "none";
+    if (isLoggedIn) {
+        checkoutBtn.classList.add("active");
+        checkoutBtn.disabled = false;
+    } else {
+        checkoutBtn.classList.remove("active");
+        checkoutBtn.disabled = true;
+    }
+
+    // Show cart if user is logged in
+    if (isLoggedIn) {
+        showCart();
+        updateCartTotalAmount();
+        updateCartTotalPrice();
+    }
 
     // Show logged-in items, hide logged-out items if user is logged in
     document.querySelectorAll(".logged-in").forEach(item => {
@@ -153,6 +166,7 @@ function handleSignupForm() {
         localStorage.setItem("accounts", JSON.stringify(accounts));
         localStorage.setItem("currentuser", JSON.stringify(user));
         alert("Account created successfully!");
+        console.log("handleSignupForm(): Signed up");
         updateMenuVisibility();
         toggleModal("signup-user");
         document.getElementById("signup-form").reset();
@@ -198,6 +212,7 @@ function handleLoginForm() {
             localStorage.setItem("currentuser", JSON.stringify(accounts[userIdx]));
             // toast({ title: "Success", message: "Login successful", type: "success", duration: 3000 });
             alert("Login successful!");
+            console.log("handleLoginForm(): Signed up");
             updateMenuVisibility();
             toggleModal("login-user");
             document.getElementById("login-form").reset();
@@ -221,6 +236,7 @@ function signOut() {
     }
     localStorage.setItem("accounts", JSON.stringify(accounts));
     localStorage.removeItem("currentuser");
+    console.log("signOut(): Signed out.");
     updateMenuVisibility();
     location.reload();
 }
@@ -404,6 +420,15 @@ window.addEventListener("load", function () {
     });
 });
 
+
+function displayWhenEmpty(selector, innerhtml) {
+    let element = document.querySelector(selector);
+    if (element.innerHTML.trim() === "" || element.childElementCount === 0) {
+        element.innerHTML = innerhtml;
+    }
+}
+
+
 // CATALOGUE - MODAL PRODUCT DETAILS - BEGIN DEFINE /////////////////////////////////////////////////////
 
 
@@ -438,7 +463,20 @@ document.querySelector(".sortby .float-dropdown .menu-list").addEventListener("c
 const displayCatalogueName = document.getElementById("display-catalogue-name");
 document.querySelectorAll(".filter-category").forEach(category => {
     category.addEventListener("click", (event) => {
-        document.querySelector(".header-container-mid .filter-category.active").classList.remove("active");
+        // If header-sidebar is open, toggle it off
+        let headerSideabar = document.getElementById("header-sidebar");
+        if (parseFloat(window.getComputedStyle(headerSideabar).getPropertyValue("width"))) {
+            toggleModal("header-sidebar");
+        }
+        
+        // If toggle-page is open, toggle it off
+        let isTogglePage = document.querySelector(".toggle-page:not(.hidden)");
+        if (isTogglePage) {
+            if (isTogglePage.classList.contains("account-user")) togglePage("account-user");
+            if (isTogglePage.classList.contains("order-history")) togglePage("order-history");
+        }
+
+        document.querySelectorAll(".category-menu .filter-category.active").forEach(ele => ele.classList.remove("active"));
         event.target.classList.add("active");
         displayCatalogueName.innerText = event.target.innerText.trim();
         resetFilter();
@@ -447,7 +485,7 @@ document.querySelectorAll(".filter-category").forEach(category => {
 });
 
 // Toggle search by name
-document.getElementById("search-bar").addEventListener("keydown", (event) => {
+document.getElementById("search-bar").addEventListener("keyup", () => {
     showHomeProduct(JSON.parse(localStorage.getItem("products")));
 })
 
@@ -545,7 +583,7 @@ function sortProducts(products, sortbyOption) {
     return products;
 }
 
-// Start filter if clicked
+// Start filter if clicked the Apply Filter button
 document.querySelectorAll(".apply-filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         showHomeProduct(JSON.parse(localStorage.getItem("products")));
@@ -556,167 +594,247 @@ document.querySelectorAll(".apply-filter-btn").forEach(btn => {
 // CATALOGUE - FILTER - END DEFINE /////////////////////////////////////////////////////
 
 // CATALOGUE - CART - BEGIN DEFINE /////////////////////////////////////////////////////
+const displayEmptyHTML_cart = `
+<div class="display-when-empty">
+    <p>Your cart is empty... Start shopping now!</p>
+</div>
+`;
 
-// CATALOGUE - CART - END DEFINE /////////////////////////////////////////////////////
+const displayEmptyHTML_orderhistory = `
+<div class="display-when-empty">
+    <div class="img-container">
+        <img src="./asset/img/empty-order-history.png">
+    </div>
+    <p>It's empty here... <a onclick="togglePage('order-history')">Start shopping
+        now!</a></p>
+</div>
+`;
+
 
 //Get product from the the "products" array
 function getProduct(item) {
     let products = JSON.parse(localStorage.getItem("products"));
-    let infoProductCart = products.find(sp => item.id == sp.id)
-    let product = {
-        ...infoProductCart,
+    let infoCartItem = products.find(sp => item.id == sp.id)
+    let cartItem = {
+        ...infoCartItem,
         ...item
     }
-    return product;
+    return cartItem;
 }
 
 function getCartTotalAmount() {
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     let amount = 0;
     currentuser.cart.forEach(element => {
-        amount += parseInt(element.soluong);
+        amount += parseInt(element.quantity);
     });
     return amount;
 }
 
-//Update Amount Cart 
 function updateCartTotalAmount() {
-    if (localStorage.getItem("currentuser") != null) {
-        let amount = getCartTotalAmount();
-        document.querySelector(".display-cart-total-amount").innerText = amount;
+    if (!localStorage.getItem("currentuser")) {
+        console.log("updateCartTotalAmount(): Not logged in.");
+        return;
     }
+
+    let amount = getCartTotalAmount();
+    document.querySelectorAll(".display-cart-total-amount").forEach(ele => ele.innerText = amount);
+    console.log("updateCartTotalAmount(): ", amount);
 }
 
+// Display/update the totalprice of the cart
+function updateCartTotalPrice() {
+    const total = vnd(getCartTotalPrice());
+    document.querySelectorAll(".display-totalprice").forEach(ele => {
+        ele.innerText = total;
+    });
+}
+
+
+// Get the totalprice of the cart
+function getCartTotalPrice() {
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
+    let totalprice = 0;
+    if (currentuser != null) {
+        currentuser.cart.forEach(item => {
+            let product = getProduct(item);
+            totalprice += (parseInt(product.quantity) * parseInt(product.price));
+        });
+    }
+    return totalprice;
+}
+
+// Update total cart amount when changing cartItem quantity
+function updateCartAll(id, size, ele) {
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
+    let parent = ele.parentNode;
+    console.log("updateCartAll(): ", parent);
+    let quantity = parseInt(parent.querySelector(".input-qty").value.trim());
+    console.log("updateCartAll(): ", quantity);
+    let idx = currentuser.cart.findIndex(item => item.id == id && item.size == size);
+    if (idx == -1) {
+        console.log("updateCartAll(): Error findIndex()");
+        return;
+    }
+    currentuser.cart[idx].quantity = quantity;
+    localStorage.setItem("currentuser", JSON.stringify(currentuser));
+    updateCartTotalAmount();
+    updateCartTotalPrice();
+    // saveCartInfo();
+}
+
+
+
 //Add cart item to cart[]
-function addCart(index, size) {
+function addCart(index, size, quantity) {
     if (!localStorage.getItem("currentuser")) {
         console.log(-1);
         return;
     }
 
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
-    let quantity = document.querySelector(".input-qty").value;
-    console.log("Item cart quantity:", quantity);
 
-    let productcart = {
+    let cartItem = {
         id: index,
-        quantity: parseInt(quantity),
+        quantity: quantity,
         size: parseInt(size)
     }
 
-    console.log("Cart item:", productcart);
+    console.log("Cart item:", cartItem);
 
-    let idx = currentuser.cart.findIndex(item => item.id == productcart.id && item.size == productcart.size);
+    let idx = currentuser.cart.findIndex(item => item.id == cartItem.id && item.size == cartItem.size);
     if (idx === -1) {
-        currentuser.cart.push(productcart);
+        currentuser.cart.push(cartItem);
     } else {
-        currentuser.cart[idx].quantity += productcart.quantity;
+        currentuser.cart[idx].quantity += cartItem.quantity;
     }
 
     localStorage.setItem("currentuser", JSON.stringify(currentuser));
     updateCartTotalAmount();
+    updateCartTotalPrice();
+    showCart();
+    // saveCartInfo();
     closeModal();
 }
 
 //Delete the cart item
-function deleteCartItem(id, size, el) {
-    let cartParent = el.parentNode.parentNode;
+function deleteCartItem(id, size, ele) {
+    const checkoutBtn = document.getElementById("checkout-btn");
+    let cartParent = ele.parentNode.parentNode;
     cartParent.remove();
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     let idx = currentuser.cart.findIndex(item => item.id == id && item.size == size)
     currentuser.cart.splice(idx, 1);
 
-    document.getElementById("checkout-btn").style.display = "";
-
     if (currentuser.cart.length == 0) {
-        document.querySelector(".cart .display-when-empty").classList.remove("hidden");
-        document.getElementById("checkout-btn").style.display = "";
+        displayWhenEmpty(".cart .cart-body", displayEmptyHTML_cart);
+        checkoutBtn.classList.remove(".active");
+        checkoutBtn.disabled = true;
     }
-
     localStorage.setItem("currentuser", JSON.stringify(currentuser));
-    updateCartTotal();
-}
+    updateCartTotalPrice();
+    updateCartTotalAmount();
+    console.log("Deleted item cart ID = ", id, ", size = ", size);
+    console.log("Updated cart:", currentuser.cart);
 
-// Display/update the totalprice of the cart
-function updateCartTotal() {
-    const total = vnd(getCartTotal());
-    document.querySelectorAll(".display-total").forEach(element => {
-        element.innerText = total;
-    });
-}
-
-
-// Get the totalprice of the cart
-function getCartTotal() {
-    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
-    let tongtien = 0;
-    if (currentuser != null) {
-        currentuser.cart.forEach(item => {
-            let product = getProduct(item);
-            tongtien += (parseInt(product.soluong) * parseInt(product.price));
-        });
-    }
-    return tongtien;
 }
 
 // Save Cart Info
-function saveCartInfo() {
-    let cartAmountbtn = document.querySelectorAll(".cart-item-control .is-form");
-    let listProduct = document.querySelectorAll(".cart-item");
-    let currentUser = JSON.parse(localStorage.getItem("currentuser"));
-    cartAmountbtn.forEach((btn, index) => {
-        btn.addEventListener("click", () => {
-            let id = listProduct[parseInt(index / 2)].getAttribute("data-id");
-            let productId = currentUser.cart.find(item => {
-                return item.id == id;
-            });
-            productId.soluong = parseInt(listProduct[parseInt(index / 2)].querySelector(".input-qty").value);
-            localStorage.setItem("currentuser", JSON.stringify(currentUser));
-            updateCartTotal();
-        })
-    });
-}
+// function saveCartInfo() {
+//     let cartAmountbtn = document.querySelectorAll(".cart-item-control .is-form");
+//     let listProduct = document.querySelectorAll(".cart-item");
+//     let currentUser = JSON.parse(localStorage.getItem("currentuser"));
+//     cartAmountbtn.forEach((btn, index) => {
+//         btn.addEventListener("click", () => {
+//             let id = listProduct[parseInt(index / 2)].getAttribute("data-id");
+//             let productId = currentUser.cart.find(item => {
+//                 return item.id == id;
+//             });
+//             productId.quantity = parseInt(listProduct[parseInt(index / 2)].querySelector(".input-qty").value);
+//             localStorage.setItem("currentuser", JSON.stringify(currentUser));
+//             updateCartTotalPrice();
+//         })
+//     });
+// }
 
 
-//Show the cart
 function showCart() {
-    if (localStorage.getItem("currentuser")) {
-        let currentuser = JSON.parse(localStorage.getItem("currentuser"));
-        if (currentuser.cart.length != 0) {
-            document.querySelector(".cart .display-when-empty").style.display = "none";
-            document.getElementById("checkout-btn").style.display = "";
-            let productcarthtml = "";
-            currentuser.cart.forEach(item => {
-                let product = getProduct(item);
-                productcarthtml += `
-                        <div class="modal-container cart-product">
-                            <div class="img-container">
-                                <img src="${product.image}">
-                            </div>
-                            <div class="cart-product-info">
-                                <p class="display-product-name">${product.name}</p>
-                                <p>Brand: <span class="display-product-brand">${product.brand}</span></p>
-                                <p>Size: <span class="display-product-size">${product.size}</span></p>
-                                <p class="display-product-price">${vnd(product.price)}</p>
-                            </div>
-                            <div class="cart-product-control">
-                                <a onlick="deleteCartItem(${product.id}, ${product.size}, this)"><i class="fa-regular fa-circle-xmark"></i></a>
-                                <div class="cart-product-amount">
-                                    <button class="minus is-form" onclick="decreasingNumber(this)><i class="fa-solid fa-minus"></i></button>
-                                    <input class="input-qty" max="100" min="1" name="" type="number" value="${product.quantity}">
-                                    <button class="plus is-form" onclick="increasingNumber(this)><i class="fa-solid fa-plus"></i></button>
-                                </div>
+    if (!localStorage.getItem("currentuser")) {
+        displayWhenEmpty(".cart .cart-body", displayEmptyHTML_cart);
+        return;
+    }
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
+    const cartBody = document.querySelector(".cart .cart-body");
+    const checkoutBtn = document.getElementById("checkout-btn");
+
+    if (currentuser.cart.length !== 0) {
+        // Show the checkout button and generate cart items HTML
+        checkoutBtn.classList.add("active");
+        checkoutBtn.disabled = false;
+
+        let cartItemhtml = "";
+        currentuser.cart.forEach(item => {
+            let product = getProduct(item);
+            cartItemhtml += `
+                    <div class="modal-container cart-item" data-productID="${product.id}">
+                        <div class="img-container">
+                            <img src="${product.image}">
+                        </div>
+                        <div class="cart-item-info">
+                            <p class="display-product-name">${product.name}</p>
+                            <p>Brand: <span class="display-product-brand">${product.brand}</span></p>
+                            <p>Size: <span class="display-product-size">${product.size}</span></p>
+                            <p class="display-product-price">${vnd(product.price)}</p>
+                        </div>
+                        <div class="cart-item-control">
+                            <a onclick="deleteCartItem(${product.id}, ${product.size}, this)">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </a>
+                            <div class="cart-item-amount">
+                                <button class="minus is-form" onclick="decreasingNumber(this); updateCartAll(${product.id},${product.size}, this)">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input class="input-qty" max="100" min="1" name="" type="number" value="${product.quantity}" onkeyup="updateCartAll(${product.id},${product.size}, this)">
+                                <button class="plus is-form" onclick="increasingNumber(this); updateCartAll(${product.id},${product.size}, this)">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
                             </div>
                         </div>
-            `
-            });
-            document.querySelector(".cart .cart-body").innerHTML = productcarthtml;
-            updateCartTotal();
-            saveCartInfo();
-        } else {
-            document.querySelector(".cart .display-when-empty").style.display = "";
-        }
+                    </div>
+                `;
+        });
+        // Inject cart items into cart body
+        cartBody.innerHTML = cartItemhtml;
+    } else {
+        // If the cart is empty, show the empty message and hide checkout button
+        checkoutBtn.classList.remove("active");
+        checkoutBtn.disabled = true;
+        displayWhenEmpty(".cart .cart-body", displayEmptyHTML_cart);
     }
 }
+
+// CATALOGUE - CART - END DEFINE /////////////////////////////////////////////////////
+
+
+// CATALOGUE - ORDER HISTORY - BEGIN DEFINE /////////////////////////////////////////////////////
+
+function showOrderHistory() {
+    if (!localStorage.getItem("currentuser")) {
+        console.log("showOrderHistory(): User not logged in.")
+        return;
+    }
+
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
+    let OHbody = document.querySelector(".order-history .main-account-body-col");
+
+    if (currentuser.orderHistory.length !== 0) {
+
+    } else {
+        displayWhenEmpty(".order-history .main-account-body-col", displayEmptyHTML_orderhistory);
+    }
+}
+
+// CATALOGUE - ORDER HISTORY - END DEFINE /////////////////////////////////////////////////////
+
 
 // CATALOGUE - END DEFINE /////////////////////////////////////////////////////

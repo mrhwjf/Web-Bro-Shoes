@@ -397,8 +397,7 @@ function closeModal() {
     modalContainer.forEach(item => {
         item.classList.remove('open');
     });
-    // console.log(modalContainer)
-    console.log("Toggled modal");
+    // console.log(modalContainer);
     body.style.overflow = "auto";
 }
 
@@ -453,7 +452,7 @@ function detailProduct(index) {
         </div>
         <div class="modal-footer-control">
             <button class="button-dathangngay" data-product="${infoProduct.id}">Buy now</button>
-            <button class="button-dat" id="add-cart" onclick="addCart()"><i class="fa-solid fa-cart-shopping "></i></button>
+            <button class="button-dat" id="add-cart"><i class="fa-solid fa-cart-shopping "></i></button>
         </div>
     </div>`;
     document.querySelector('#product-detail-content').innerHTML = modalHtml;
@@ -481,18 +480,16 @@ function detailProduct(index) {
     
             event.target.classList.add("active");
             selectedSize = event.target.textContent.trim();
-            console.log("Selected size: ", selectedSize);
         }
     });
     
     document.querySelector('.button-dat').addEventListener('click', () => {
+        console.log("Selected size: " + selectedSize);
         if (!selectedSize) {
-            alert("Choose a shoes size!");
+            alert("Choose a shoe size!");
         } else if (localStorage.getItem('currentuser')) {
-            console.log("running addCart()");
-            addCart(infoProduct.id, selectedSize);
+            addCart(infoProduct.id, selectedSize, parseInt(qty.value));
         } else {
-            console.log("Chua dang nhap");
             alert("Login required!");
             closeModal();
         }
@@ -536,7 +533,11 @@ function displayList(productAll, perPage, currentPage) {
 
 function showHomeProduct(products) {
     const filters = getFilterOption();
+
+    console.group("Filtered products");
     let filteredProducts = filterProducts(products, filters);
+    console.groupEnd();
+    
     filteredProducts = sortProducts(filteredProducts, filters.sortbyOption);
     let displayCatalogueAmount = document.getElementById("display-catalogue-amount");
     displayCatalogueAmount.textContent = filteredProducts.length + " ";
@@ -582,4 +583,7 @@ window.onload = () => {
 
     //For main.js
     updateMenuVisibility();
+    updateCartTotalPrice();
+    updateCartTotalAmount();
+    showCart();
 }
