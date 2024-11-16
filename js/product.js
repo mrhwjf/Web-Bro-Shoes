@@ -394,7 +394,7 @@ function detailProduct(index) {
         return sp.id === index;
     })
     const sizeButtonsHTML = infoProduct.size.map(size => `
-        <button class="size-button">${size}</button>
+        <button class="size-button" onclick="selectSize(this)">${size}</button>
     `).join("");
     let modalHtml = `<div class="modal-header">
     <img class="product-image" src="${infoProduct.image}" alt="">
@@ -437,24 +437,51 @@ function detailProduct(index) {
     });
 }
 
+let selectedSize = null;
+
+function selectSize(button) {
+    document.querySelectorAll('.size-button').forEach(btn => btn.classList.remove('active'));
+
+    // Add 'active' class to the clicked button
+    button.classList.add('active');
+
+    // Get the value of the selected size
+    selectedSize = button.textContent || button.innerText;
+
+    // Optional: Log or display the selected size
+    console.log("Selected size:", selectedSize);
+}
+
+
 function displayProducts(productShow) {
-    const productContainer = document.getElementById("home-product");
+    const productContainer = document.getElementById("home-product"); // Get the container
     productContainer.innerHTML = ""; // Clear current content
 
-    let productHTML = ""; // Create HTML string
+    if (productShow.length === 0) {
+        // No products to show
+        productContainer.style.display = "flex"; // Ensure the container is visible
+        productContainer.innerHTML = `
+            <div class="no-result">
+                <div class="no-result-h">Search returned no results!</div>
+                <div class="no-result-p">Sorry, we couldn't find the product you were looking for.</div>
+                <div class="no-result-i"><i class="fa-solid fa-face-sad-cry"></i></div>
+            </div>`;
+    } else {
+        // Products to show
+        let productHTML = ""; // Create HTML string
 
-    productShow.forEach(product => {
-        // Create HTML block for each product
-        productHTML += `
-            <div class="product-box" onclick="detailProduct(${product.id})">
-                <img src="${product.image}" alt="${product.name}" onerror="this.src='../asset/img/catalogue/coming-soon.jpg'" />
-                <div class="shoes-name">${product.name}</div>
-                <div class="shoes-price">${vnd(product.price)}</div>
-            </div>
-        `;
-    });
+        productShow.forEach(product => {
+            // Create HTML block for each product
+            productHTML += `
+                <div class="product-box" onclick="detailProduct(${product.id})">
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='../asset/img/catalogue/coming-soon.jpg'" />
+                    <div class="shoes-name">${product.name}</div>
+                    <div class="shoes-price">${vnd(product.price)}</div>
+                </div>`;
+        });
 
-    productContainer.innerHTML = productHTML;
+        productContainer.innerHTML = productHTML; // Add product content to the container
+    }
 }
 
 
@@ -476,11 +503,28 @@ function showHomeProduct(products) {
 }
 
 function setupPagination(productAll, perPage) {
-    document.querySelector('.page-nav-list').innerHTML = '';
+    const pageNav = document.querySelector('.page-nav'); // Get the pagination container
+    const pageNavList = document.querySelector('.page-nav-list'); // Get the list inside pagination
+
+    // Clear previous pagination content
+    pageNavList.innerHTML = '';
+
+    // Handle case where no products are available
+    if (productAll.length === 0) {
+        pageNav.style.display = 'none'; // Hide pagination
+        return; // Exit the function early
+    }
+
+    // Show pagination if there are products
+    pageNav.style.display = 'flex'; // Ensure pagination is visible
+
+    // Calculate the number of pages
     let page_count = Math.ceil(productAll.length / perPage);
+
+    // Generate pagination items
     for (let i = 1; i <= page_count; i++) {
         let li = paginationChange(i, productAll, currentPage);
-        document.querySelector('.page-nav-list').appendChild(li);
+        pageNavList.appendChild(li);
     }
 }
 
@@ -503,6 +547,7 @@ function paginationChange(page, productAll, currentPage) {
 }
 
 window.onload = function() {
+    const noProducts = [];
     createProduct(); // Ensure products are created in localStorage
     let products = JSON.parse(localStorage.getItem('products')); // Fetch the products from localStorage
     showHomeProduct(products); // Display products after initialization
