@@ -123,7 +123,24 @@ function updateWards() {
 // Gọi hàm khởi tạo khi trang tải xong
 window.onload = initializeProvinces;
 
+// Hàm để hiển thị phần nhập địa chỉ tùy theo lựa chọn
+function toggleAddressInput(option) {
+    const accountInfo = document.getElementById('account-info');
+    const newAddressInput = document.getElementById('new-address');
+    const addressSelect = document.getElementById('address-select');
 
+    if (option === 'new') {
+        // Hiển thị phần nhập mới và các dropdown
+        accountInfo.style.display = 'none'; // Ẩn thông tin tài khoản
+        newAddressInput.style.display = 'block'; // Hiển thị input nhập địa chỉ mới
+        addressSelect.style.display = 'block'; // Hiển thị các dropdown (tỉnh, quận, xã)
+    } else if (option === 'account') {
+        // Ẩn phần nhập mới và các dropdown, hiển thị thông tin từ tài khoản
+        accountInfo.style.display = 'block'; // Hiển thị thông tin tài khoản
+        newAddressInput.style.display = 'none'; // Ẩn input nhập địa chỉ mới
+        addressSelect.style.display = 'none'; // Ẩn các dropdown
+    }
+}
 
 const locations = {
     "Hà Nội": {

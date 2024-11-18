@@ -546,24 +546,38 @@
                                 </div>
                                 <div class="content-group">
                                     <h2 class="checkout-content-label">ADDRESS</h2>
-                                    <input type="text" class="note-order form-input-bar"
-                                        placeholder="Enter address"></input>
-                                    <div class="address-new">
-                                        <select id="province" class="input-addres" onchange="updateDistricts()">
-                                            <option value="">Chọn Tỉnh/Thành phố</option>
-                                        </select>
-                                        <select id="district" class="input-addres" onchange="updateWards()">
-                                            <option value="">Chọn Quận/Huyện</option>
-                                            <!-- Các huyện sẽ được cập nhật tự động -->
-                                        </select>
-
-                                        <!-- Lựa chọn xã -->
-                                        <select id="ward" class="input-addres">
-                                            <option value="">Chọn Xã/Phường</option>
-                                            <!-- Các xã sẽ được cập nhật tự động -->
-                                        </select>
+                                    
+                                    <!-- Tùy chọn "Nhập từ tài khoản" -->
+                                    <div class="payment-option">
+                                        <label>
+                                            <input type="radio" name="address-option" value="account" onclick="toggleAddressInput('account')" checked>
+                                            <span>Nhập từ tài khoản</span>
+                                        </label>
+                                        <h4 id="account-info" style="display:none;">abcef</h4> <!-- Nội dung khi chọn từ tài khoản -->
+                                    </div>
+                                
+                                    <!-- Tùy chọn "Nhập mới" -->
+                                    <div class="payment-option">
+                                        <label>
+                                            <input type="radio" name="address-option" value="new" onclick="toggleAddressInput('new')">
+                                            <span>Nhập mới</span>
+                                        </label>
+                                        <input type="text" class="note-order form-input-bar" placeholder="Enter address" id="new-address" style="display:none;"></input>
+                                        <div class="address-new" id="address-select" style="display:none;">
+                                            <select id="province" class="input-addres" onchange="updateDistricts()">
+                                                <option value="">Chọn Tỉnh/Thành phố</option>
+                                            </select>
+                                            <select id="district" class="input-addres" onchange="updateWards()">
+                                                <option value="">Chọn Quận/Huyện</option>
+                                            </select>
+                                            <select id="ward" class="input-addres">
+                                                <option value="">Chọn Xã/Phường</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                                        
+
                             </div>
                         </div>
                         <div class="checkout-row">
@@ -665,7 +679,42 @@
 
                     </div>
                     <div class="checkout-col-right">
-                        <p>hhhhhhhhhhhhhhhhh</p>
+                        <div class="checkout-col-title">
+                            <h1>ĐƠN HÀNG</h1>
+                            <div class="checkout-col-content">
+                                <div class="content-group">
+                                    <h2 class="checkout-content-label">SẢN PHẨM</h2>
+                                    <div class="price-row">
+                                        <span>Dép</span>
+                                        <span class="price-value">100<sup>đ</sup></span>
+                                    </div>
+                                    <div class="divider"></div>
+                                </div>
+                                <div class="content-group">
+                                    <h2 class="checkout-content-label">ĐƠN GIÁ</h2>
+                                    <div class="price-row">
+                                        <span>Tiền hàng</span>
+                                        <span class="price-value">100<sup>đ</sup></span>
+                                    </div>
+                                    <div class="price-row">
+                                        <span>Phí ship</span>
+                                        <span class="shipping-fee">30000<sup>đ</sup></span>
+                                    </div>
+                                    <br><br>
+                                    <h6>Bằng việc bấm vào nút “Đặt hàng”, bạn đồng ý với chính sách hoạt động của chúng tôi.</h6>
+                                    <br>
+                                    <div class="divider"></div>
+                                    <div class="sum-bill">
+                                        <h2>TỔNG</h2>
+                                        <span>400<sup>đ</sup></span>
+                                    </div>
+                                    <br>
+                                    <div class="confirm-check">
+                                        <button type="button" onclick="confirmCheck">Đặt hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="container" id="prefooter">

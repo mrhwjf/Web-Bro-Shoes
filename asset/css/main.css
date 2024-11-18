@@ -979,6 +979,31 @@ header {
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+.price-row,
+.sum-bill {
+    display: flex;
+    justify-content: space-between; /* Đẩy nhãn sang trái và giá trị sang phải */
+    margin-bottom: 10px; /* Tạo khoảng cách giữa các hàng */
+    font-size: 1rem;
+}
+.divider {
+    border-top: 1px solid #e0e0e0; /* Màu xám nhạt */
+    margin: 20px 0; /* Khoảng cách trên dưới */
+}
+.confirm-check button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.confirm-check button:hover {
+    background-color: #45a049;
+}
 /*.....................................................*/
 .cart-main .cart-footer .cart-btns {
     display: flex;
