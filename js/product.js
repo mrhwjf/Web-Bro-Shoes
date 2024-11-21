@@ -550,5 +550,5 @@ window.onload = function() {
     const noProducts = [];
     createProduct(); // Ensure products are created in localStorage
     let products = JSON.parse(localStorage.getItem('products')); // Fetch the products from localStorage
-    showHomeProduct(products); // Display products after initialization
+    showHomeProduct(noProducts); // Display products after initialization
 }
