@@ -65,15 +65,18 @@
         flex: 1;
     }
 
-    /* .modal-content{
-        top: 20%;
-        left: 11%;
-        width: 80%;
-    } */
-
     /* PRODUCT BOX */
     .shoes-box-container {
         flex: 0 0 100%;
+    }
+
+    /* CHECKOUT */
+    .checkout-section {
+        flex-direction: column-reverse;
+    }
+    .checkout-col-left,
+    .checkout-col-right {
+        width: 100%;
     }
 }
 
@@ -81,6 +84,10 @@
 @media screen and (max-width: 526px) {
     .footer-container-info {
         justify-content: flex-start;
+    }
+
+    .container.toast {
+        max-height: 30vh !important;
     }
 }
 

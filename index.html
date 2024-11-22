@@ -12,6 +12,7 @@
     </style>
     <link rel="stylesheet" href="asset\css\main.css">
     <link rel="stylesheet" href="asset\css\main-responsive.css">
+    <link rel="stylesheet" href="asset\css\toast-msg.css">
     <script src="https://kit.fontawesome.com/e8d4a112b7.js" crossorigin="anonymous"></script>
 </head>
 
@@ -36,7 +37,7 @@
                         <li><label for="search-bar"><a><i class="fa-solid fa-magnifying-glass"></i></label></a>
                         </li>
                         <li class="hide-on-mobile">
-                            <!-- ACCOUNT DROPDOWN -->
+                            <!-- ACCOUNT FLOAT DROPDOWN -->
                             <a><i class="fa-regular fa-user"></i><span class="display-username"></span></a>
                             <div class="container float-dropdown" id="account-drop-list">
                                 <ul class="menu-list" id="login-dropdown">
@@ -44,12 +45,11 @@
                                                 class="fa-solid fa-right-to-bracket"></i><span>Log in</span></a></li>
                                     <li class="logged-out"><a onclick="toggleModal('signup-user')"><i
                                                 class="fa-solid fa-user-plus"></i><span>Sign up</span></a></li>
-                                    <li class="admin"><a href="admin.html"><i
+                                    <li class="logged-in isAdmin"><a href="admin.html"><i
                                                 class="fa-solid fa-screwdriver-wrench"></i><span>Manage*</span></a></li>
-                                    <li class="logged-in"><a
-                                            onclick="togglePage('account-user'); loadUserInfo()"><i
+                                    <li class="logged-in"><a onclick="togglePage('account-user'); loadUserInfo()"><i
                                                 class="fa-solid fa-circle-user"></i><span>My Account</span></a></li>
-                                    <li class="logged-in"><a onclick="togglePage('order-history'); showOrderHistory()"><i
+                                    <li class="logged-in"><a onclick="togglePage('order-history')"><i
                                                 class="fa-solid fa-basket-shopping"></i><span>My
                                                 Order</span></a></li>
                                     <li class="logged-in"><a onclick="signOut()"><i
@@ -59,7 +59,8 @@
                             </div>
                         </li>
                         <li class="hide-on-mobile"><a onclick="toggleModal('cart')"><i
-                                    class="fa-solid fa-cart-shopping "></i>(<span class="display-cart-total-amount">0</span>)</a></li>
+                                    class="fa-solid fa-cart-shopping "></i>(<span
+                                    class="display-cart-total-amount">0</span>)</a></li>
                     </ul>
                 </div>
                 <div class="container hamburger-menu-button hide-on-pc show-on-mobile">
@@ -81,17 +82,16 @@
                                         class="fa-solid fa-chevron-down"></i></a>
                                 <div class="container account-dropdown hidden" id="account-drop-list-sidebar">
                                     <ul class="menu-list" id="login-dropdown">
-                                        <li class="logged-out"><a
-                                                onclick="toggleModal('login-user')"><span>Log
+                                        <li class="logged-out"><a onclick="toggleModal('login-user')"><span>Log
                                                     in</span></a></li>
-                                        <li class="logged-out"><a
-                                                onclick="toggleModal('signup-user')"><span>Sign
+                                        <li class="logged-out"><a onclick="toggleModal('signup-user')"><span>Sign
                                                     up</span></a></li>
-                                        <li class="admin"><a href="admin.html"><span>Manage*</span></a></li>
+                                        <li class="logged-in isAdmin"><a href="admin.html"><span>Manage*</span></a></li>
                                         <li class="logged-in"><a
                                                 onclick="loadUserInfo(); togglePage('account-user'); toggleModal('header-sidebar')"><span>My
                                                     Account</span></a></li>
-                                        <li class="logged-in"><a onclick="showOrderHistory(); togglePage('order-history'); toggleModal('header-sidebar')"><span>My
+                                        <li class="logged-in"><a
+                                                onclick="togglePage('order-history'); toggleModal('header-sidebar')"><span>My
                                                     Order</span></a></li>
                                         <li class="logged-in"><a
                                                 onclick="signOut(); toggleModal('header-sidebar')"><span>Sign
@@ -100,7 +100,8 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a onclick="toggleModal('cart');">CART (<span class="display-cart-total-amount">0</span>)</a>
+                            <li><a onclick="toggleModal('cart');">CART (<span
+                                        class="display-cart-total-amount">0</span>)</a>
                             </li>
                         </ul>
                     </div>
@@ -125,6 +126,8 @@
                 </div>
             </div>
         </div> -->
+            <!-- TOAST -->
+            <div class="container toast" id="toast"></div>
             <!-- LOG-IN -->
             <div class="modal login-user" id="login-user">
                 <div class="main-login mdl-cnt">
@@ -133,12 +136,13 @@
                         <h2>LOGIN</h2>
                     </div>
                     <div class="main-login-body">
-                        <div class="form-msg-error hidden" id="login-form-msg-error"></div>
                         <form action="" class="login-form" id="login-form">
                             <input class="form-input-bar" type="text" id="username-login" name="username-login"
                                 placeholder="Username or Phone number*">
+                            <p class="form-msg-error"></p>
                             <input class="form-input-bar" type="password" id="password-login" name="password-login"
                                 placeholder="Password*">
+                            <p class="form-msg-error"></p>
                             <button onclick="handleLoginForm()">LOGIN</button>
                         </form>
                     </div>
@@ -156,20 +160,31 @@
                         <h2>SIGN UP</h2>
                     </div>
                     <div class="main-login-body">
-                        <div class="form-msg-error hidden" id="signup-form-msg-error"></div>
                         <form action="" class="login-form" id="signup-form">
                             <input class="form-input-bar" type="text" id="username-signup" name="username-signup"
-                                placeholder="Username*">
+                                placeholder="Username*" autocomplete="username">
+                            <p class="form-msg-error"></p>
+
                             <input class="form-input-bar" type="text" id="fullname-signup" name="fullname-signup"
-                                placeholder="Full Name*">
+                                placeholder="Full Name*" autocomplete="name">
+                            <p class="form-msg-error"></p>
+
                             <input class="form-input-bar" type="number" id="phone-signup" name="phone-signup"
                                 placeholder="Phone number*" inputmode="tel">
+                            <p class="form-msg-error"></p>
+
                             <input class="form-input-bar" type="text" id="address-signup" name="address-signup"
                                 placeholder="Address*">
+                            <p class="form-msg-error"></p>
+
                             <input class="form-input-bar" type="password" id="password-signup" name="password-signup"
                                 placeholder="Password*">
+                            <p class="form-msg-error"></p>
+
                             <input class="form-input-bar" type="password" id="confirm-password-signup"
                                 name="password-signup" placeholder="Confirm Password*">
+                            <p class="form-msg-error"></p>
+
                             <button onclick="handleSignupForm()">SIGN UP</button>
                         </form>
                     </div>
@@ -188,33 +203,36 @@
                     </div>
                     <div class="main-account-body">
                         <div class="main-account-body-col" id="user-info-changeacc">
-                            <div class="form-msg-error hidden" id="changeacc-info-msg-error"></div>
                             <form action="" class="info-user" id="changeacc-info-form">
                                 <div class="form-group">
-                                    <label for="infoname" class="form-label">Username</label>
+                                    <label for="infoname" class="form-label">Username <i>(cannot change)</i></label>
                                     <input class="form-input-bar" type="text" name="infoname" id="infoname"
                                         placeholder="Username*" disabled>
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="fullname" class="form-label">Full Name</label>
                                     <input class="form-input-bar" type="text" name="fullname" id="fullname"
                                         placeholder="Full Name*">
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="infophone" class="form-label">Phone number</label>
                                     <input class="form-input-bar" type="number" name="infophone" id="infophone"
                                         placeholder="Phone number*" inputmode="tel">
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="infoemail" class="form-label">Email</label>
                                     <input class="form-input-bar" type="email" name="infoemail" id="infoemail"
                                         placeholder="example@email.com" inputmode="email">
-                                    <span class="inforemail-error form-message"></span>
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="infoaddress" class="form-label">Address</label>
                                     <input class="form-input-bar" type="text" name="infoaddress" id="infoaddress"
                                         placeholder="Add address for shipping">
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <button id="save-info-user" onclick="changeAccInfo()"><i
@@ -230,22 +248,24 @@
                             <div>
                                 <h4>CHANGE YOUR PASSWORD</h4>
                             </div>
-                            <div class="form-msg-error hidden" id="changepass-info-msg-error"></div>
                             <form action="" class="change-password" id="changepass-form">
                                 <div class="form-group">
                                     <label for="curr-pass" class="form-label">Current password</label>
                                     <input class="form-input-bar" type="password" name="curr-pass"
                                         id="password-cur-info" placeholder="Enter current password*">
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="new-pass" class="form-label">New password</label>
                                     <input class="form-input-bar" type="password" name="new-pass"
                                         id="password-after-info" placeholder="Enter new password*">
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="confirm-new-pass" class="form-label">Confirm new password</label>
                                     <input class="form-input-bar" type="password" name="confirm-new-pass"
-                                        id="password-comfirm-info" placeholder="Confirm new password*">
+                                        id="password-confirm-info" placeholder="Confirm new password*">
+                                    <p class="form-msg-error"></p>
                                 </div>
                                 <div class="form-group">
                                     <button id="save-password" onclick="changePassword()"><i
@@ -257,6 +277,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- MODAL ORDER DETAIL -->
+            <div class="modal order-detail" id="order-detail">
             </div>
             <!-- USER - ORDER HISTORY -->
             <div class="container order-history hidden toggle-page" id="order-history">
@@ -280,22 +303,6 @@
                                             <p class="display-product-price">1.000.000 d</p>
                                         </div>
                                         <div class="ccart-item-control">
-                                            <div class="cart-item-amount">
-                                                <p>x<span class="display-cart-amount">1</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-container cart-item">
-                                        <div class="img-container">
-                                            <img src="asset\img\catalogue\coming-soon.jpg">
-                                        </div>
-                                        <div class="cart-item-info">
-                                            <p class="display-product-name">COMING SOON</p>
-                                            <p>Brand: <span class="display-product-brand">Nike</span></p>
-                                            <p>Size: <span class="display-product-size">35</span></p>
-                                            <p class="display-product-price">1.000.000 d</p>
-                                        </div>
-                                        <div class="cart-item-control">
                                             <div class="cart-item-amount">
                                                 <p>x<span class="display-cart-amount">1</span></p>
                                             </div>
@@ -328,7 +335,7 @@
                         <p>YOUR CART</p>
                         <a onclick="toggleModal('cart')">CLOSE</a>
                     </div>
-                    <div class="cart-body" id="cart-body"></div>
+                    <div class="cart-body"></div>
                     <div class="cart-footer">
                         <div class="cart-totalprice">
                             <p>GRAND TOTAL</p>
@@ -336,7 +343,8 @@
                         </div>
                         <div class="cart-btns">
                             <button onclick="toggleModal('cart')">CONTINUE SHOPPING</button>
-                            <button id="checkout-btn">TO CHECKOUT</button>
+                            <button onclick="toggleModal('checkout-page'); showCartCheckout()" class="checkout-btn"
+                                id="cart-checkout-btn">TO CHECKOUT</button>
                         </div>
                     </div>
                 </div>
@@ -388,6 +396,9 @@
                                 <li class="filter-option filter-brand" data-filter="Adidas">ADIDAS</li>
                                 <li class="filter-option filter-brand" data-filter="Converse">CONVERSE</li>
                                 <li class="filter-option filter-brand" data-filter="Nike">NIKE</li>
+                                <li class="filter-option filter-brand" data-filter="BirkenStock">BIRKENSTOCK</li>
+                                <li class="filter-option filter-brand" data-filter="Teva">TEVA</li>
+                                <li class="filter-option filter-brand" data-filter="Fila">FILA</li>
                             </ul>
                         </div>
                         <!-- SIZE Dropdown -->
@@ -440,7 +451,8 @@
                             </ul>
                         </div>
                         <div>
-                            <button class="apply-filter-btn" onclick="toggleModal('details-search-sidebar'); ">APPLY FILTER</button>
+                            <button class="apply-filter-btn" onclick="toggleModal('details-search-sidebar'); ">APPLY
+                                FILTER</button>
                             <a onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i><span>RESET
                                     FILTER</span></a>
                         </div>
@@ -457,6 +469,9 @@
                                 <li class="filter-option filter-brand" data-filter="Adidas">ADIDAS</li>
                                 <li class="filter-option filter-brand" data-filter="Converse">CONVERSE</li>
                                 <li class="filter-option filter-brand" data-filter="Nike">NIKE</li>
+                                <li class="filter-option filter-brand" data-filter="BirkenStock">BIRKENSTOCK</li>
+                                <li class="filter-option filter-brand" data-filter="Teva">TEVA</li>
+                                <li class="filter-option filter-brand" data-filter="Fila">FILA</li>
                             </ul>
                         </div>
                         <!-- SIZE Dropdown -->
@@ -526,6 +541,143 @@
                         <button class="modal-close close-popup"><i class="fa-solid fa-xmark"
                                 style="color: white;"></i></button>
                         <div class="modal-container product-detail-content mdl-cnt" id="product-detail-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CHECKOUT -->
+            <div class="checkout-page" id="checkout-page">
+                <div class="checkout-header">
+                    <div class="checkout-return">
+                        <a onclick="toggleModal('checkout-page')"><i class="fa-solid fa-angle-left"></i></a>
+                    </div>
+                    <h1 class="checkout-title">CHECKOUT</h1>
+                </div>
+                <div class="checkout-section container">
+                    <div class="checkout-col-left">
+                        <h2 class="checkout-col-title">ORDER INFO</h2>
+                        <div class="checkout-col-content">
+                            <div class="content-group">
+                                <h3 class="checkout-content-label">Address</h3>
+                                <!-- Tùy chọn "Nhập từ tài khoản" -->
+                                <div class="payment-option">
+                                    <label for="default-address-option" onclick="toggleAddressMethod('default')">
+                                        <input class="checkout-option" type="radio" name="address-option"
+                                            id="default-address-option" checkout-type="default-address" checked>
+                                        <span>Default address <i>(from your account)</i></span>
+                                    </label>
+                                    <input id="default-address" class="form-input-bar option-detail display-address"
+                                        type="text" disabled style="display:block">
+                                </div>
+                                <!-- Tùy chọn "Nhập mới" -->
+                                <div class="payment-option">
+                                    <label for="new-address-option" onclick="toggleAddressMethod('new')">
+                                        <input class="checkout-option" type="radio" name="address-option"
+                                            id="new-address-option" checkout-type="new-address">
+                                        <span>New address</span>
+                                    </label>
+                                    <div class="option-detail content-group" id="new-address">
+                                        <input type="text" class="note-order form-input-bar" placeholder="Enter new address (full)"
+                                            id="checkout-address-new"></input>
+                                    </div>
+                                </div>
+                                <!-- Chọn vùng miền -->
+                                <h3 class="checkout-content-label">Choose a region for delivery destination <i>(this will help us locate you faster)</i></h3>
+                                <div class="region-selector">
+                                    <select id="province" class="region-select" onchange="updateDistricts()">
+                                        <option value="">Province/City</option>
+                                    </select>
+                                    <select id="district" class="region-select" onchange="updateWards()">
+                                        <option value="">District</option>
+                                    </select>
+                                    <select id="ward" class="region-select">
+                                        <option value="">Ward/Commune</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <h3 class="checkout-content-label">Payment method</h3>
+                                <!-- Phần thanh toán bằng tiền mặt -->
+                                <div class="payment-option">
+                                    <label for="cash" onclick="togglePaymentMethod('cash')">
+                                        <input class="checkout-option" type="radio" name="payment-method" id="cash"
+                                            value="cash" checked>
+                                        <span>Cash</span>
+                                    </label>
+                                    <div id="cash-option" class="option-detail" style="display:block">
+                                        <p><b><i>You will pay with cash.</i></b></p>
+                                    </div>
+                                </div>
+                                <!-- Phần thanh toán bằng thẻ -->
+                                <div class="payment-option">
+                                    <label for="card" onclick="togglePaymentMethod('card')">
+                                        <input class="checkout-option" type="radio" name="payment-method" id="card"
+                                            value="card">
+                                        <span>Credit card</span>
+                                    </label>
+                                    <div id="card-option" class="option-detail">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="card-owner-name">Owner</label>
+                                                <input type="text" class="form-input-bar"
+                                                    placeholder="Card owner's name" id="card-owner-name"
+                                                    style="text-transform: uppercase;">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cvv">CVV</label>
+                                                <input type="number" class="form-input-bar" placeholder="CVV"
+                                                    minlength="3" maxlength="3" id="cvv">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="card-number">Card Number</label>
+                                                <input type="number" class="form-input-bar" placeholder="Card number"
+                                                    id="card-number" minlength="12">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="card-expdate">Exp. date</label>
+                                                <input type="date" name="card-expdate" id="card-expdate">
+                                            </div>
+                                            <div class="cardsthanhtoan">
+                                                <div class="img-container">
+                                                    <img src="asset/img/card/mc.png" alt="">
+                                                </div>
+                                                <div class="img-container">
+                                                    <img src="asset/img/card/pp.png" alt="">
+                                                </div>
+                                                <div class="img-container">
+                                                    <img src="asset/img/card/vi.png" alt="">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-col-right">
+                        <h2 class="checkout-col-title">ORDER DETAIL</h2>
+                        <div class="checkout-col-content">
+                            <div class="content-group">
+                                <h2 class="checkout-content-label">Products</h2>
+                                <div class="cart-body"></div>
+                            </div>
+                            <div class="content-group">
+                                <div class="price-row">
+                                    <span>Products cost</span>
+                                    <span class="display-totalprice"></span>
+                                </div>
+                                <div class="price-row">
+                                    <span>Delivery fee</span>
+                                    <span class="display-deliveryfee"></span>
+                                </div>
+                                <div class="sum-bill">
+                                    <h2>Total</h2>
+                                    <span class="display-totalorder">0<sup>đ</sup></span>
+                                </div>
+                                <div class="confirm-check">
+                                    <button onclick="handleCheckout()">ORDER NOW</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -608,7 +760,9 @@
         </footer>
         <script src="js\main.js"></script>
         <script src="js\products.js"></script>
-        <!-- <script src="js\toast-msg.js"></script> -->
+        <script src="js\toast-msg.js"></script>
+        <script src="js\checkout.js"></script>
+        <script src="js\initialization.js"></script>
     </div>
 </body>
 

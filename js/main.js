@@ -21,6 +21,8 @@ function toggleModal(elementId) {
         if (modal.id !== elementId)
             modal.classList.remove("open");
     });
+
+
 }
 
 
@@ -49,7 +51,7 @@ function togglePage(elementId) {
         catalougePage.classList.add("hidden");
 
 
-    window.scrollTo(top);
+    window.scrollTo({ top: 0 });
 }
 // VISIBILITY - END DEFINE /////////////////////////////////////////////////////
 
@@ -59,10 +61,9 @@ function togglePage(elementId) {
 function updateMenuVisibility() {
     let isLoggedIn = !!localStorage.getItem("currentuser");
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
-    let username = currentuser ? currentuser.username : null;
 
     // Show checkout-btn if user is logged in
-    let checkoutBtn = document.getElementById("checkout-btn");
+    let checkoutBtn = document.getElementById("cart-checkout-btn");
     if (isLoggedIn) {
         checkoutBtn.classList.add("active");
         checkoutBtn.disabled = false;
@@ -71,11 +72,12 @@ function updateMenuVisibility() {
         checkoutBtn.disabled = true;
     }
 
-    // Show cart if user is logged in
+    // Show cart, order-history if user is logged in
     if (isLoggedIn) {
         showCart();
         updateCartTotalAmount();
         updateCartTotalPrice();
+        showOrderHistory();
     }
 
     // Show logged-in items, hide logged-out items if user is logged in
@@ -86,9 +88,19 @@ function updateMenuVisibility() {
         item.style.display = isLoggedIn ? "none" : "block";
     });
 
+    // Show admin features if account is admin
+    document.querySelectorAll(".isAdmin").forEach(item => {
+        item.style.display = isLoggedIn && currentuser.isAdmin ? "block" : "none";
+    });
+
     // Show username in specific places if user is logged in
     document.querySelectorAll(".display-username").forEach(item => {
-        item.textContent = isLoggedIn ? username : "";
+        item.textContent = isLoggedIn ? currentuser.username : "";
+    });
+
+    // Show address in specific places if user is logged in
+    document.querySelectorAll(".display-address").forEach(item => {
+        item.value = isLoggedIn ? currentuser.address : "";
     });
 }
 
@@ -105,40 +117,61 @@ function handleSignupForm() {
     let password = document.getElementById("password-signup").value.trim();
     let confirmPassword = document.getElementById("confirm-password-signup").value.trim();
 
-    let errorMsg = document.getElementById("signup-form-msg-error");
-    errorMsg.innerHTML = "";
+    let hasError = false;
 
-    // Validate each field according to requirements
+    // Reset form-msg-error classes
+    document.querySelectorAll(".signup-user .form-msg-error").forEach(msg => {
+        msg.textContent = "";
+    });
+
+
+    // Validate username
     if (!username || username.length < 5 || /\W|\s/.test(username)) {
-        errorMsg.innerHTML += "<p>Username must be at least 5 characters long, no spaces or special characters.</p>";
+        document.querySelector("#username-signup + .form-msg-error").innerText =
+            "Username must be at least 5 characters long, no spaces or special characters.";
+        hasError = true;
     }
 
+    // Validate fullname
     if (!fullname) {
-        errorMsg.innerHTML += "<p>Full name cannot be empty.</p>";
+        document.querySelector("#fullname-signup + .form-msg-error").innerText =
+            "Full name cannot be empty.";
+        hasError = true;
     }
 
+    // Validate phone
     if (!phone || !/^\d{10}$/.test(phone)) {
-        errorMsg.innerHTML += "<p>Phone number must be exactly 10 digits.</p>";
+        document.querySelector("#phone-signup + .form-msg-error").innerText =
+            "Phone number must be exactly 10 digits.";
+        hasError = true;
     }
 
+    // Validate address
     if (!address) {
-        errorMsg.innerHTML += "<p>Address cannot be empty.</p>";
+        document.querySelector("#address-signup + .form-msg-error").innerText =
+            "Address cannot be empty.";
+        hasError = true;
     }
 
+    // Validate password
     if (!password || password.length < 5 || /\s/.test(password)) {
-        errorMsg.innerHTML += "<p>Password must be at least 5 characters long.</p>";
+        document.querySelector("#password-signup + .form-msg-error").innerText =
+            "Password must be at least 5 characters long and cannot contain spaces.";
+        hasError = true;
     }
 
+    // Validate confirm password
     if (password !== confirmPassword) {
-        errorMsg.innerHTML += "<p>Password does not match.</p>";
+        document.querySelector("#confirm-password-signup + .form-msg-error").innerText =
+            "Passwords do not match.";
+        hasError = true;
     }
 
-    if (errorMsg.innerHTML !== "") {
-        errorMsg.classList.remove("hidden");
+    if (hasError) {
+        toastMsg({ title: "ERROR", message: "Please fill in the form correctly.", type: "error" });
         return;
-    } else {
-        errorMsg.classList.add("hidden");
     }
+
 
     // If no error messages, proceed with saving to local storage
     let user = {
@@ -165,15 +198,13 @@ function handleSignupForm() {
         accounts.push(user);
         localStorage.setItem("accounts", JSON.stringify(accounts));
         localStorage.setItem("currentuser", JSON.stringify(user));
-        alert("Account created successfully!");
         console.log("handleSignupForm(): Signed up");
         updateMenuVisibility();
         toggleModal("signup-user");
         document.getElementById("signup-form").reset();
-        // toastMsg({ title: "Success", message: "Account created successfully!", type: "success", duration: 3000 });
+        toastMsg({ title: "SUCCESS", message: "Account created successfully!", type: "success" });
     } else {
-        alert("Account already exited!");
-        // toastMsg({ title: "Failed", message: "Account already existed!", type: "error", duration: 3000 });
+        toastMsg({ title: "ERROR", message: "Account with username and/or phone number already existed!", type: "error" });
     }
 };
 
@@ -183,51 +214,50 @@ function handleLoginForm() {
 
     let usernameOrPhone = document.getElementById("username-login").value.trim();
     let password = document.getElementById("password-login").value.trim();
+    let userMsgError = document.querySelector("#username-login + .form-msg-error");
+    let passMsgError = document.querySelector("#password-login + .form-msg-error");
 
     // Ensure accounts exist in local storage
     let accountsData = localStorage.getItem("accounts");
     let accounts = accountsData ? JSON.parse(accountsData) : [];
 
-    let errorMsg = document.getElementById("login-form-msg-error");
-    errorMsg.innerHTML = "";
+    // Reset form-msg-error classes
+    document.querySelectorAll(".login-user .form-msg-error").forEach(msg => {
+        msg.textContent = "";
+    });
 
     if (!usernameOrPhone || !password) {
-        errorMsg.classList.remove("hidden");
-        errorMsg.innerHTML = "<p>Both fields are required.</p>";
+        userMsgError.innerText = "Both fields are required";
+        passMsgError.innerText = "Both fields are required";
+        toastMsg({ title: "ERROR", message: "Please fill in the form correctly.", type: "error" });
         return;
-    } else {
-        errorMsg.classList.add("hidden");
     }
 
     let userIdx = accounts.findIndex(item => (item.phone === usernameOrPhone || item.username === usernameOrPhone));
 
     if (userIdx === -1) {
-        errorMsg.classList.remove("hidden");
-        errorMsg.innerHTML = "<p>Account with this username or phone number does not exist.</p>";
+        userMsgError.innerText = "Account with this username or phone number does not exist.";
     } else if (accounts[userIdx].password === password) {
         if (accounts[userIdx].status === 0) {
-            errorMsg.classList.remove("hidden");
-            errorMsg.innerHTML = "<p>This account has been locked.</p>";
+            userMsgError.innerText = "This account has been locked.";
         } else {
             localStorage.setItem("currentuser", JSON.stringify(accounts[userIdx]));
-            // toast({ title: "Success", message: "Login successful", type: "success", duration: 3000 });
-            alert("Login successful!");
+            toastMsg({ title: "SUCCESS", message: "Login successful!", type: "success" });
             console.log("handleLoginForm(): Signed up");
             updateMenuVisibility();
             toggleModal("login-user");
             document.getElementById("login-form").reset();
         }
     } else {
-        errorMsg.classList.remove("hidden");
-        errorMsg.innerHTML = "<p>Password is incorrect.</p>";
+        passMsgError.innerText = "Password is incorrect.";
     }
 }
 
 // To sign out
 function signOut() {
     let accounts = JSON.parse(localStorage.getItem("accounts"));
-    user = JSON.parse(localStorage.getItem("currentuser"));
-    let idx = accounts.findIndex(item => item.phone == user.phone)
+    let user = JSON.parse(localStorage.getItem("currentuser"));
+    let idx = accounts.findIndex(item => item.phone == user.phone);
 
     //Save cart when logged in again
     accounts[idx].cart.length = 0;
@@ -260,9 +290,6 @@ function loadUserInfo() {
 function changeAccInfo() {
     event.preventDefault();
 
-    let errorMsg = document.getElementById("changeacc-info-msg-error");
-    errorMsg.innerHTML = "";
-
     // Collect updated values from the form
     // let username = document.getElementById("infoname").value.trim();
     let fullname = document.getElementById("fullname").value.trim();
@@ -270,36 +297,45 @@ function changeAccInfo() {
     let email = document.getElementById("infoemail").value.trim();
     let address = document.getElementById("infoaddress").value.trim();
 
+    let hasError = false;
+
+    // Reset form-msg-error classes
+    document.querySelectorAll(".account-user .form-msg-error").forEach(msg => {
+        msg.textContent = "";
+    });
     // Validation checks
     // if (!username || username.length < 5 || /\W|\s/.test(username)) {
     //     errorMsg.innerHTML += "<p>Username must be at least 5 characters long, no spaces or special characters.</p>";
     // }
 
+
+
     if (!fullname) {
-        errorMsg.innerHTML += "<p>Full name cannot be empty.</p>";
+        document.querySelector("#fullname + .form-msg-error").innerText = "Full name cannot be empty.";
+        hasError = true;
     }
 
     if (!phone || !/^\d{10}$/.test(phone)) {
-        errorMsg.innerHTML += "<p>Phone number must be exactly 10 digits.</p>";
+        document.querySelector("#infophone + .form-msg-error").innerText = "Phone number must be exactly 10 digits.";
+        hasError = true;
     }
 
     if (email && (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
-        errorMsg.innerHTML += "<p>Please enter a valid email address.</p>";
+        document.querySelector("#infoemail + .form-msg-error").innerText = "Please enter a valid email address.";
+        hasError = true;
     }
 
     if (!address) {
-        errorMsg.innerHTML += "<p>Address cannot be empty.</p>";
+        document.querySelector("#infoaddress + .form-msg-error").innerText = "Address cannot be empty.";
+        hasError = true;
     }
 
-    if (errorMsg.innerHTML !== "") {
-        errorMsg.classList.remove("hidden");
+    if (hasError) {
+        toastMsg({ title: "ERROR", message: "Please fill in the form correctly.", type: "error" });
         return;
-    } else {
-        errorMsg.classList.add("hidden");
     }
 
     let updatedUser = {
-        username: username,
         fullname: fullname,
         phone: phone,
         email: email,
@@ -309,15 +345,15 @@ function changeAccInfo() {
     let accounts = JSON.parse(localStorage.getItem("accounts"));
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
 
-    let userIdx = accounts.findIndex(account => account.username === currentuser.username);
+    let userIdx = accounts.findIndex(account => account.phone === currentuser.phone);
 
     if (userIdx !== -1) {
         accounts[userIdx] = { ...accounts[userIdx], ...updatedUser };
         localStorage.setItem("accounts", JSON.stringify(accounts));
         localStorage.setItem("currentuser", JSON.stringify(accounts[userIdx]));
-        alert("Account information updated successfully!");
+        toastMsg({ title: "SUCCESS", message: "Account info updated successfully!", type: "success" });
     } else {
-        alert("Failed to update account information. Please try again.");
+        toastMsg({ title: "ERROR", message: "Phone number already taken! Please try again.", type: "error" });
     }
 }
 
@@ -331,7 +367,7 @@ function toggleChangePass() {
         changepass.classList.add("hidden");
         changeacc.classList.remove("hidden");
     }
-    window.scrollTo(top);
+    window.scrollTo({ top: 0 });
 }
 
 // Change current user"s password
@@ -340,46 +376,61 @@ function changePassword() {
 
     let currentPassword = document.getElementById("password-cur-info").value.trim();
     let newPassword = document.getElementById("password-after-info").value.trim();
-    let confirmNewPassword = document.getElementById("password-comfirm-info").value.trim();
+    let confirmNewPassword = document.getElementById("password-confirm-info").value.trim();
 
-    let errorMsg = document.getElementById("changepass-info-msg-error");
-    errorMsg.innerHTML = "";
+    let hasError = false;
+
+    // Reset form-msg-error classes
+    document.querySelectorAll(".change-password .form-msg-error").forEach(msg => {
+        msg.textContent = "";
+    });
 
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     let accounts = JSON.parse(localStorage.getItem("accounts"));
 
+    if (!currentPassword) {
+        document.querySelector("#password-cur-info + .form-msg-error").innerText = "Please enter current password";
+        hasError = true;
+    }
+
     if (currentPassword !== currentuser.password) {
-        errorMsg.innerHTML += "<p>Current password is incorrect.</p>";
+        document.querySelector("#password-cur-info + .form-msg-error").innerText = "Current password is incorrect.";
+        hasError = true;
     }
 
     if (!newPassword || newPassword.length < 5 || /\s/.test(newPassword)) {
-        errorMsg.innerHTML += "<p>New password must be at least 5 characters long and cannot contain spaces.</p>";
+        document.querySelector("#password-after-info + .form-msg-error").innerText = "New password must be at least 5 characters long and cannot contain spaces";
+        hasError = true;
     }
 
     if (newPassword === currentPassword) {
-        errorMsg.innerHTML += "<p>New password must be different from current password.</p>"
+        document.querySelector("#password-after-info + .form-msg-error").innerText = "New password must be different from current password.";
+        hasError = true;
     }
 
     if (newPassword !== confirmNewPassword) {
-        errorMsg.innerHTML += "<p>New password and confirmation do not match.</p>";
+        document.querySelector("#password-confirm-info + .form-msg-error").innerText = "New password and confirmation do not match.";
+        hasError = true;
     }
 
-    if (errorMsg.innerHTML === "") {
-        currentuser.password = newPassword;
-        let userIdx = accounts.findIndex(account => account.phone === currentuser.phone || account.username === currentuser.username);
+    if (hasError) {
+        toastMsg({ title: "ERROR", message: "Please fill in the form correctly.", type: "error" });
+        return;
+    }
 
-        if (userIdx !== -1) {
-            accounts[userIdx].password = newPassword;
-            localStorage.setItem("accounts", JSON.stringify(accounts));
-        }
+    currentuser.password = newPassword;
+    let userIdx = accounts.findIndex(account => account.phone === currentuser.phone || account.username === currentuser.username);
 
+    if (userIdx !== -1) {
+        accounts[userIdx].password = newPassword;
+        localStorage.setItem("accounts", JSON.stringify(accounts));
         localStorage.setItem("currentuser", JSON.stringify(currentuser));
-        errorMsg.classList.add("hidden");
-        alert("Password changed successfully!");
         document.getElementById("changepass-form").reset();
+        toastMsg({ title: "SUCCESS", message: "Password changed successfully.", type: "success" });
     } else {
-        errorMsg.classList.remove("hidden");
+        toastMsg({ title: "ERROR", message: "Failed to update password.", type: "error" });
     }
+
 }
 
 // USER - END DEFINE /////////////////////////////////////////////////////
@@ -468,7 +519,7 @@ document.querySelectorAll(".filter-category").forEach(category => {
         if (parseFloat(window.getComputedStyle(headerSideabar).getPropertyValue("width"))) {
             toggleModal("header-sidebar");
         }
-        
+
         // If toggle-page is open, toggle it off
         let isTogglePage = document.querySelector(".toggle-page:not(.hidden)");
         if (isTogglePage) {
@@ -597,8 +648,7 @@ document.querySelectorAll(".apply-filter-btn").forEach(btn => {
 const displayEmptyHTML_cart = `
 <div class="display-when-empty">
     <p>Your cart is empty... Start shopping now!</p>
-</div>
-`;
+</div>`;
 
 const displayEmptyHTML_orderhistory = `
 <div class="display-when-empty">
@@ -607,8 +657,14 @@ const displayEmptyHTML_orderhistory = `
     </div>
     <p>It's empty here... <a onclick="togglePage('order-history')">Start shopping
         now!</a></p>
-</div>
-`;
+</div>`;
+
+const displayEmptyHTML_catalogue = `
+<div class="no-result">
+    <div class="no-result-h">Search returned no results!</div>
+    <div class="no-result-p">Sorry, we couldn't find the product you were looking for.</div>
+    <div class="no-result-i"><i class="fa-solid fa-face-sad-cry"></i></div>
+</div>`;
 
 
 //Get product from the the "products" array
@@ -648,6 +704,9 @@ function updateCartTotalPrice() {
     document.querySelectorAll(".display-totalprice").forEach(ele => {
         ele.innerText = total;
     });
+    document.querySelectorAll(".display-totalorder").forEach(ele => {
+        ele.innerText = vnd(getCartTotalPrice() + 30000);
+    })
 }
 
 
@@ -655,7 +714,7 @@ function updateCartTotalPrice() {
 function getCartTotalPrice() {
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     let totalprice = 0;
-    if (currentuser != null) {
+    if (currentuser != null || currentuser.cart.length) {
         currentuser.cart.forEach(item => {
             let product = getProduct(item);
             totalprice += (parseInt(product.quantity) * parseInt(product.price));
@@ -681,6 +740,23 @@ function updateCartAll(id, size, ele) {
     updateCartTotalAmount();
     updateCartTotalPrice();
     // saveCartInfo();
+}
+
+//Reset the cart
+function resetCart() {
+    let accounts = JSON.parse(localStorage.getItem("accounts"));
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
+    currentuser.cart = [];
+    localStorage.setItem("currentuser", JSON.stringify(currentuser));
+
+    let userIdx = accounts.findIndex(user => user.phone === currentuser.phone);
+    if (userIdx != -1) {
+        accounts[userIdx] = currentuser;
+        localStorage.setItem("accounts", JSON.stringify(accounts));
+    }
+    updateCartTotalAmount();
+    updateCartTotalPrice();
+    updateMenuVisibility();
 }
 
 
@@ -719,7 +795,7 @@ function addCart(index, size, quantity) {
 
 //Delete the cart item
 function deleteCartItem(id, size, ele) {
-    const checkoutBtn = document.getElementById("checkout-btn");
+    const checkoutBtn = document.getElementById("cart-checkout-btn");
     let cartParent = ele.parentNode.parentNode;
     cartParent.remove();
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
@@ -765,7 +841,9 @@ function showCart() {
     }
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     const cartBody = document.querySelector(".cart .cart-body");
-    const checkoutBtn = document.getElementById("checkout-btn");
+    const checkoutBtn = document.getElementById("cart-checkout-btn");
+
+    cartBody.innerHTML = "";
 
     if (currentuser.cart.length !== 0) {
         // Show the checkout button and generate cart items HTML
@@ -811,28 +889,152 @@ function showCart() {
         checkoutBtn.disabled = true;
         displayWhenEmpty(".cart .cart-body", displayEmptyHTML_cart);
     }
+
 }
 
 // CATALOGUE - CART - END DEFINE /////////////////////////////////////////////////////
 
 
 // CATALOGUE - ORDER HISTORY - BEGIN DEFINE /////////////////////////////////////////////////////
+const order_statusTitle = {
+    0: "Pending...",
+    1: "Processed: Delivering",
+    2: "Order Recieved",
+    3: "Order Cancelled",
+};
+
+const order_statusColor = {
+    0: "--stat-pending",
+    1: "--stat-delivering",
+    2: "--stat-recieved",
+    3: "--stat-cancel",
+};
+
+const order_statusIcon = {
+    0: "fa-regular fa-hourglass-half",
+    1: "fa-solid fa-truck",
+    2: "fa-solid fa-circle-check",
+    3: "fa-solid fa-xmark"
+}
+
+function formatDate(date) {
+    date = new Date(date); // To make sure.
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+
+function showOrderDetail(orderID) {
+    const currentuser = JSON.parse(localStorage.getItem("currentuser"));
+    const order = currentuser.orderHistory[orderID - 1];
+    const orderDetail = document.getElementById("order-detail");
+    orderDetail.innerHTML = `
+                    <div class="modal-container mdl-cnt">
+                    <h3 class="modal-container-title">ORDER DETAIL</h3>
+                    <a onclick="closeModal()" style="position: absolute; right: 16px"><i class="fa-regular fa-circle-xmark" style="font-size: 32px;"></i></a>
+                    <div class="order-detail-row">
+                        <span><i class="fa-solid fa-hashtag"></i>Order ID: </span>
+                        <span>${order.id}</span>
+                    </div>
+                    <div class="order-detail-row">
+                        <span><i class="fa-regular fa-calendar"></i>Purchase date: </span>
+                        <span>${formatDate(order.orderDate)}</span>
+                    </div>
+                    <div class="order-detail-row">
+                        <span><i class="fa-solid fa-location-dot"></i>Address: </span>
+                        <span>${order.address.fullAddress}</span>
+                    </div>
+                    <div class="order-detail-row">
+                        <span><i class="fa-solid fa-cash-register"></i>Payment method: </span>
+                        <span>${order.payment.method}</span>
+                    </div>
+                    <div class="order-detail-row">
+                        <span><i class="fa-regular fa-credit-card"></i>Card owner: </span>
+                        <span>${order.payment.cardOwner}</span>
+                    </div>
+                    <div class="order-detail-row">
+                        <span><i class="fa-solid fa-user"></i>Card number: </span>
+                        <span>${order.payment.cardNumber}</span>
+                    </div>
+                </div>
+    `;
+
+    orderDetail.classList.toggle("open");
+}
+
+function getOrderHistoryCart(orderCart) {
+    let OHCarthtml = ``;
+
+    orderCart.forEach(item => {
+        let product = getProduct(item);
+        OHCarthtml += `
+                <div class="modal-container cart-item" data-productID="${product.id}">
+                    <div class="img-container">
+                        <img src="${product.image}">
+                    </div>
+                    <div class="cart-item-info">
+                        <p class="display-product-name">${product.name}</p>
+                        <p>Brand: <span class="display-product-brand">${product.brand}</span></p>
+                        <p>Size: <span class="display-product-size">${product.size}</span></p>
+                        <p class="display-product-price">${vnd(product.price)}</p>
+                    </div>
+                    <div class="cart-item-amount">
+                        <p>x<span class="display-product-quantity">${item.quantity}</span></p>
+                    </div>
+                </div>
+            `;
+    });
+
+    return OHCarthtml;
+}
 
 function showOrderHistory() {
-    if (!localStorage.getItem("currentuser")) {
+    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
+
+    if (!currentuser) {
         console.log("showOrderHistory(): User not logged in.")
         return;
     }
 
-    let currentuser = JSON.parse(localStorage.getItem("currentuser"));
     let OHbody = document.querySelector(".order-history .main-account-body-col");
-
+    OHbody.innerHTML = "";
     if (currentuser.orderHistory.length !== 0) {
+        let orderhtml = ``;
+        currentuser.orderHistory.forEach(order => {
+            orderhtml += `
+                    <div class="modal-container order-history" datda-orderID="${order.id}">
+                        <div class="cart-main">
+                            <div class="cart-body" style="max-height: 520px; overflow-y: auto">
+                                ${getOrderHistoryCart(currentuser.orderHistory[order.id - 1].cart)}
+                            </div>
+                            <div class="cart-footer">
+                                <div class="cart-totalprice">
+                                    <p>GRAND TOTAL</p>
+                                    <p class="display-totalprice">${vnd(order.total)}</p>
+                                </div>
+                                <div class="cart-item-status">
+                                    <div style="background-color: var(${order_statusColor[order.status]})">
+                                        <p class="display-order-status">Status: <span>${order_statusTitle[order.status]}</span>
+                                        <span><i class="${order_statusIcon[order.status]}"></i></span></p>
+                                    </div>
+                                    <button onclick="showOrderDetail(${order.id})">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            `;
+        });
 
+        // Inject generated order history HTML into OHbody
+        OHbody.innerHTML = orderhtml;
+        console.log(OHbody);
     } else {
         displayWhenEmpty(".order-history .main-account-body-col", displayEmptyHTML_orderhistory);
     }
 }
+
 
 // CATALOGUE - ORDER HISTORY - END DEFINE /////////////////////////////////////////////////////
 
