@@ -1,19 +1,3 @@
-// // Mở trang thanh toán
-// let checkoutpage = document.querySelector('.checkout-page');
-
-// function openCheckoutPage() {
-//     checkoutpage.classList.add('active');
-//     thanhtoanpage(1);
-//     closeCart();
-//     body.style.overflow = "hidden";
-// };
-
-// // Đóng trang thanh toán
-// function closeCheckoutPage() {
-//     checkoutpage.classList.remove('active');
-//     body.style.overflow = "auto";
-// }
-
 // function thanhtoanpage(option, product) {
 //     // Xử lý ngày nhận hàng
 //     let today = new Date();
@@ -44,11 +28,7 @@
 //     }
 // }
 
-
 //......................................
-const checkoutPage = document.getElementById("checkout-page");
-const DELIVERY_FEE = 30000;
-
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".display-deliveryfee").forEach(ele => {
         ele.innerText = vnd(30000);
@@ -76,7 +56,7 @@ function toggleAddressMethod(method) {
 function showCartCheckout() {
     if (!localStorage.getItem("currentuser")) {
         console.log("showCartCheckout(): User not logged in.");
-        return;
+        return false;
     }
 
     let currentuser = JSON.parse(localStorage.getItem("currentuser"));
@@ -109,7 +89,6 @@ function showCartCheckout() {
         // Inject cart items into cart body
         cartBody.innerHTML = cartItemhtml;
     }
-    console.log(cartBody.innerHTML);
     return cartBody.innerHTML;
 }
 
@@ -123,101 +102,126 @@ function validateAddress() {
     const district = document.getElementById("district").value.trim();
     const ward = document.getElementById("ward").value.trim();
 
-    if (addressOption) {
-        const checkoutType = addressOption.getAttribute("checkout-type");
-
-        if (!province || !district || !ward) {
-            // Region validation regardless of address option
-            toastMsg({ title: "ERROR", message: "Please select a region.", type: "error" });
-        } else if (checkoutType === "default-address") {
-            // Default address validation
-            const defaultAddress = document.getElementById("default-address").value.trim();
-            if (defaultAddress !== "") {
-                isAddressValid = true;
-                addressDetails = {
-                    fullAddress: defaultAddress,
-                    region: { 
-                        province: province,
-                        district: district,
-                        ward: ward,
-                    }
-                };
-            } else {
-                toastMsg({ title: "ERROR", message: "Cannot read address from user.", type: "error" });
-            }
-        } else if (checkoutType === "new-address") {
-            // New address validation
-            const newAddress = document.getElementById("checkout-address-new").value.trim();
-            if (newAddress) {
-                isAddressValid = true;
-                addressDetails = {
-                    fullAddress: newAddress,
-                    region: { 
-                        province: province,
-                        district: district,
-                        ward: ward,
-                    }
-                };
-            } else {
-                toastMsg({ title: "ERROR", message: "Please enter your new address.", type: "error" });
-            }
-        }
-    } else {
+    const checkoutType = addressOption.getAttribute("checkout-type");
+    if (!addressOption) {
         toastMsg({ title: "ERROR", message: "Please select an address option.", type: "error" });
+        return { isAddressValid, addressDetails };
+    }
+
+    checkoutPage.querySelectorAll(".form-msg-error").forEach(msg => msg.textContent = "");
+
+    if (!province || !district || !ward) {
+        checkoutPage.querySelector(".region-selector + .form-msg-error").innerText = "Please select a region.";
+        toastMsg({ title: "ERROR", message: "Please select a region.", type: "error" });
+        return { isAddressValid, addressDetails };
+    }
+
+    if (checkoutType === "default-address") {
+        // Default address validation
+        const defaultAddress = document.getElementById("default-address").value.trim();
+        if (!defaultAddress) {
+            toastMsg({ title: "ERROR", message: "Cannot read address from user.", type: "error" });
+        } else {
+            isAddressValid = true;
+            addressDetails = {
+                fullAddress: defaultAddress,
+                region: {
+                    province: province,
+                    district: district,
+                    ward: ward,
+                }
+            };
+        }
+    } else if (checkoutType === "new-address") {
+        // New address validation
+        const newAddress = document.getElementById("checkout-address-new").value.trim();
+        if (!newAddress) {
+            checkoutPage.querySelector("#checkout-address-new + .form-msg-error").innerText = "Field must not be empty.";
+            isAddressValid = false;
+        } else {
+            isAddressValid = true;
+            addressDetails = {
+                fullAddress: newAddress,
+                region: {
+                    province: province,
+                    district: district,
+                    ward: ward,
+                }
+            };
+        }
     }
 
     return { isAddressValid, addressDetails };
 }
 
-
 function validatePayment() {
     const paymentMethod = checkoutPage.querySelector('input[name="payment-method"]:checked');
-    let isPaymentValid = false;
+    let isPaymentValid = true;
     let paymentDetails = {};
 
-    if (paymentMethod) {
-        if (paymentMethod.value === "cash") {
-            isPaymentValid = true;
-            paymentDetails = {
-                method: "Cash"
-            };
-        } else if (paymentMethod.value === "card") {
-            const cardOwner = document.getElementById("card-owner-name").value.trim().toUpperCase();
-            const cardNumber = document.getElementById("card-number").value.trim();
-            const cvv = document.getElementById("cvv").value.trim();
-            const expDate = document.getElementById("card-expdate").value.trim();
-
-            if (cardOwner && cardNumber.length >= 12 && cvv.length === 3 && expDate) {
-                const [expMonth, expYear] = expDate.split('/').map(num => parseInt(num.trim(), 10));
-                const expDateObj = new Date(expYear, expMonth - 1);
-                const currentDate = new Date();
-                currentDate.setHours(0, 0, 0, 0);
-
-                if (expDateObj < currentDate) {
-                    toastMsg({ title: "ERROR", message: "Your card's expiration date has passed.", type: "error" });
-                    return;
-                } else {
-                    isPaymentValid = true;
-                    paymentDetails = {
-                        method: "Card",
-                        cardOwner: cardOwner,
-                        cvv: cvv,
-                        cardNumber: cardNumber
-                    };
-                }
-            } else {
-                toastMsg({ title: "ERROR", message: "Please fill out all fields correctly for card payment.", type: "error" });
-            }
-        }
-    } else {
+    if (!paymentMethod) {
         toastMsg({ title: "ERROR", message: "Please select a payment method.", type: "error" });
+        isPaymentValid = false;
+        return { isPaymentValid, paymentDetails };
+    }
+
+    if (paymentMethod.value === "cash") {
+        isPaymentValid = true;
+        paymentDetails = {
+            method: "Cash"
+        };
+    } else if (paymentMethod.value === "card") {
+        const cardOwner = document.getElementById("card-owner-name").value.trim().toUpperCase();
+        const cardNumber = document.getElementById("card-number").value.trim();
+        const cvv = document.getElementById("cvv").value.trim();
+        const expDate = document.getElementById("card-expdate").value.trim();
+
+        if (!cardOwner) {
+            checkoutPage.querySelector("#card-owner-name + .form-msg-error").innerText = "Field must not be empty.";
+            isPaymentValid = false;
+        }
+
+        if (!cvv || cvv.length < 3) {
+            checkoutPage.querySelector("#cvv + .form-msg-error").innerText = "CVV must be at least 3 digits.";
+            isPaymentValid = false;
+        }
+
+        if (!cardNumber || cardNumber.length < 12) {
+            checkoutPage.querySelector("#card-number + .form-msg-error").innerText = "Card number must be at least 12 digits.";
+            isPaymentValid = false;
+        }
+
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+        if (!expDate) {
+            checkoutPage.querySelector("#card-expdate + .form-msg-error").innerText = "Please pick a date.";
+            isPaymentValid = false;
+        } else if (new Date(expDate).getTime() <= currentDate.getTime()) {
+            checkoutPage.querySelector("#card-expdate + .form-msg-error").innerText = "Card has expired."
+            isPaymentValid = false;
+        }
+
+        if (isPaymentValid) {
+            paymentDetails = {
+                method: "Card",
+                cardOwner: cardOwner,
+                cvv: cvv,
+                cardNumber: cardNumber
+            };
+        } else {
+            toastMsg({ title: "ERROR", message: "Please fill out all fields correctly for card payment.", type: "error" });
+        }
     }
 
     return { isPaymentValid, paymentDetails };
 }
 
-
 function handleCheckout() {
+    // Clear error msg
+    checkoutPage.querySelectorAll(".form-msg-error").forEach(msg => {
+        msg.textContent = "";
+    })
+
     // First, validate address and payment
     const addressValidation = validateAddress();
     const paymentValidation = validatePayment();
@@ -249,7 +253,7 @@ function handleCheckout() {
     newOrder.id = currentuser.orderHistory.length + 1;
     currentuser.orderHistory.push(newOrder);
     localStorage.setItem("currentuser", JSON.stringify(currentuser));
-    
+
     // Save to accounts in local storage
     let userIdx = accounts.findIndex(item => item.phone == currentuser.phone);
     if (userIdx != -1) {
@@ -259,36 +263,15 @@ function handleCheckout() {
 
     resetCart();
     toggleModal("checkout-page");
-    
+
     toastMsg({ title: "SUCCESS", message: "Checkout success! More details in My Order.", type: "success" });
-    
+
     console.group();
     console.log(`handleCheckout(): Order of id ${newOrder.id} saved to local storage`);
     console.log(newOrder);
     console.groupEnd();
-    
+
 }
-
-
-// Toggle checkout-options
-// const checkoutPage = document.getElementById("checkout-page");
-// checkoutPage.addEventListener("click", (event) => {
-//     let clickedElement = event.target;
-//     let parent = clickedElement.closest(".payment-option");
-
-//     if (parent && clickedElement.classList.contains("checkout-option")) {
-//         let optionSelected = checkoutPage.querySelector(".checkout-option");
-
-//         checkoutPage.querySelectorAll(".option-detail").forEach(optDetail => {
-//             optDetail.style.display = "none"; 
-//         });
-
-//         let correspondingOptionDetail = parent.querySelector(".option-detail");
-//         if (optionSelected.checked && correspondingOptionDetail) {
-//             correspondingOptionDetail.style.display = "block";
-//         }
-//     }
-// });
 
 //.......................................
 

@@ -1,11 +1,4 @@
 // VISIBILITY - BEGIN DEFINE /////////////////////////////////////////////////////
-// function toggleSidebarMobile(elementId) {
-//     let x = document.getElementById(elementId);
-//     if (!x.classList.contains("show-on-mobile"))
-//         x.classList.add("show-on-mobile");
-//     else
-//         x.classList.remove("show-on-mobile");
-// }
 
 function toggleSidebarDropdown(elementId) {
     let x = document.getElementById(elementId);
@@ -55,7 +48,6 @@ function togglePage(elementId) {
 }
 // VISIBILITY - END DEFINE /////////////////////////////////////////////////////
 
-
 // USER - BEGIN DEFINE /////////////////////////////////////////////////////
 // Change UI based on whether user has logged in or not
 function updateMenuVisibility() {
@@ -103,8 +95,6 @@ function updateMenuVisibility() {
         item.value = isLoggedIn ? currentuser.address : "";
     });
 }
-
-
 
 // For signup form
 function handleSignupForm() {
@@ -435,8 +425,6 @@ function changePassword() {
 
 // USER - END DEFINE /////////////////////////////////////////////////////
 
-
-
 // CATALOGUE - BEGIN DEFINE /////////////////////////////////////////////////////
 // Function to toggle visibility of the dropdown menu
 function toggleDropdown(menuId) {
@@ -479,17 +467,9 @@ function displayWhenEmpty(selector, innerhtml) {
     }
 }
 
-
-// CATALOGUE - MODAL PRODUCT DETAILS - BEGIN DEFINE /////////////////////////////////////////////////////
-
-
-// CATALOGUE - MODAL PRODUCT DETAILS - END DEFINE /////////////////////////////////////////////////////
-
-
 // CATALOGUE - FILTER - BEGIN DEFINE /////////////////////////////////////////////////////
-
 // Toggle filter options
-const filterOptions = document.querySelectorAll(".filter-option");
+
 filterOptions.forEach(option => {
     option.addEventListener("click", (event) => {
         let clickedElement = event.target;
@@ -502,7 +482,6 @@ filterOptions.forEach(option => {
 });
 
 // Toggle sortby
-const sortbyDisplay = document.getElementById("sortby-mode-display");
 document.querySelector(".sortby .float-dropdown .menu-list").addEventListener("click", (event) => {
     if (event.target.tagName === "A") {
         sortbyDisplay.innerText = event.target.innerText.trim();
@@ -511,7 +490,6 @@ document.querySelector(".sortby .float-dropdown .menu-list").addEventListener("c
 });
 
 // Toggle & display products by category
-const displayCatalogueName = document.getElementById("display-catalogue-name");
 document.querySelectorAll(".filter-category").forEach(category => {
     category.addEventListener("click", (event) => {
         // If header-sidebar is open, toggle it off
@@ -540,7 +518,6 @@ document.getElementById("search-bar").addEventListener("keyup", () => {
     showHomeProduct(JSON.parse(localStorage.getItem("products")));
 })
 
-
 // Reset all filter & sortby options
 function resetFilter() {
     const filterOptions = document.querySelectorAll(".filter-option");
@@ -554,9 +531,13 @@ function resetFilter() {
 }
 
 function getFilterOption() {
-    let brandOption = Array.from(document.querySelectorAll(".filter-brand.active")).map(option => option.getAttribute("data-filter"));
-    let sizeOption = Array.from(document.querySelectorAll(".filter-size.active")).map(option => option.getAttribute("data-filter"));
-    let genderOption = Array.from(document.querySelectorAll(".filter-gender.active")).map(option => option.getAttribute("data-filter"));
+    const brandOption = Array.from(document.querySelectorAll(".filter-brand.active")).map(option => option.getAttribute("data-filter"));
+    const sizeOption = Array.from(document.querySelectorAll(".filter-size.active")).map(option => option.getAttribute("data-filter"));
+    const genderOption = Array.from(document.querySelectorAll(".filter-gender.active")).map(option => option.getAttribute("data-filter"));
+
+    // Check if user is on mobile based on the display style if the details-search-bar
+    const isMobile = window.getComputedStyle(document.querySelector(".details-search-bar.show-on-mobile.hide-on-pc")).display !== "none";
+    console.log("Is mobile device: ", isMobile);
 
     let categoryOption = document.querySelector(".filter-category.active").getAttribute("data-filter");
     if (categoryOption == "Home")
@@ -564,11 +545,12 @@ function getFilterOption() {
     else
         categoryOption = [document.querySelector(".filter-category.active").getAttribute("data-filter")];
 
-    let nameOption = document.getElementById("search-bar").value.trim();
+    const nameOption = document.getElementById("search-bar").value.trim();
+    const sortbyOption = document.getElementById("sortby-mode-display").innerText.trim();
 
-    let sortbyOption = document.getElementById("sortby-mode-display").innerText.trim();
-    let minprice = parseInt(document.getElementById("price-lowerbound").value.trim()) || 0;
-    let maxprice = parseInt(document.getElementById("price-upperbound").value.trim()) || Infinity;
+    // Read from field based on isMobile
+    let minprice = isMobile ? parseInt(document.getElementById("price-lowerbound-sidebar").value.trim()) || 0 : parseInt(document.getElementById("price-lowerbound").value.trim()) || 0;
+    let maxprice = isMobile ? parseInt(document.getElementById("price-upperbound-sidebar").value.trim()) || Infinity : parseInt(document.getElementById("price-upperbound").value.trim()) || Infinity;
 
     console.log("Filter options:", brandOption, sizeOption, genderOption, sortbyOption, nameOption, categoryOption, minprice, maxprice);
 
@@ -577,7 +559,9 @@ function getFilterOption() {
 
 function filterProducts(products, filters) {
     return products.filter(product => {
-
+        // If the product is marked "deleted" with attribute isDeleted = true
+        if (product.isDeleted) return false;
+        
         // Check matching name
         if (
             filters.nameOption &&
@@ -619,8 +603,6 @@ function filterProducts(products, filters) {
     });
 }
 
-
-
 function sortProducts(products, sortbyOption) {
     if (sortbyOption === "Alphabetically, A-Z") {
         return products.sort((a, b) => a.name.localeCompare(b.name));
@@ -641,31 +623,9 @@ document.querySelectorAll(".apply-filter-btn").forEach(btn => {
     });
 });
 
-
 // CATALOGUE - FILTER - END DEFINE /////////////////////////////////////////////////////
 
 // CATALOGUE - CART - BEGIN DEFINE /////////////////////////////////////////////////////
-const displayEmptyHTML_cart = `
-<div class="display-when-empty">
-    <p>Your cart is empty... Start shopping now!</p>
-</div>`;
-
-const displayEmptyHTML_orderhistory = `
-<div class="display-when-empty">
-    <div class="img-container">
-        <img src="./asset/img/empty-order-history.png">
-    </div>
-    <p>It's empty here... <a onclick="togglePage('order-history')">Start shopping
-        now!</a></p>
-</div>`;
-
-const displayEmptyHTML_catalogue = `
-<div class="no-result">
-    <div class="no-result-h">Search returned no results!</div>
-    <div class="no-result-p">Sorry, we couldn't find the product you were looking for.</div>
-    <div class="no-result-i"><i class="fa-solid fa-face-sad-cry"></i></div>
-</div>`;
-
 
 //Get product from the the "products" array
 function getProduct(item) {
@@ -708,7 +668,6 @@ function updateCartTotalPrice() {
         ele.innerText = vnd(getCartTotalPrice() + 30000);
     })
 }
-
 
 // Get the totalprice of the cart
 function getCartTotalPrice() {
@@ -758,8 +717,6 @@ function resetCart() {
     updateCartTotalPrice();
     updateMenuVisibility();
 }
-
-
 
 //Add cart item to cart[]
 function addCart(index, size, quantity) {
@@ -814,25 +771,6 @@ function deleteCartItem(id, size, ele) {
     console.log("Updated cart:", currentuser.cart);
 
 }
-
-// Save Cart Info
-// function saveCartInfo() {
-//     let cartAmountbtn = document.querySelectorAll(".cart-item-control .is-form");
-//     let listProduct = document.querySelectorAll(".cart-item");
-//     let currentUser = JSON.parse(localStorage.getItem("currentuser"));
-//     cartAmountbtn.forEach((btn, index) => {
-//         btn.addEventListener("click", () => {
-//             let id = listProduct[parseInt(index / 2)].getAttribute("data-id");
-//             let productId = currentUser.cart.find(item => {
-//                 return item.id == id;
-//             });
-//             productId.quantity = parseInt(listProduct[parseInt(index / 2)].querySelector(".input-qty").value);
-//             localStorage.setItem("currentuser", JSON.stringify(currentUser));
-//             updateCartTotalPrice();
-//         })
-//     });
-// }
-
 
 function showCart() {
     if (!localStorage.getItem("currentuser")) {
@@ -894,37 +832,7 @@ function showCart() {
 
 // CATALOGUE - CART - END DEFINE /////////////////////////////////////////////////////
 
-
 // CATALOGUE - ORDER HISTORY - BEGIN DEFINE /////////////////////////////////////////////////////
-const order_statusTitle = {
-    0: "Pending...",
-    1: "Processed: Delivering",
-    2: "Order Recieved",
-    3: "Order Cancelled",
-};
-
-const order_statusColor = {
-    0: "--stat-pending",
-    1: "--stat-delivering",
-    2: "--stat-recieved",
-    3: "--stat-cancel",
-};
-
-const order_statusIcon = {
-    0: "fa-regular fa-hourglass-half",
-    1: "fa-solid fa-truck",
-    2: "fa-solid fa-circle-check",
-    3: "fa-solid fa-xmark"
-}
-
-function formatDate(date) {
-    date = new Date(date); // To make sure.
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-}
-
 
 function showOrderDetail(orderID) {
     const currentuser = JSON.parse(localStorage.getItem("currentuser"));
@@ -933,7 +841,7 @@ function showOrderDetail(orderID) {
     orderDetail.innerHTML = `
                     <div class="modal-container mdl-cnt">
                     <h3 class="modal-container-title">ORDER DETAIL</h3>
-                    <a onclick="closeModal()" style="position: absolute; right: 16px"><i class="fa-regular fa-circle-xmark" style="font-size: 32px;"></i></a>
+                    <a onclick="closeModal()" style="position: absolute; right: 16px"><i class="fa-regular fa-circle-xmark"></i></a>
                     <div class="order-detail-row">
                         <span><i class="fa-solid fa-hashtag"></i>Order ID: </span>
                         <span>${order.id}</span>
@@ -943,23 +851,27 @@ function showOrderDetail(orderID) {
                         <span>${formatDate(order.orderDate)}</span>
                     </div>
                     <div class="order-detail-row">
-                        <span><i class="fa-solid fa-location-dot"></i>Address: </span>
+                        <span><i class="fa-solid fa-location-dot"></i>Delivery address: </span>
                         <span>${order.address.fullAddress}</span>
                     </div>
                     <div class="order-detail-row">
                         <span><i class="fa-solid fa-cash-register"></i>Payment method: </span>
                         <span>${order.payment.method}</span>
                     </div>
-                    <div class="order-detail-row">
+                    <div class="order-detail-row card-payment">
                         <span><i class="fa-regular fa-credit-card"></i>Card owner: </span>
                         <span>${order.payment.cardOwner}</span>
                     </div>
-                    <div class="order-detail-row">
+                    <div class="order-detail-row card-payment">
                         <span><i class="fa-solid fa-user"></i>Card number: </span>
                         <span>${order.payment.cardNumber}</span>
                     </div>
                 </div>
     `;
+
+    if (order.payment.method.toLowerCase() != "card") {
+        orderDetail.querySelectorAll(".card-payment").forEach(item => item.style.display = "none");
+    }
 
     orderDetail.classList.toggle("open");
 }
@@ -1035,8 +947,260 @@ function showOrderHistory() {
     }
 }
 
-
 // CATALOGUE - ORDER HISTORY - END DEFINE /////////////////////////////////////////////////////
 
+// CATALOGUE - PRODUCTS - BEGIN DEFINE /////////////////////////////////////////////////////
+// Click vùng ngoài sẽ tắt Popup
+modalContainer.forEach(item => {
+    item.addEventListener('click', closeModal);
+});
 
+modalBox.forEach(item => {
+    item.addEventListener('click', function (event) {
+        event.stopPropagation();
+    })
+});
+
+function closeModal() {
+    modalContainer.forEach(item => {
+        item.classList.remove('open');
+    });
+    // console.log(modalContainer);
+    body.style.overflow = "auto";
+}
+
+function increasingNumber(e) {
+    let qty = e.parentNode.querySelector('.input-qty');
+    if (parseInt(qty.value) < qty.max) {
+        qty.value = parseInt(qty.value) + 1;
+    } else {
+        qty.value = qty.max;
+    }
+}
+
+function decreasingNumber(e) {
+    let qty = e.parentNode.querySelector('.input-qty');
+    if (qty.value > qty.min) {
+        qty.value = parseInt(qty.value) - 1;
+    } else {
+        qty.value = qty.min;
+    }
+}
+
+function detailProduct(index) {
+    let modal = document.querySelector('.modal.product-detail');
+    let products = JSON.parse(localStorage.getItem('products'));
+    event.preventDefault();
+    let infoProduct = products.find(sp => {
+        return sp.id === index;
+    })
+    const sizeButtonsHTML = infoProduct.size.map(size => `
+        <button class="size-button">${size}</button>
+    `).join("");
+    let modalHtml = `
+    <div class="img-container">
+        <img src="${infoProduct.image}" alt="">
+    </div>
+    <div class="modal-body">
+        <h2 class="product-title">${infoProduct.name}</h2>
+        <div class="product-control">
+            <div class="priceBox">
+                <span class="current-price">${vnd(infoProduct.price)}</span>
+            </div>
+             <div class="buttons_added">
+                <button class="minus is-form" type="button" value="-" onclick="decreasingNumber(this)">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <input class="input-qty" max="100" min="1" name="" type="number" value="1">
+                <button class="plus is-form" type="button" value="+" onclick="increasingNumber(this)">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="size-container">${sizeButtonsHTML}</div>
+    <div class="modal-footer">
+        <div class="price-total">
+            <span class="thanhtien">Total</span>
+            <span class="price">${vnd(infoProduct.price)}</span>
+        </div>
+        <div class="modal-footer-control">
+            <button class="checkout-btn" data-product="${infoProduct.id}">Buy now</button>
+            <button class="button-dat" id="add-cart"><i class="fa-solid fa-cart-shopping "></i></button>
+        </div>
+    </div>`;
+    document.querySelector('#product-detail-content').innerHTML = modalHtml;
+    modal.classList.add('open');
+    body.style.overflow = "hidden";
+
+    //Cap nhat gia tien khi tang so luong san pham
+    let tgbtn = document.querySelectorAll('.is-form');
+    let qty = document.querySelector('.product-control .input-qty');
+    let priceText = document.querySelector('.price');
+    tgbtn.forEach(element => {
+        element.addEventListener('click', () => {
+            let price = infoProduct.price * parseInt(qty.value.trim());
+            priceText.innerHTML = vnd(price);
+        });
+    });
+
+    // Select a shoes size
+    let selectedSize;
+    document.querySelector(".size-container").addEventListener("click", (event) => {
+        if (event.target.tagName === "BUTTON") {
+            document.querySelectorAll(".size-container button").forEach(button => {
+                button.classList.remove("active");
+            });
+
+            event.target.classList.add("active");
+            selectedSize = event.target.textContent.trim();
+            console.log("Selected size: " + selectedSize);
+        }
+    });
+
+    modal.querySelector('.button-dat').addEventListener('click', () => {
+        if (!selectedSize) {
+            toastMsg({ title: "REMINDER", message: "Please chose a shoe size first!", type: "warning" });
+            return;
+        }
+
+        if (localStorage.getItem('currentuser')) {
+            addCart(infoProduct.id, selectedSize, parseInt(qty.value));
+        } else {
+            toastMsg({ title: "REMINDER", message: "Please login first!", type: "warning" });
+            closeModal();
+        }
+    });
+
+    modal.querySelector(".checkout-btn").addEventListener("click", () => {
+        if (!selectedSize) {
+            toastMsg({ title: "REMINDER", message: "Please chose a shoe size first!", type: "warning" });
+            return;
+        }
+
+        if (localStorage.getItem('currentuser')) {
+            addCart(infoProduct.id, selectedSize, parseInt(qty.value));
+            showCartCheckout();
+            toggleModal("checkout-page");
+        } else {
+            toastMsg({ title: "REMINDER", message: "Please login first!", type: "warning" });
+            closeModal();
+        }
+    });
+
+}
+
+function displayProducts(productShow) {
+    const productContainer = document.getElementById("home-product");
+    productContainer.innerHTML = ""; // Clear current content
+
+    let productHTML = ""; // Create HTML string
+    if (productShow.length !== 0) {
+        productShow.forEach(product => {
+            if (product.isDeleted) return;
+
+            productHTML += `
+            <div class="product-box" onclick="detailProduct(${product.id})">
+                <div class="img-container">
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='./asset/img/catalogue/coming-soon.jpg'" />
+                </div>
+                <div class="shoes-name">${product.name}</div>
+                <div class="shoes-price">${vnd(product.price)}</div>
+            </div>
+        `;
+        });
+
+        productContainer.innerHTML = productHTML;
+    } else {
+        // No products to show
+        productContainer.style.display = "flex"; // Ensure the container is visible
+        displayWhenEmpty("#home-product", displayEmptyHTML_catalogue);
+    }
+}
+
+
+// Phân trang 
+
+let currentPage = 1;
+function displayList(productAll, perPage, currentPage) {
+    let start = (currentPage - 1) * perPage;
+    let end = (currentPage - 1) * perPage + perPage;
+    let productShow = productAll.slice(start, end);
+    displayProducts(productShow);
+}
+
+function showHomeProduct(products) {
+    const filters = getFilterOption();
+
+    console.group("Filtered products");
+    let filteredProducts = filterProducts(products, filters);
+    console.groupEnd();
+
+    filteredProducts = sortProducts(filteredProducts, filters.sortbyOption);
+    let displayCatalogueAmount = document.getElementById("display-catalogue-amount");
+    displayCatalogueAmount.textContent = filteredProducts.length + " ";
+
+    displayList(filteredProducts, perPage, currentPage);
+    setupPagination(filteredProducts, perPage);
+    window.scrollTo({ top: 0 });
+}
+
+function setupPagination(productAll, perPage) {
+    const pageNav = document.querySelector('.page-nav'); // Get the pagination container
+    const pageNavList = document.querySelector('.page-nav-list'); // Get the list inside pagination
+
+    // Clear previous pagination content
+    pageNavList.innerHTML = '';
+
+    // Handle case where no products are available
+    if (productAll.length === 0) {
+        pageNav.style.display = 'none'; // Hide pagination
+        return; // Exit the function early
+    }
+
+    // Show pagination if there are products
+    pageNav.style.display = 'flex'; // Ensure pagination is visible
+
+    // Calculate the number of pages
+    let page_count = Math.ceil(productAll.length / perPage);
+
+    // Generate pagination items
+    for (let i = 1; i <= page_count; i++) {
+        let li = paginationChange(i, productAll, currentPage);
+        pageNavList.appendChild(li);
+    }
+}
+
+function paginationChange(page, productAll, currentPage) {
+    let node = document.createElement(`li`);
+    node.classList.add('page-nav-item');
+    node.innerHTML = `<a href="javascript:;">${page}</a>`;
+    if (currentPage == page) node.classList.add('active');
+    node.addEventListener('click', function () {
+        currentPage = page;
+        displayList(productAll, perPage, currentPage);
+        let t = document.querySelectorAll('.page-nav-item.active');
+        for (let i = 0; i < t.length; i++) {
+            t[i].classList.remove('active');
+        }
+        node.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    return node;
+}
+
+window.onload = () => {
+    window.scrollTo({ top: 0 });
+    createProduct(); // Ensure products are created in localStorage
+    createBetaAccount();
+
+    let products = JSON.parse(localStorage.getItem('products')); // Fetch the products from localStorage
+    showHomeProduct(products); // Display products after initialization
+
+    initializeProvinces();
+
+    updateMenuVisibility();
+}
+
+// CATALOGUE - PRODUCTS - END DEFINE /////////////////////////////////////////////////////
 // CATALOGUE - END DEFINE /////////////////////////////////////////////////////

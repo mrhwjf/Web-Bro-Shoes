@@ -369,6 +369,39 @@ function createProduct() {
     }
 }
 
+// Create beta accounts for testing purposes 
+function createBetaAccount() {
+    let accounts = localStorage.getItem("accounts");
+    if (!accounts) {
+        accounts = [];
+        accounts.push({
+            username: "mrhw36",
+            fullname: "Hauser Wasly",
+            phone: "0123456789",
+            address: "Grandville",
+            password: "12345",
+            join: new Date(),
+            orderHistory: [],
+            cart: [],
+            isAdmin: 1,
+            status: 1
+        })
+        accounts.push({
+            username: "betauser",
+            fullname: "Beta User",
+            phone: "1234567890",
+            address: "Grandville",
+            password: "12345",
+            join: new Date(),
+            orderHistory: [],
+            cart: [],
+            isAdmin: 0,
+            status: 1
+        })
+        localStorage.setItem('accounts', JSON.stringify(accounts));
+    }
+}
+
 const locations = {
     "Hà Nội": {
         "Quận Ba Đình": ["Phường Liễu Giai", "Phường Ngọc Khánh", "Phường Quán Thánh", "Phường Cống Vị", "Phường Điện Biên"],
@@ -377,10 +410,28 @@ const locations = {
         "Quận Cầu Giấy": ["Phường Nghĩa Đô", "Phường Nghĩa Tân", "Phường Mai Dịch", "Phường Dịch Vọng", "Phường Quan Hoa"]
     },
     "Hồ Chí Minh": {
-        "Quận 1": ["Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Cô Giang", "Phường Tân Định"],
-        "Quận 3": ["Phường Võ Thị Sáu", "Phường Phạm Ngọc Thạch", "Phường Phường 7", "Phường Phường 8", "Phường Phường 9"],
-        "Quận 5": ["Phường Phường 1", "Phường Phường 2", "Phường Phường 3", "Phường Phường 4", "Phường Phường 6"],
-        "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5"]
+        "Thành phố Thủ Đức": ["Phường An Khánh", "Phường An Lợi Đông", "Phường An Phú", "Phường Bình Chiểu", "Phường Bình Thọ", "Phường Bình Trưng Đông", "Phường Bình Trưng Tây", "Phường Cát Lái", "Phường Hiệp Bình", "Phường Hiệp Bình Phước", "Phường Hiệp Phú", "Phường Linh Chiểu", "Phường Linh Đông", "Phường Linh Tây", "Phường Linh Trung", "Phường Linh Xuân", "Phường Long Bình", "Phường Long Phước", "Phường Long Thạnh Mỹ", "Phường Long Trường", "Phường Phú Hữu", "Phường Phước Bình", "Phường Phước Long A", "Phường Phước Long B", "Phường Tam Bình", "Phường Tam Phú", "Phường Tân Phú", "Phường Tăng Nhơn Phú A", "Phường Tăng Nhơn Phú B", "Phường Thạnh Mỹ Lợi", "Phường Thảo Điền", "Phường Thủ Thiêm", "Phường Trường", "Phường Trường Thọ"],
+        "Quận 1": ["Phường Bến Nghé", "Phường Bến Thành", "Phường Cô Giang", "Phường Cầu Kho", "Phường Cầu Ông Lãnh", "Phường Nguyễn Cư Trinh", "Phường Nguyễn Thái Bình", "Phường Phạm Ngũ Lão", "Phường Đa Kao", "Phường Tân Định"],
+        "Quận 3": ["Phường Phường 1", "Phường Phường 2", "Phường Phường 3", "Phường Phường 4", "Phường 5", "Phường Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường Võ Thị Sáu"],
+        "Quận 4": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 6", "Phường 8", "Phường 9", "Phường 10", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 18"],
+        "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+        "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+        "Quận 7": ["Phường Bình Thuận", "Phường Phú Mỹ", "Phường Phú Thuận", "Phường Tân Hưng", "Phường Tân Kiểng", "Phường Tân Phong", "Phường Tân Phú", "Phường Tân Quy", "Phường Tân Thuận Đông", "Phường Tân Thuận Tây"],
+        "Quận 8": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16"],
+        "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+        "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16"],
+        "Quận 12": ["Phường Tân Hưng Thuận", "Phường Đông Hưng Thuận", "Phường Tân Thới Hiệp", "Phường Trung Mỹ Tây", "Phường Tân Thới Nhất", "Phường Tân Chánh Hiệp", "Phường Thới An", "Phường Hiệp Thành", "Phường Thạnh Lộc", "Phường An Phú Đông", "Phường Thạnh Xuân"],
+        "Quận Bình Tân": ["Phường An Lạc", "Phường An Lạc A", "Phường Tân Tạo", "Phường Tân Tạo A", "Phường Bình Trị Đông", "Phường Bình Trị Đông A", "Phường Bình Trị Đông B", "Phường Bình Hưng Hòa", "Phường Bình Hưng Hòa A", "Phường Bình Hưng Hòa B"],
+        "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 17", "Phường 19", "Phường 21", "Phường 22", "Phường 24", "Phường 25", "Phường 26", "Phường 27", "Phường 28"],
+        "Quận Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 17"],
+        "Quận Phú Nhuận": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 13", "Phường 15", "Phường 17"],
+        "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5"],
+        "Quận Tân Phú": ["Phường Hiệp Tân", "Phường Hòa Thạnh", "Phường Phú Thạnh", "Phường Phú Thọ Hòa", "Phường Phú Trung", "Phường Tân Quý", "Phường Tân Sơn Nhì", "Phường Tân Thành", "Phường Tân Thới Hòa", "Phường Tây Thạnh", "Phường Sơn Kỳ"],
+        "Huyện Bình Chánh": ["Thị trấn Tân Túc", "Xã Tân Kiên", "Xã Tân Nhựt", "Xã An Phú Tây", "Xã Tân Quý Tây", "Xã Hưng Long", "Xã Quy Đức", "Xã Bình Chánh", "Xã Lê Minh Xuân", "Xã Phạm Văn Hai", "Xã Đình Xuyên", "Xã Vĩnh Lộc A", "Xã Vĩnh Lộc B", "Xã Bình Lợi", "Xã Bình Hưng", "Xã Phong Phú", "Xã Đa Phước"],
+        "Huyện Cần Giờ": ["Thị trấn Cần Thạnh", "Xã An Thới Đông", "Xã Bình Khánh", "Xã Long Hòa", "Xã Lý Nhơn", "Xã Tam Thôn Hiệp", "Xã Thạnh An"],
+        "Huyện Củ Chi": ["Xã An Nhơn Tây", "Xã An Phú", "Xã Bình Mỹ", "Xã Hòa Phú", "Xã Nhuận Đức","Xã Phạm Văn Cội", "Xã Phú Hòa Đông", "Xã Phú Mỹ Hưng","Xã Phước Hiệp", "Xã Phước Thạnh", "Xã Phước Vĩnh An", "Xã Tân An Hội", "Xã Tân Phú Trung", "Xã Tân Thạnh Đông", "Xã Tân Thạnh Tây", "Xã Tân Thông Hội", "Xã Thái Mỹ", "Xã Trung An", "Xã Trung Lập Hạ", "Xã Trung Lập Thượng"],
+        "Huyện Hóc Môn": ["Thị trấn Hóc Môn", "Xã Bà Điểm", "Xã Đông Thạnh", "Xã Nhị Bình", "Xã Tân Hiệp", "Xã Tân Thới Nhì", "Xã Tân Xuân", "Xã Thới Tam Thôn", "Xã Trung Chánh", "Xã Xuân Thới Đông", "Xã Xuân Thới Sơn", "Xã Xuân Thới Thượng"],
+        "Huyện Nhà Bè": ["Thị trấn Nhà Bè", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức", "Xã Phú Xuân", "Xã Phước Kiển", "Xã Phước Lộc"]
     },
     "Đà Nẵng": {
         "Quận Hải Châu": ["Phường Hòa Thuận", "Phường Bình Thuận", "Phường Nam Dương", "Phường Thuận Phước", "Phường Thạch Thang"],
@@ -495,3 +546,74 @@ const locations = {
         "Huyện Duy Tiên": ["Xã Duy Hải", "Xã Tiên Sơn", "Xã Mộc Nam"]
     },
 };
+
+const checkoutPage = document.getElementById("checkout-page");
+const DELIVERY_FEE = 30000;
+
+const filterOptions = document.querySelectorAll(".filter-option");
+const sortbyDisplay = document.getElementById("sortby-mode-display");
+const displayCatalogueName = document.getElementById("display-catalogue-name");
+
+const order_statusTitle = {
+    0: "Pending...",
+    1: "Processed: Delivering",
+    2: "Order Recieved",
+    3: "Order Cancelled",
+};
+
+const order_statusColor = {
+    0: "--stat-pending",
+    1: "--stat-delivering",
+    2: "--stat-recieved",
+    3: "--stat-cancel",
+};
+
+const order_statusIcon = {
+    0: "fa-regular fa-hourglass-half",
+    1: "fa-solid fa-truck",
+    2: "fa-solid fa-circle-check",
+    3: "fa-solid fa-xmark"
+}
+
+const displayEmptyHTML_cart = `
+<div class="display-when-empty">
+    <p>Your cart is empty... Start shopping now!</p>
+</div>`;
+
+const displayEmptyHTML_orderhistory = `
+<div class="display-when-empty">
+    <div class="img-container">
+        <img src="./asset/img/empty-order-history.png">
+    </div>
+    <p>It's empty here... <a onclick="togglePage('order-history')">Start shopping
+        now!</a></p>
+</div>`;
+
+const displayEmptyHTML_catalogue = `
+<div class="no-result">
+    <div class="no-result-h">Search returned no results!</div>
+    <div class="no-result-p">Sorry, we couldn't find the product you were looking for.</div>
+    <div class="no-result-i"><i class="fa-solid fa-face-sad-cry"></i></div>
+</div>`;
+
+const body = document.querySelector("body");
+const modalContainer = document.querySelectorAll('.modal');
+const modalBox = document.querySelectorAll('.mdl-cnt');
+
+const perPage = 8;
+
+
+function formatDate(date) {
+    date = new Date(date); // To make sure.
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+function vnd(price) {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(price);
+}

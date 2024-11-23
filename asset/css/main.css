@@ -591,11 +591,13 @@ header {
 
 /* MODAL CONTAINER - ORDER HISTORY DETAIL */
 .order-detail .modal-container {
+    flex: 1;
+    max-width: 750px;
+    max-height: 100%;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 70%;
-    font-size: 1.25rem;
     transform: none;
     padding: 16px;
 }
@@ -615,6 +617,7 @@ header {
     display: flex;
     justify-content: space-between;
     gap: 16px;
+    font-size: clamp(0.25rem, 5vw, 1.5rem);
 }
 
 .order-detail-row i {
@@ -648,12 +651,15 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
     font-weight: bold;
 }
 
 .modal-container.order-history .cart-item-status div:first-child {
     border-radius: 16px;
     padding: 0.5rem 1rem;
+    font-size: clamp(0.5rem, 10vw, 1rem);
 }
 
 .modal-container.order-history .cart-item-status button {
@@ -720,7 +726,7 @@ header {
     justify-content: space-between;
     gap: 1rem;
     font-size: clamp(0.5rem, 5vw, 1.5rem);
-    padding: 1.5rem 0;
+    padding: 16px 0;
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
@@ -1171,6 +1177,11 @@ header {
     padding: 16px;
 }
 
+.modal-container.product-detail-content {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
 .modal-container.product-detail-content .img-container {
     border: none;
     max-width: 400px;
@@ -1185,7 +1196,7 @@ header {
 
 
 .product-detail .modal-container {
-    padding: 10px;
+    padding: 16px 16px 0 16px;
     width: 650px;
 }
 
@@ -1201,34 +1212,6 @@ h2.product-title {
     flex-wrap: wrap;
     gap: 16px;
 }
-
-.priceBox .current-price {
-    font-weight: medium;
-    font-size: 17px;
-    margin-left: 10px;
-}
-
-/* .buttons_added {
-    display: inline-flex;
-    white-space: nowrap;
-}
-
-.is-form {
-    background-color: #f9f9f9;
-    height: 25px;
-    width: 25px;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    line-height: 20px;
-}
-
-.is-form:focus,.input-text:focus {
-    outline: none;
-}
-
-.is-form.plus,.is-form.minus {
-    border-radius: 5px;
-} */
 
 .input-qty {
     background-color: var(--bg-main-color);
@@ -1295,6 +1278,7 @@ h2.product-title {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    padding: 8px 0;
 }
 
 /* Styles for size buttons */

@@ -579,10 +579,11 @@
                                     <div class="option-detail content-group" id="new-address">
                                         <input type="text" class="note-order form-input-bar" placeholder="Enter new address (full)"
                                             id="checkout-address-new"></input>
+                                        <p class="form-msg-error"></p>
                                     </div>
                                 </div>
                                 <!-- Chọn vùng miền -->
-                                <h3 class="checkout-content-label">Choose a region for delivery destination <i>(this will help us locate you faster)</i></h3>
+                                <h3 class="checkout-content-label">Choose a region for delivery destination <i style="font-weight: normal;">(this will help us locate you faster)</i></h3>
                                 <div class="region-selector">
                                     <select id="province" class="region-select" onchange="updateDistricts()">
                                         <option value="">Province/City</option>
@@ -594,6 +595,7 @@
                                         <option value="">Ward/Commune</option>
                                     </select>
                                 </div>
+                                <p class="form-msg-error"></p>
                             </div>
                             <div class="content-group">
                                 <h3 class="checkout-content-label">Payment method</h3>
@@ -622,20 +624,24 @@
                                                 <input type="text" class="form-input-bar"
                                                     placeholder="Card owner's name" id="card-owner-name"
                                                     style="text-transform: uppercase;">
+                                                <p class="form-msg-error"></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="cvv">CVV</label>
                                                 <input type="number" class="form-input-bar" placeholder="CVV"
                                                     minlength="3" maxlength="3" id="cvv">
+                                                <p class="form-msg-error"></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="card-number">Card Number</label>
                                                 <input type="number" class="form-input-bar" placeholder="Card number"
                                                     id="card-number" minlength="12">
+                                                <p class="form-msg-error"></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="card-expdate">Exp. date</label>
                                                 <input type="date" name="card-expdate" id="card-expdate">
+                                                <p class="form-msg-error"></p>
                                             </div>
                                             <div class="cardsthanhtoan">
                                                 <div class="img-container">
@@ -758,11 +764,10 @@
                 </div>
             </div>
         </footer>
-        <script src="js\main.js"></script>
-        <script src="js\products.js"></script>
-        <script src="js\toast-msg.js"></script>
-        <script src="js\checkout.js"></script>
         <script src="js\initialization.js"></script>
+        <script src="js\main.js"></script>
+        <script src="js\checkout.js"></script>
+        <script src="js\toast-msg.js"></script>
     </div>
 </body>
 
